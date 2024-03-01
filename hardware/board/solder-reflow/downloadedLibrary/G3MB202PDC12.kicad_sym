@@ -1,0 +1,207 @@
+
+(kicad_symbol_lib (version 20211014) (generator kicad_symbol_editor)
+  (symbol "G3MB202PDC12" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+    (property "Reference" "K" (id 0) (at -4.46393 5.72769 0)
+      (effects (font (size 1.27 1.27)) (justify bottom left))
+    )
+    (property "Value" "G3MB202PDC12" (id 1) (at -4.47275 -7.00551 0)
+      (effects (font (size 1.27 1.27)) (justify bottom left))
+    )
+    (property "Footprint" "G3MB202PDC12:RELAY_G3MB202PDC12" (id 2) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MF" "Omron Automation and Safety" (id 4) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Description" "\nSolid State Relays - PCB Mount 12VDC/100-240VAC 2A\n" (id 5) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Package" "SIP-4 Omron Automation" (id 6) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Price" "None" (id 7) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Check_prices" "https://www.snapeda.com/parts/G3MB-202P-DC12/Omron+Automation+and+Safety/view-part/?ref=eda" (id 8) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "STANDARD" "Manufacturer Recommendation" (id 9) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "PARTREV" "N/A" (id 10) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "SnapEDA_Link" "https://www.snapeda.com/parts/G3MB-202P-DC12/Omron+Automation+and+Safety/view-part/?ref=snap" (id 11) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MP" "G3MB-202P-DC12" (id 12) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Availability" "In Stock" (id 13) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MANUFACTURER" "Omron" (id 14) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (symbol "G3MB202PDC12_0_0"
+      (polyline
+        (pts (xy -1.27 -1.27) (xy -1.27 -3.81)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -1.27 -3.81) (xy -8.89 -3.81)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -8.89 -3.81) (xy -8.89 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -8.89 -2.54) (xy -8.89 -1.27)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -8.89 -1.27) (xy -3.81 -1.27)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -3.81 -1.27) (xy -1.27 -1.27)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 2.54 -1.27) (xy 2.54 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 2.54 -2.54) (xy 2.54 -3.81)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 2.54 -3.81) (xy 8.89 -3.81)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 8.89 -3.81) (xy 8.89 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 8.89 -2.54) (xy 8.89 -1.27)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 8.89 -1.27) (xy 2.54 -1.27)) (stroke (width 0.254))
+      )
+      (text "INPUT" (at -7.66131 -3.18277 0)
+        (effects (font (size 1.27578 1.27578)) (justify bottom left))
+      )
+      (text "LOAD" (at 3.18704 -3.17662 0)
+        (effects (font (size 1.27274 1.27274)) (justify bottom left))
+      )
+      (polyline
+        (pts (xy -3.81 -1.27) (xy -3.81 2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -3.81 2.54) (xy -7.62 2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -8.89 -2.54) (xy -12.7 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 2.54 -2.54) (xy 0.0 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.0 -2.54) (xy 0.0 2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 0.0 2.54) (xy 2.54 2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 8.89 -2.54) (xy 11.43 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -7.62 3.175) (xy -7.62 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -7.62 1.905) (xy -10.16 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -10.16 1.905) (xy -10.16 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -10.16 3.175) (xy -7.62 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -11.43 1.905) (xy -12.7 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -12.7 1.905) (xy -13.97 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -13.97 1.905) (xy -13.97 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -13.97 3.175) (xy -11.43 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -11.43 3.175) (xy -11.43 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy -12.7 1.905) (xy -12.7 -2.54)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 2.54 3.175) (xy 2.54 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 2.54 1.905) (xy 5.08 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 5.08 1.905) (xy 5.08 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 5.08 3.175) (xy 2.54 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 10.16 1.905) (xy 11.43 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 11.43 1.905) (xy 12.7 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 12.7 1.905) (xy 12.7 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 12.7 3.175) (xy 10.16 3.175)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 10.16 3.175) (xy 10.16 1.905)) (stroke (width 0.254))
+      )
+      (polyline
+        (pts (xy 11.43 1.905) (xy 11.43 -2.54)) (stroke (width 0.254))
+      )
+      (rectangle (start -15.24 -5.08) (end 13.97 5.08)
+        (stroke (width 0.1524)) (fill (type background))
+      )
+      (pin power_in line (at 11.43 8.255 270.0) (length 5.08)
+        (name "L1"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "1"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at 3.81 8.255 270.0) (length 5.08)
+        (name "L2"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "2"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -8.89 8.255 270.0) (length 5.08)
+        (name "+"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "3"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -12.7 8.255 270.0) (length 5.08)
+        (name "-"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "4"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+    )
+  )
+)
