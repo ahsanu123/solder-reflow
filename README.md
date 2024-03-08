@@ -20,5 +20,6 @@ at initial of this project, i want:
 
 ## Reference
 maker moekoe: https://github.com/makermoekoe/Hotplate-Soldering-Iron
+casing design: https://cdn.shopify.com/s/files/1/1978/9859/files/DSC_7360.jpg?v=1609830857
 
 ## Made with ♥️ by AH...
