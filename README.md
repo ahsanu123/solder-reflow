@@ -1,5 +1,5 @@
 <p align="center">
-  <img  src="./docs/solder-reflow.png">
+  <img  src="./docs/SoreBannerV1.png">
   <h2 align="center">SORE</h2>
 </p>
 
