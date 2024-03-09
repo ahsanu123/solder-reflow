@@ -1,6 +1,6 @@
 <p align="center">
+  <h1 align="center">SORE</h1>
   <img  src="./docs/SoreBannerV1.png">
-  <h2 align="center">SORE</h2>
 </p>
 
 ## SORE - Solder Reflow
