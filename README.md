@@ -1,11 +1,34 @@
 <p align="center">
-  <h1 align="center">SORE</h1>
-  <img  src="./docs/SoreBannerV1.png">
+  <a href="https://github.com/ahsanu123/solder-reflow">
+   <img src="./docs/SoreIcon.png" alt="SoreIcon">
+  </a>
+</p>
+<h1 align="center">SORE</h1>
+<p align="center">The DIY Solder Reflow 
+<p align="center">
+  <a href="">
+    <img alt="npm version" src="https://badgen.net/github/commits/ahsanu123/solder-reflow/">
+  </a>
+  <a href="">
+    <img alt="npm" src="https://badgen.net/github/contributors/ahsanu123/solder-reflow">
+  </a>
+  <a href="">
+    <img alt="npm" src="https://badgen.net/github/branches/ahsanu123/solder-reflow">
+  </a>
+  <br />
+  <a href="https://github.com/ahsanu123/solder-reflow/main/blob/LICENSE">
+    <img alt="licence" src="https://badgen.net/github/license/ahsanu123/solder-reflow">
+  </a>
 </p>
 
 ## SORE - Solder Reflow
+
 designed with kicad 7   
-   - Schematic: [SORE](https://github.com/ahsanu123/solder-reflow/blob/main/docs/solder-reflow.pdf)  
+   - Schematic: [SORE](https://github.com/ahsanu123/solder-reflow/blob/main/docs/solder-reflow.pdf)
+
+<p align="center">
+  <img  src="./docs/SoreBannerV1.png">
+</p>
 
 
 
