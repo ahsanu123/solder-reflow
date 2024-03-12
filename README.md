@@ -16,7 +16,7 @@
     <img alt="npm" src="https://badgen.net/github/branches/ahsanu123/solder-reflow">
   </a>
   <br />
-  <a href="https://github.com/ahsanu123/solder-reflow/main/blob/LICENSE">
+  <a href="https://github.com/ahsanu123/solder-reflow/blob/main/LICENSE">
     <img alt="licence" src="https://badgen.net/github/license/ahsanu123/solder-reflow">
   </a>
 </p>
