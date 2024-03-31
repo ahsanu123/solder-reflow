@@ -24,19 +24,6 @@
 
 static const char *TAG = "uart_events";
 
-/**
- * This example shows how to use the UART driver to handle special UART events.
- *
- * It also reads data from UART0 directly, and echoes it to console.
- *
- * - Port: UART0
- * - Receive (Rx) buffer: on
- * - Transmit (Tx) buffer: on
- * - Flow control: off
- * - Event queue: on
- * - Pin assignment: TxD (default), RxD (default)
- */
-
 #define EX_UART_NUM UART_NUM_0
 
 #define BUF_SIZE (1024)
@@ -49,8 +36,10 @@ static void uart_event_task(void *pvParameters) {
 
   for (;;) {
     // Waiting for UART event.
+    uart_write_bytes(EX_UART_NUM, (const char *)TAG, strlen(TAG));
     if (xQueueReceive(uart0_queue, (void *)&event,
                       (portTickType)portMAX_DELAY)) {
+
       bzero(dtmp, RD_BUF_SIZE);
       ESP_LOGI(TAG, "uart[%d] event:", EX_UART_NUM);
 

@@ -3,7 +3,7 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := Solder-Reflow 
+PROJECT_NAME := solder_reflow 
 
 include $(IDF_PATH)/make/project.mk
 
