@@ -1465,11 +1465,11 @@
     (property "ki_keywords" "R res resistor")
     (path "/d661c06d-75ab-4f7f-8412-c36124c43749")
     (attr through_hole)
-    (fp_text reference "R22" (at 3.469346 0.040267) (layer "F.SilkS")
+    (fp_text reference "R22" (at 3.469346 0.040267) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 9b7018ee-6d94-4500-af6b-9e5428ecba62)
     )
-    (fp_text value "1k" (at 5.08 2.37) (layer "F.Fab") hide
+    (fp_text value "1k" (at 3.81 0.249329) (layer "F.Fab")
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 28a3f436-9066-4a6a-bd70-7045413d3b59)
     )
