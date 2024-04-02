@@ -98,6 +98,8 @@ static void uart_event_task(void *pvParameters) {
   vTaskDelete(NULL);
 }
 
+extern "C" void app_main();
+
 void app_main() {
   // Configure parameters of an UART driver,
   // communication pins and install the driver
