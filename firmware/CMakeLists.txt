@@ -21,5 +21,20 @@ cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
-project(solder_reflow)
+add_compile_definitions(
+  -DCONFIG_INTERFACE=I2C_INTERFACE
+  -DCONFIG_PANEL=SSD1306_128x32
+  -DCONFIG_OFFSETX=0
+  -DCONFIG_FLIP=false
+  -DCONFIG_SDA_GPIO=GPIO_NUM_4
+  -DCONFIG_SCL_GPIO=GPIO_NUM_5
+  -DCONFIG_RESET_GPIO=
+  -DCONFIG_MOSI_GPIO=
+  -DCONFIG_SCLK_GPIO=
+  -DCONFIG_CS_GPIO=
+  -DCONFIG_DC_GPIO=
+  )
+message("-- IDF Version: ${IDF_VERSION_MAJOR}.${IDF_VERSION_MINOR}")
+
+project(solder_reflow VERSION 0.1)
 

@@ -21,6 +21,9 @@
 #include <string.h>
 
 #include "driver/uart.h"
+namespace std {
+void __attribute__((noreturn)) __throw_length_error(const char *) { abort(); }
+} // namespace std
 
 static const char *TAG = "uart_events";
 
