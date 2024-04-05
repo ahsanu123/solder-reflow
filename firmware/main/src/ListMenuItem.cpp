@@ -6,6 +6,13 @@
 #ifndef INCLUDE_SRC_LISTMENUITEM_CPP_
 #define INCLUDE_SRC_LISTMENUITEM_CPP_
 
+static int MENU_ITEM_ID;
+
+MenuItem::MenuItem() {
+  this->id = MENU_ITEM_ID;
+  MENU_ITEM_ID++;
+}
+
 MenuItem ListMenuItem::GetCurrent() { return this->current; }
 
 MenuItem ListMenuItem::Next() {

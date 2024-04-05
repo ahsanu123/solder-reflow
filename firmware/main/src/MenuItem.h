@@ -8,9 +8,11 @@ class MenuItem {
   DisplayText displayText;
 
 public:
-  std::string id;
+  int id;
 
   int Execute();
   DisplayText setDisplayText(std::string text);
   DisplayText getDisplayText();
+
+  MenuItem();
 };

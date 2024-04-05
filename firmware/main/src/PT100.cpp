@@ -1,0 +1,6 @@
+#include "PT100.h"
+
+#ifndef INCLUDE_SRC_PT100_CPP_
+#define INCLUDE_SRC_PT100_CPP_
+
+#endif // INCLUDE_SRC_PT100_CPP_
