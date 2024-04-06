@@ -7,7 +7,9 @@
 #ifndef INCLUDE_SRC_PT100_CPP_
 #define INCLUDE_SRC_PT100_CPP_
 
-PT100::PT100(adc_config_t &config) {
+PT100::PT100() {
+  adc_config_t config = {.mode = ADC_READ_MAX_MODE, .clk_div = 8};
+
   this->adcConfig = config;
   adc_init(&this->adcConfig);
 }
@@ -39,5 +41,7 @@ float PT100::process() {
 
   return temp;
 }
+
+// TODO: Implement debug string here
 
 #endif // INCLUDE_SRC_PT100_CPP_

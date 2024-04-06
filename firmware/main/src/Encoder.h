@@ -49,6 +49,7 @@
         }
 */
 
+#include "v2/gui/menu.h"
 #include <cstdint>
 #include <sys/types.h>
 class Encoder {
@@ -60,9 +61,13 @@ class Encoder {
 public:
   float position = 0;
   float step = 1;
+  float *connectedVariable;
+  LcdGfxMenu *connectedMenu;
   bool switchState = false;
 
   float setToTarget(float *target);
-  float decodeEncoder(uint8_t rawData);
-  bool decodeSwitch(bool state);
+  float decodeEncoder();
+  bool decodeSwitch(float &target);
+
+  Encoder();
 };

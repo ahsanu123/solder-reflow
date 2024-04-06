@@ -1,20 +1,37 @@
 #include "Encoder.h"
+#include "gpio.h"
 #include <cstdint>
+
+#define ENC_A GPIO_NUM_0
+#define ENC_B GPIO_NUM_2
+#define ENC_SW GPIO_NUM_15
 
 #ifndef INCLUDE_SRC_ENCODER_CPP_
 #define INCLUDE_SRC_ENCODER_CPP_
+
+Encoder::Encoder() {
+
+  gpio_config_t enc_ab_sw = {.pin_bit_mask =
+                                 GPIO_Pin_0 | GPIO_Pin_2 | GPIO_Pin_15,
+                             .mode = GPIO_MODE_INPUT,
+                             .pull_up_en = GPIO_PULLUP_DISABLE,
+                             .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                             .intr_type = GPIO_INTR_DISABLE};
+  gpio_config(&enc_ab_sw);
+}
 
 float Encoder::setToTarget(float *target) {
   *target = this->_target;
   return *target;
 }
 
-float Encoder::decodeEncoder(uint8_t rawData) {
+float Encoder::decodeEncoder() {
   /*
    * |New state | Old State|
    * |  3 |  2  |  1 |  0  |
    *
    * */
+  uint8_t rawData = (1 << gpio_get_level(ENC_A)) | gpio_get_level(ENC_B);
   uint8_t state = this->_oldState & 0x03;
 
   if (rawData & 0x04)
@@ -33,19 +50,43 @@ float Encoder::decodeEncoder(uint8_t rawData) {
   case 8:
   case 14:
     this->position += this->step;
+
+    if (this->connectedVariable) {
+      *this->connectedVariable += this->step;
+    } else {
+      this->connectedMenu->up();
+    }
     break;
   case 2:
   case 4:
   case 11:
   case 13:
     this->position -= this->step;
+
+    if (this->connectedVariable) {
+      *this->connectedVariable -= this->step;
+    } else {
+      this->connectedMenu->down();
+    }
     break;
   case 3:
   case 12:
     this->position += this->step * 2;
+
+    if (this->connectedVariable) {
+      *this->connectedVariable += this->step * 2;
+    } else {
+      this->connectedMenu->up();
+    }
     break;
   default:
     this->position -= this->step * 2;
+
+    if (this->connectedVariable) {
+      *this->connectedVariable -= this->step * 2;
+    } else {
+      this->connectedMenu->down();
+    }
     break;
   }
 
@@ -54,7 +95,7 @@ float Encoder::decodeEncoder(uint8_t rawData) {
   return this->position;
 };
 
-bool Encoder::decodeSwitch(bool state) {
+bool Encoder::decodeSwitch(float &target) {
 
   /*
    * | OLD || NEW |
@@ -64,11 +105,20 @@ bool Encoder::decodeSwitch(bool state) {
    * |  1  ||  1  | no change
    * */
 
+  bool state = gpio_get_level(ENC_SW);
+
   uint8_t current = this->_oldSwitchState + state;
 
   if (current == 1) {
     this->_oldSwitchState = state << 1;
     this->switchState = !this->switchState;
+
+    if (this->switchState) {
+      this->connectedVariable = &target;
+    } else {
+      this->connectedVariable = NULL;
+    }
+
     return this->switchState;
   } else if (current == 2) {
     this->_oldSwitchState = state;

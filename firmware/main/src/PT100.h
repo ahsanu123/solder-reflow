@@ -1,6 +1,9 @@
 #include "driver/adc.h"
 #include <string>
 
+#ifndef INCLUDE_SRC_PT100_H_
+#define INCLUDE_SRC_PT100_H_
+
 // temperature increase for each resistance unit
 #define TEMP_CONSTANT 0.3619
 #define TEMP_M 2.6773
@@ -16,5 +19,7 @@ public:
   float process();
   std::string debug();
 
-  PT100(adc_config_t &config);
+  PT100();
 };
+
+#endif // INCLUDE_SRC_PT100_H_

@@ -1,4 +1,5 @@
 #include "SimpleControl.h"
+#include "gpio.h"
 
 #ifndef INCLUDE_SRC_SIMPLECONTROL_CPP_
 #define INCLUDE_SRC_SIMPLECONTROL_CPP_
@@ -16,12 +17,21 @@ int SimpleControl::process() {
       this->state = MAINTAIN_HEAT;
     } else {
       // heating
+      gpio_set_level(SSR_PIN, SSR_ON);
     }
     break;
   case MAINTAIN_HEAT:
     // maintainHeat(temp);
+    if (temp > setPoint + CONTROL_TOLERANCE) {
+      // turn on heater
+      gpio_set_level(SSR_PIN, SSR_OFF);
+    } else if (temp < setPoint - CONTROL_TOLERANCE) {
+      // turn off heater
+      gpio_set_level(SSR_PIN, SSR_ON);
+    }
     break;
   case COOLDOWN:
+    gpio_set_level(SSR_PIN, SSR_OFF);
     break;
   default:
     break;
