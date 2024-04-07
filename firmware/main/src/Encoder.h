@@ -52,6 +52,10 @@
 #include "v2/gui/menu.h"
 #include <cstdint>
 #include <sys/types.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 class Encoder {
 
   float _target;
@@ -71,3 +75,7 @@ public:
 
   Encoder();
 };
+
+#ifdef __cplusplus
+}
+#endif

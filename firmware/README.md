@@ -25,6 +25,11 @@ to
                                "src")
 ```
 
+## To Do Revision
+
+- make all source for input 3.3v
+- OLED_SDA and OLED_SCL is flipped
+
 ## Reference 
 
 - [ESP8266 Toolchain Docs](https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/get-started/index.html#setup-toolchain)

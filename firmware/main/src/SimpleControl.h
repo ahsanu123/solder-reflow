@@ -11,12 +11,17 @@
 #define SSR_OFF 1
 #define SSR_PIN GPIO_NUM_16
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum ControlState { IDLE = 0, START, HEATING, MAINTAIN_HEAT, COOLDOWN };
 
 class SimpleControl {
 
   uint32_t _oldTimer[2];
   float _oldTemp[2];
+  float _oldGradient[2];
 
 public:
   float setPoint;
@@ -46,3 +51,7 @@ public:
     state = state;
   }
 };
+
+#ifdef __cplusplus
+}
+#endif

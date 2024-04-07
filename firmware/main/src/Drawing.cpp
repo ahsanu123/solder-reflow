@@ -9,7 +9,7 @@
 
 Drawing::Drawing(DisplaySSD1306_128x32_I2C &display, PT100 &pt100) {
 
-  float initialTemp = this->_pt100->process();
+  float initialTemp = (this->_pt100)->process();
   uint32_t initialTime = hw_timer_get_count_data();
 
   this->_display = &display;

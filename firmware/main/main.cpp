@@ -17,8 +17,6 @@
 #include "v2/gui/menu.h"
 #include "v2/lcd/ssd1306/lcd_ssd1306.h"
 
-static const char *TAG = "uart_events";
-
 #define EX_UART_NUM UART_NUM_0
 
 #define BUF_SIZE (1024)
@@ -56,21 +54,39 @@ static void main_loop(void *pvParameters) {
 
   encoder.connectedMenu = &mainMenu;
 
-  display.begin();
   display.setFixedFont(ssd1306xled_font6x8);
+  display.begin();
   display.clear();
   mainMenu.show(display);
   control.sensor = &pt100;
+
+  display.clear();
+  for (uint8_t y = 0; y < display.height(); y += 8) {
+    display.drawLine(0, 0, display.width() - 1, y);
+  }
+  for (uint8_t x = display.width() - 1; x > 7; x -= 8) {
+    display.drawLine(0, 0, x, display.height() - 1);
+  }
+  lcd_delay(3000);
+  bool toggle = false;
 
   for (;;) {
     // read input rotary encoder
 
     encoder.decodeEncoder();
 
+    gpio_set_level(SSR_PIN, toggle);
+
     auto state = mainMenu.selection();
     switch (state) {
     case MENU_START1:
       control.state = START;
+      break;
+
+    case MENU_START2:
+      break;
+
+    case MENU_START3:
       break;
 
     case MENU_STOP:
@@ -96,6 +112,8 @@ static void main_loop(void *pvParameters) {
     }
 
     control.process(state);
+    vTaskDelay(50);
+    toggle = !toggle;
   }
 
   /* free(dtmp); */

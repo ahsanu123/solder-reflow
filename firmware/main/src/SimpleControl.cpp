@@ -63,6 +63,8 @@ int SimpleControl::process(uint8_t state) {
   /**/
   /*   return 0; */
   /* } */
+
+  return 0;
 }
 
 void SimpleControl::controlMaintainWithPattern(float gradient) {
@@ -71,8 +73,8 @@ void SimpleControl::controlMaintainWithPattern(float gradient) {
   uint32_t timeNow = hw_timer_get_count_data();
   this->setNewTimeAndTemp(timeNow, tempNow);
 
-  float currentGradient = this->getGradient();
-  TickType_t delay = map(currentGradient, 0, 3, 60, 0);
+  float deltaGradient = std::abs(gradient - this->getGradient());
+  TickType_t delay = map(deltaGradient, 0, 4, 60, 0);
 
   turnOnWithDelay(SSR_PIN, delay);
 }
@@ -80,7 +82,7 @@ void SimpleControl::controlMaintainWithPattern(float gradient) {
 float SimpleControl::getGradient() {
   float gradient = (this->_oldTemp[1] - this->_oldTemp[0]) /
                    (this->_oldTimer[1] - this->_oldTimer[0]);
-  return std::abs(gradient);
+  return gradient;
 }
 
 void SimpleControl::setNewTimeAndTemp(uint32_t newTime, float newTemp) {

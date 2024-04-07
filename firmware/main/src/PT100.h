@@ -11,6 +11,10 @@
 #define TEMP_CURRENT_CONSTANT 1.13636
 #define TEMP_GAIN_CONSTANT 11.63829
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 class PT100 {
   float temp;
   adc_config_t adcConfig;
@@ -21,5 +25,9 @@ public:
 
   PT100();
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // INCLUDE_SRC_PT100_H_

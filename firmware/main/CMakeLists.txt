@@ -9,6 +9,10 @@ set(COMPONENT_SRCS
     src/Encoder.cpp
     src/PT100.h
     src/PT100.cpp
+    src/Drawing.h
+    src/Drawing.cpp
+    src/SimpleControl.h
+    src/SimpleControl.cpp
     )
 
 register_component()
