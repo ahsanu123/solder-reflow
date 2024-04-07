@@ -1,5 +1,9 @@
 #include "PT100.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include "gpio.h"
+#include "portmacro.h"
+#include <cstdint>
 
 #define CONTROL_TOLERANCE 3.0
 #define CONTROL_MINIMUM_TEMP 160
@@ -11,12 +15,18 @@ enum ControlState { IDLE = 0, START, HEATING, MAINTAIN_HEAT, COOLDOWN };
 
 class SimpleControl {
 
+  uint32_t _oldTimer[2];
+  float _oldTemp[2];
+
 public:
   float setPoint;
   ControlState state;
   PT100 *sensor;
 
-  int process();
+  int process(uint8_t state);
+  void controlMaintainWithPattern(float gradient);
+  float getGradient();
+  void setNewTimeAndTemp(uint32_t newTime, float newTemp);
 
   SimpleControl() {
     setPoint = CONTROL_MINIMUM_TEMP;

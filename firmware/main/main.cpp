@@ -24,12 +24,16 @@ static const char *TAG = "uart_events";
 #define BUF_SIZE (1024)
 #define RD_BUF_SIZE (BUF_SIZE)
 
-#define MENU_SELECT -1
-#define MENU_START 0
-#define MENU_STOP 1
-#define MENU_MONITOR 2
-#define MENU_SETPOINT 3
-#define MENU_ABOUT 4
+enum Menu {
+  MENU_SELECT = -1,
+  MENU_START1,
+  MENU_START2,
+  MENU_START3,
+  MENU_STOP,
+  MENU_MONITOR,
+  MENU_SETPOINT,
+  MENU_ABOUT
+};
 
 // BUG: fix this
 float dummyfloat;
@@ -39,8 +43,11 @@ static void main_loop(void *pvParameters) {
 
   DisplaySSD1306_128x32_I2C display(-1);
 
-  const char *mainMenuText[] = {"Start", "Stop", "Monitor", "SetPoint",
-                                "About"};
+  hw_timer_enable(true);
+  hw_timer_set_reload(false);
+
+  const char *mainMenuText[] = {"Start1",  "Start2",   "Start3", "Stop",
+                                "Monitor", "SetPoint", "About"};
   LcdGfxMenu mainMenu(mainMenuText, sizeof(mainMenuText) / sizeof(char *));
   Encoder encoder;
   PT100 pt100;
@@ -60,8 +67,9 @@ static void main_loop(void *pvParameters) {
 
     encoder.decodeEncoder();
 
-    switch (mainMenu.selection()) {
-    case MENU_START:
+    auto state = mainMenu.selection();
+    switch (state) {
+    case MENU_START1:
       control.state = START;
       break;
 
@@ -87,7 +95,7 @@ static void main_loop(void *pvParameters) {
       break;
     }
 
-    control.process();
+    control.process(state);
   }
 
   /* free(dtmp); */

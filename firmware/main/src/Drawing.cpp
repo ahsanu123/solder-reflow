@@ -8,8 +8,6 @@
 #define INCLUDE_SRC_DRAWING_CPP_
 
 Drawing::Drawing(DisplaySSD1306_128x32_I2C &display, PT100 &pt100) {
-  hw_timer_enable(true);
-  hw_timer_set_reload(false);
 
   float initialTemp = this->_pt100->process();
   uint32_t initialTime = hw_timer_get_count_data();
