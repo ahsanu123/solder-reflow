@@ -7,6 +7,15 @@
 extern "C" {
 #endif
 
+struct profile_t {
+  float temp;
+  float duration;
+};
+
+struct temp_profile_t {
+  profile_t listProfile[6];
+};
+
 class Drawing {
   float _oldTemp[6];
   uint32_t _oldTimer[6];
@@ -16,6 +25,7 @@ class Drawing {
 
 public:
   void plotTemp();
+  void drawProfile(float temp[]);
 
   Drawing(DisplaySSD1306_128x32_I2C &display, PT100 &pt100);
 };

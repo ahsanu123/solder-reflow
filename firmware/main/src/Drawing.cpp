@@ -1,7 +1,10 @@
 
 #include "Drawing.h"
 #include "hw_timer.h"
+#include "util.h"
+#include <cmath>
 #include <cstdint>
+#include <cstdio>
 #include <string>
 
 #ifndef INCLUDE_SRC_DRAWING_CPP_
@@ -61,6 +64,28 @@ void Drawing::plotTemp() {
   }
   this->_oldTemp[5] = newTemp[5];
   this->_oldTimer[5] = newTimer[5];
+}
+
+void Drawing::drawProfile(float temp[]) {
+
+  float normalizedTemp[6];
+  float normalizedTime[6] = {0, 10, 20, 30, 50, 60};
+  char buff[10];
+
+  for (int i = 0; i < 6; i++) {
+    normalizedTemp[i] = map(temp[i], 0, 270, 0, this->_display->height());
+
+    normalizedTime[i] =
+        map(normalizedTime[i], 0, 60, 0, this->_display->width());
+  }
+  for (int i = 0; i < 6 - 1; i++) {
+
+    this->_display->drawLine(normalizedTime[i], normalizedTemp[i],
+                             normalizedTime[i + 1], normalizedTemp[i + 1]);
+
+    sprintf(buff, "%d", (int)floor(temp[i]));
+    this->_display->printFixed(normalizedTime[i], normalizedTemp[i], buff);
+  }
 }
 
 #endif // INCLUDE_SRC_DRAWING_CPP_

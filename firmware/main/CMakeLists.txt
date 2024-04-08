@@ -13,6 +13,8 @@ set(COMPONENT_SRCS
     src/Drawing.cpp
     src/SimpleControl.h
     src/SimpleControl.cpp
+    src/util.h
+    src/util.cpp
     )
 
 register_component()

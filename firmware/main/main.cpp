@@ -36,6 +36,11 @@ enum Menu {
 // BUG: fix this
 float dummyfloat;
 
+profile_t profil1[6] = {{0, 0},   {10, 20}, {20, 30},
+                        {30, 30}, {50, 80}, {60, 0}};
+
+float tempProfil[] = {0, 60, 100, 200, 260, 0};
+
 static void main_loop(void *pvParameters) {
   /* uint8_t *dtmp = (uint8_t *)malloc(RD_BUF_SIZE); */
 
@@ -57,17 +62,19 @@ static void main_loop(void *pvParameters) {
   display.setFixedFont(ssd1306xled_font6x8);
   display.begin();
   display.clear();
-  mainMenu.show(display);
   control.sensor = &pt100;
 
-  display.clear();
-  for (uint8_t y = 0; y < display.height(); y += 8) {
-    display.drawLine(0, 0, display.width() - 1, y);
-  }
-  for (uint8_t x = display.width() - 1; x > 7; x -= 8) {
-    display.drawLine(0, 0, x, display.height() - 1);
-  }
-  lcd_delay(3000);
+  /* mainMenu.show(display); */
+  drawing.drawProfile(tempProfil);
+  display.printFixed(0, display.height() - 3, "SORE");
+  lcd_delay(10000);
+  /* for (uint8_t y = 0; y < display.height(); y += 8) { */
+  /*   display.drawLine(0, 0, display.width() - 1, y); */
+  /* } */
+  /* for (uint8_t x = display.width() - 1; x > 7; x -= 8) { */
+  /*   display.drawLine(0, 0, x, display.height() - 1); */
+  /* } */
+  /* lcd_delay(3000); */
   bool toggle = false;
 
   for (;;) {
