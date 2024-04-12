@@ -29,6 +29,7 @@ to
 
 - make all source for input 3.3v
 - OLED_SDA and OLED_SCL is flipped
+- remove series R21 and R20 from rotary encoder 
 
 ## Reference 
 

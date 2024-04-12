@@ -19,6 +19,8 @@ set(COMPONENT_SRCS
     src/RotaryEncoder.cpp
     src/PidController.h
     src/PidController.cpp
+    src/EspRotary.h
+    src/EspRotary.cpp
     )
 
 register_component()
