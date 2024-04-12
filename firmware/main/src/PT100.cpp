@@ -8,7 +8,7 @@
 #define INCLUDE_SRC_PT100_CPP_
 
 PT100::PT100() {
-  adc_config_t config = {.mode = ADC_READ_MAX_MODE, .clk_div = 8};
+  adc_config_t config = {.mode = ADC_READ_TOUT_MODE, .clk_div = 8};
 
   this->adcConfig = config;
   adc_init(&this->adcConfig);
@@ -35,11 +35,8 @@ float PT100::process() {
   adc_read(&adc_raw);
 
   float voltage = (adc_raw / 1023.0) * 3.3;
-  float temp =
-      ((voltage / TEMP_GAIN_CONSTANT) / TEMP_CURRENT_CONSTANT) * TEMP_M +
-      TEMP_C;
-
-  return temp;
+  return ((voltage / TEMP_GAIN_CONSTANT) / TEMP_CURRENT_CONSTANT) * TEMP_M +
+         TEMP_C;
 }
 
 // TODO: Implement debug string here

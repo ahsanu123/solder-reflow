@@ -15,6 +15,10 @@ set(COMPONENT_SRCS
     src/SimpleControl.cpp
     src/util.h
     src/util.cpp
+    src/RotaryEncoder.h
+    src/RotaryEncoder.cpp
+    src/PidController.h
+    src/PidController.cpp
     )
 
 register_component()

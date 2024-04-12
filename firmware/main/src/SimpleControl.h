@@ -16,7 +16,9 @@
 extern "C" {
 #endif
 
-enum ControlState { IDLE = 0, START, HEATING, MAINTAIN_HEAT, COOLDOWN };
+enum ControlState { IDLE = 0, PREHEAT, HEATING, MAINTAIN_HEAT, COOLDOWN };
+
+void turnOnWithDelay(gpio_num_t gpio_num, TickType_t delay);
 
 class SimpleControl {
 
@@ -28,6 +30,7 @@ public:
   float setPoint;
   ControlState state;
   PT100 *sensor;
+  float temp;
 
   int process(uint8_t state);
   void controlMaintainWithPattern(float gradient);

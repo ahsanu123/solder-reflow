@@ -53,6 +53,10 @@
 #include <cstdint>
 #include <sys/types.h>
 
+#define ENC_A GPIO_NUM_0
+#define ENC_B GPIO_NUM_2
+#define ENC_SW GPIO_NUM_15
+
 #ifdef __cplusplus
 extern "C" {
 #endif

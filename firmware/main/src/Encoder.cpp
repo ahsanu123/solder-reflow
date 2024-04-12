@@ -2,10 +2,6 @@
 #include "gpio.h"
 #include <cstdint>
 
-#define ENC_A GPIO_NUM_0
-#define ENC_B GPIO_NUM_2
-#define ENC_SW GPIO_NUM_15
-
 #ifndef INCLUDE_SRC_ENCODER_CPP_
 #define INCLUDE_SRC_ENCODER_CPP_
 
@@ -31,7 +27,7 @@ float Encoder::decodeEncoder() {
    * |  3 |  2  |  1 |  0  |
    *
    * */
-  uint8_t rawData = (1 << gpio_get_level(ENC_A)) | gpio_get_level(ENC_B);
+  uint8_t rawData = (1 << !gpio_get_level(ENC_A)) | !gpio_get_level(ENC_B);
   uint8_t state = this->_oldState & 0x03;
 
   if (rawData & 0x04)
@@ -54,8 +50,8 @@ float Encoder::decodeEncoder() {
     if (this->connectedVariable) {
       *this->connectedVariable += this->step;
     } else {
-      this->connectedMenu->up();
     }
+    this->connectedMenu->up();
     break;
   case 2:
   case 4:
@@ -66,8 +62,8 @@ float Encoder::decodeEncoder() {
     if (this->connectedVariable) {
       *this->connectedVariable -= this->step;
     } else {
-      this->connectedMenu->down();
     }
+    this->connectedMenu->down();
     break;
   case 3:
   case 12:
@@ -76,8 +72,8 @@ float Encoder::decodeEncoder() {
     if (this->connectedVariable) {
       *this->connectedVariable += this->step * 2;
     } else {
-      this->connectedMenu->up();
     }
+    this->connectedMenu->up();
     break;
   default:
     this->position -= this->step * 2;
@@ -85,8 +81,8 @@ float Encoder::decodeEncoder() {
     if (this->connectedVariable) {
       *this->connectedVariable -= this->step * 2;
     } else {
-      this->connectedMenu->down();
     }
+    this->connectedMenu->down();
     break;
   }
 

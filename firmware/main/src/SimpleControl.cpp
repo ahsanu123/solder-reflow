@@ -1,4 +1,5 @@
 #include "SimpleControl.h"
+#include "FreeRTOS.h"
 #include "esp_err.h"
 #include "gpio.h"
 #include "hw_timer.h"
@@ -11,49 +12,41 @@
 
 void turnOnWithDelay(gpio_num_t gpio_num, TickType_t delay) {
 
+  float mappedDelayOn = map(delay, 0, 255, 0, 120);
+  float mappedDelayOff = map(delay, 0, 255, 120, 0);
   gpio_set_level(gpio_num, SSR_ON);
-  vTaskDelay(20);
+  vTaskDelay(mappedDelayOn / portTICK_RATE_MS);
   gpio_set_level(gpio_num, SSR_OFF);
-  vTaskDelay(delay);
+  vTaskDelay(mappedDelayOff / portTICK_RATE_MS);
 }
 
 int SimpleControl::process(uint8_t state) {
 
-  switch (state) {}
+  // calculate diference
+  float currentTemp = this->sensor->process();
+  float diffTemp = this->_oldTemp[1] - currentTemp;
+  this->temp = currentTemp;
 
-  /* float temp = this->sensor->process(); */
-  /**/
-  /* switch (state) { */
-  /* case IDLE: */
-  /*   break; */
-  /* case HEATING: */
-  /*   if (temp > setPoint) { */
-  /*     // goto maintain */
-  /*     this->state = MAINTAIN_HEAT; */
-  /*   } else { */
-  /*     // heating */
-  /*     gpio_set_level(SSR_PIN, SSR_ON); */
-  /*   } */
-  /*   break; */
-  /* case MAINTAIN_HEAT: */
-  /*   // maintainHeat(temp); */
-  /*   if (temp > setPoint + CONTROL_TOLERANCE) { */
-  /*     // turn on heater */
-  /*     gpio_set_level(SSR_PIN, SSR_OFF); */
-  /*   } else if (temp < setPoint - CONTROL_TOLERANCE) { */
-  /*     // turn off heater */
-  /*     gpio_set_level(SSR_PIN, SSR_ON); */
-  /**/
-  /*     break; */
-  /*   case COOLDOWN: */
-  /*     gpio_set_level(SSR_PIN, SSR_OFF); */
-  /*     break; */
-  /*   default: */
-  /*     break; */
-  /*   } */
-  /**/
-  /*   return 0; */
-  /* } */
+  // convert it to percent
+
+  // use turn off with delay to control ssr
+
+  switch (state) {
+  case HEATING:
+    if (currentTemp < this->setPoint - 3) {
+      turnOnWithDelay(SSR_PIN, 20);
+    } else if (currentTemp > this->setPoint &&
+               currentTemp < this->setPoint + 3) {
+      turnOnWithDelay(SSR_PIN, 1000);
+    }
+    break;
+
+  default:
+    break;
+  }
+
+  this->_oldTemp[0] = this->_oldTemp[1];
+  this->_oldTemp[1] = currentTemp;
 
   return 0;
 }
