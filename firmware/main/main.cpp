@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "canvas/fonts/fonts.h" #include "driver/uart.h"
+#include "canvas/fonts/fonts.h"
+#include "driver/uart.h"
 #include "gpio.h"
 #include "i2c.h"
 #include "lcd_hal/esp/esp8266_i2c.h"
@@ -45,17 +46,18 @@ profile_t profil1[6] = {{0, 0},   {10, 20}, {20, 30},
                         {30, 30}, {50, 80}, {60, 0}};
 
 float tempProfil[] = {0, 60, 100, 200, 260, 0};
-float setpoint = 200, input = 250, output = 200, pidInput = 250;
-float kp = 100, ki = 0.01, kd = 1000;
+float setpoint = 145, input = 250, output = 200, pidInput = 250;
+float kp = 100, ki = 0.001, kd = 10000;
 int dummyRot = 0;
+float temp;
 
 PID pid(&pidInput, &output, &setpoint, kp, ki, kd, DIRECT);
 
 void rotated(ESPRotary &r) { dummyRot += r.getPosition(); }
 
-static void main_loop(void *pvParameters) {
-  /* uint8_t *dtmp = (uint8_t *)malloc(RD_BUF_SIZE); */
+extern "C" void app_main();
 
+void app_main() {
   DisplaySSD1306_128x32_I2C display(-1);
 
   hw_timer_enable(true);
@@ -89,7 +91,7 @@ static void main_loop(void *pvParameters) {
   float ssrOutput = 0;
 
   pid.setOutput(&ssrOutput);
-  pid.SetSampleTime(1);
+  pid.SetSampleTime(10);
   pid.SetOutputLimits(0, 255);
   pid.SetTunings(kp, ki, kd);
   /* pid.SetControllerDirection(ctrlDirection); */
@@ -102,84 +104,10 @@ static void main_loop(void *pvParameters) {
   int selectedMenu = -1;
   int lastClicked = 0;
 
+  uint32_t mainLoopLastTime = 0;
+
   for (;;) {
 
-    // read input rotary encoder
-
-    /* mainMenu.show(display); */
-    /**/
-    /* uint8_t state = oldState & 3; */
-    /**/
-    /* if (!gpio_get_level(ENC_B)) */
-    /*   state |= 0x04; */
-    /* if (!gpio_get_level(ENC_A)) */
-    /*   state |= 0x08; */
-    /**/
-    /* switch (state) { */
-    /* case 0: */
-    /* case 5: */
-    /* case 10: */
-    /* case 15: */
-    /*   break; */
-    /* case 1: */
-    /* case 7: */
-    /* case 8: */
-    /* case 14: */
-    /*   mainMenu.up(); */
-    /*   break; */
-    /* case 2: */
-    /* case 4: */
-    /* case 11: */
-    /* case 13: */
-    /*   mainMenu.down(); */
-    /*   break; */
-    /* case 3: */
-    /* case 12: */
-    /*   mainMenu.up(); */
-    /*   mainMenu.up(); */
-    /*   break; */
-    /* default: */
-    /*   mainMenu.down(); */
-    /*   mainMenu.down(); */
-    /*   break; */
-    /* } */
-    /* oldState = (state >> 2); */
-
-    /* auto state = mainMenu.selection(); */
-    /* switch (state) { */
-    /* case MENU_START1: */
-    /*   control.state = PREHEAT; */
-    /*   break; */
-    /**/
-    /* case MENU_START2: */
-    /*   break; */
-    /**/
-    /* case MENU_START3: */
-    /*   break; */
-    /**/
-    /* case MENU_STOP: */
-    /*   control.state = COOLDOWN; */
-    /*   break; */
-    /**/
-    /* case MENU_MONITOR: */
-    /*   if (encoder.decodeSwitch(dummyfloat)) { */
-    /*     drawing.plotTemp(); */
-    /*   } */
-    /*   break; */
-    /**/
-    /* case MENU_SETPOINT: */
-    /*   encoder.decodeSwitch(control.setPoint); */
-    /*   break; */
-    /**/
-    /* case MENU_ABOUT: */
-    /*   break; */
-    /**/
-    /* default: */
-    /*   control.state = IDLE; */
-    /*   break; */
-    /* } */
-
-    /* control.process(HEATING); */
     rot.loop();
 
     if (selectedMenu != MENU_MONITOR) {
@@ -218,40 +146,32 @@ static void main_loop(void *pvParameters) {
       display.printFixed(display.width() / 2, display.height() / 2, buff);
     }
 
-    /* adc_read(&adc_raw); */
-    /* float temp = pt100.process(); */
-    /* pidInput = temp; */
-    /**/
+    /// CONTROL....
+    if (xTaskGetTickCount() > mainLoopLastTime + 10) {
+      adc_read(&adc_raw);
+      temp = pt100.process();
+      pidInput = temp;
+      mainLoopLastTime = xTaskGetTickCount();
+    }
+
     /* if (temp > 230) { */
     /*   setpoint = 150; */
     /* } else { */
     /*   setpoint = 200; */
     /* } */
-    /**/
-    /* pid.Compute(); */
-    /* if (temp > 230) { */
+
+    pid.Compute();
+    /* if (temp > setpoint - 50) { */
     /*   gpio_set_level(SSR_PIN, SSR_OFF); */
     /**/
     /* } else { */
-    /*   turnOnWithDelay(SSR_PIN, ssrOutput); */
+    turnOnWithDelay(SSR_PIN, ssrOutput);
     /* } */
-    /**/
-    /* sprintf(buff, "t %d r %d sp %d o %d %d p %d d %d", (int)temp, adc_raw,
-     */
+
+    /* sprintf(buff, "t %d r %d sp %d o %d %d p %d d %d", (int)temp, adc_raw, */
     /*         (int)setpoint, (int)ssrOutput, (int)xTaskGetTickCount(), */
     /*         (int)rot.getPosition(), (int)rot.getDirection()); */
-    /* display.printFixed(0, 0, buff); */
-
-    vTaskDelay(1 / portTICK_RATE_MS);
+    sprintf(buff, "%d", (int)temp);
+    display.printFixed(display.width() / 2, display.height() / 3, buff);
   }
-
-  /* free(dtmp); */
-  /* dtmp = NULL; */
-  vTaskDelete(NULL);
-}
-
-extern "C" void app_main();
-
-void app_main() {
-  xTaskCreate(main_loop, "main_loop", 2048 * 2, NULL, 12, NULL);
 }

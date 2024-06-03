@@ -1,23 +1,42 @@
 #include "SimpleControl.h"
-#include "FreeRTOS.h"
-#include "esp_err.h"
 #include "gpio.h"
 #include "hw_timer.h"
 #include "lcd_hal/io.h"
+#include "portmacro.h"
 #include <cstdint>
 #include <cstdlib>
 
 #ifndef INCLUDE_SRC_SIMPLECONTROL_CPP_
 #define INCLUDE_SRC_SIMPLECONTROL_CPP_
 
+enum SSR_STATE { SSR_STATE_ON = 0, SSR_STATE_OFF, SSR_STATE_CHANGE };
+
+TickType_t lastTime;
+int ssrCurrentState = SSR_STATE_OFF; // true on, false off
+int ssrLastState = SSR_STATE_OFF;
+
 void turnOnWithDelay(gpio_num_t gpio_num, TickType_t delay) {
 
-  float mappedDelayOn = map(delay, 0, 255, 0, 120);
-  float mappedDelayOff = map(delay, 0, 255, 120, 0);
-  gpio_set_level(gpio_num, SSR_ON);
-  vTaskDelay(mappedDelayOn / portTICK_RATE_MS);
-  gpio_set_level(gpio_num, SSR_OFF);
-  vTaskDelay(mappedDelayOff / portTICK_RATE_MS);
+  int mappedDelayOn = map(delay, 0, 255, 0, 60);
+  int mappedDelayOff = map(delay, 0, 255, 200, 60);
+
+  switch (ssrCurrentState) {
+  case SSR_STATE_ON:
+    gpio_set_level(SSR_PIN, SSR_ON);
+    if (xTaskGetTickCount() > lastTime + mappedDelayOn) {
+      lastTime = xTaskGetTickCount();
+      ssrCurrentState = SSR_STATE_OFF;
+    }
+    break;
+
+  case SSR_STATE_OFF:
+    gpio_set_level(SSR_PIN, SSR_OFF);
+    if (xTaskGetTickCount() > lastTime + mappedDelayOff) {
+      lastTime = xTaskGetTickCount();
+      ssrCurrentState = SSR_STATE_ON;
+    }
+    break;
+  }
 }
 
 int SimpleControl::process(uint8_t state) {
