@@ -28,6 +28,7 @@ to
 ## To Do Revision
 
 - re calculate lowpass filter(and use krc topology)
+- use chip instead module (https://www.tokopedia.com/marnov/esp32-esp-32-esp32-wroom-32d-esp32d-iot-module-chip?extParam=ivf%3Dfalse%26src%3Dsearch), use this devkit for reference https://docs.espressif.com/projects/esp-idf/en/stable/esp32/hw-reference/esp32/get-started-devkitc.html, use this for schematic reference https://dl.espressif.com/dl/schematics/esp32_devkitc_v4-sch.pdf
 - make all source for input 3.3v
 - OLED_SDA and OLED_SCL is flipped
 - remove series R21 and R20 from rotary encoder 
