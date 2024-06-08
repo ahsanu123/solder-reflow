@@ -1,10 +1,12 @@
-<p align="center">
-  <a href="https://github.com/ahsanu123/solder-reflow">
-   <img src="./docs/SoreIcon.png" alt="SoreIcon">
-  </a>
-</p>
+
 <h1 align="center">SORE</h1>
 <p align="center">The DIY Solder Reflow 
+<p align="center">
+  <a href="https://github.com/ahsanu123/solder-reflow">
+   <img src="./docs/solder-reflow-pcb-v2.png" alt="SoreIcon">
+  </a>
+</p>
+
 <p align="center">
   <a href="">
     <img alt="npm version" src="https://badgen.net/github/commits/ahsanu123/solder-reflow/">
@@ -25,11 +27,6 @@
 
 designed with kicad 8   
    - Schematic: [SORE](https://github.com/ahsanu123/solder-reflow/blob/main/docs/solder-reflow.pdf)
-
-<p align="center">
-  <img  src="./docs/SoreBannerV1.png">
-</p>
-
 
 
 ## Note to Myself
