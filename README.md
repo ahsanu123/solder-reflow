@@ -3,7 +3,7 @@
 <p align="center">The DIY Solder Reflow 
 <p align="center">
   <a href="https://github.com/ahsanu123/solder-reflow">
-   <img src="./docs/solder-reflow-pcb-v2.png" alt="SoreIcon">
+   <img src="./docs/SoreBannerV2.png" alt="SoreIcon">
   </a>
 </p>
 
