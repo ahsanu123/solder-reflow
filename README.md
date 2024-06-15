@@ -26,7 +26,7 @@
 ## SORE - Solder Reflow
 
 designed with kicad 8   
-   - Schematic: [SORE](https://github.com/ahsanu123/solder-reflow/blob/main/docs/solder-reflow.pdf)
+<img alt="schematic" src="./hardware/board/docs/solder-reflow.svg">
 
 
 ## Note to Myself
