@@ -26,8 +26,9 @@
 ## SORE - Solder Reflow
 
 designed with kicad 8   
+<p align="center" style="background-color: white;">
 <img alt="schematic" src="./hardware/board/docs/solder-reflow.svg">
-
+</p>
 
 ## Note to Myself
 this is just my own diy solder reflow made from seferal reference accross internet.
