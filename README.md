@@ -48,6 +48,19 @@ Designed With [KICAD](https://www.kicad.org)
 
 ## 🌱 V2 Project Progress
 
+
+<details>
+ <summary>
+  Show Picture 
+ </summary>
+ <p align="center">
+  <a href="https://github.com/ahsanu123/solder-reflow">
+   <img src="./docs/Sudi-pic1.jpg" alt="sore picture">
+  </a>
+</p>
+</details>
+
+
 - PCB Design Finished 10 june 2024 20:51
 - Order _BOM_ and PCB
 - PCB and BOM Arrive 12 july 2024 about 16:00
