@@ -46,6 +46,12 @@ Designed With [KICAD](https://www.kicad.org)
 > - 🥓 10 Pin JTAG Connector
 > - 🧢 0.91' OLED or 1.3' TFT
 
+## 🌱 V2 Project Progress
+
+- PCB Design Finished 10 june 2024 20:51
+- Order _BOM_ and PCB
+- PCB and BOM Arrive 12 july 2024 about 16:00
+- Start to soldering 13 july 2024 about 06:00 (**weekend**)
 
 <details>
 <summary>Several Notes</summary>
