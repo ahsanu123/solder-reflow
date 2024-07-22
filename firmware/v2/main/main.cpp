@@ -13,6 +13,10 @@
 #include <inttypes.h>
 #include <stdio.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void app_main(void) {
   printf("Hello world!\n");
 
@@ -52,3 +56,7 @@ void app_main(void) {
   fflush(stdout);
   esp_restart();
 }
+
+#ifdef __cplusplus
+}
+#endif
