@@ -1,0 +1,883 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 74
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 38
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 885
+    content: "N/A: version \"N/A -> N/A\" is not yet installed.\r\n\r\nYou need to run \"nvm install N/A\" to install it before using it.\r\n"
+  - delay: 5
+    content: "\e]0;ahsanu@Ah:~/project/2024/hardware/solder-reflow/firmware/v2\a\e[?2004h[ahsanu@Ah v2]$ "
+  - delay: 1029
+    content: c
+  - delay: 110
+    content: m
+  - delay: 115
+    content: a
+  - delay: 111
+    content: k
+  - delay: 1569
+    content: e
+  - delay: 730
+    content: '-'
+  - delay: 350
+    content: "\b\e[K"
+  - delay: 120
+    content: ' '
+  - delay: 289
+    content: '-'
+  - delay: 170
+    content: '-'
+  - delay: 290
+    content: b
+  - delay: 215
+    content: u
+  - delay: 175
+    content: i
+  - delay: 755
+    content: i
+  - delay: 205
+    content: l
+  - delay: 114
+    content: d
+  - delay: 480
+    content: "\b\e[K"
+  - delay: 151
+    content: "\b\e[K"
+  - delay: 169
+    content: "\b\e[K"
+  - delay: 170
+    content: l
+  - delay: 206
+    content: d
+  - delay: 179
+    content: ' '
+  - delay: 400
+    content: b
+  - delay: 279
+    content: u
+  - delay: 136
+    content: i
+  - delay: 210
+    content: l
+  - delay: 114
+    content: d
+  - delay: 201
+    content: ' '
+  - delay: 270
+    content: "\r\n\e[?2004l\r"
+  - delay: 145
+    content: "[  0%] Built target partition_table_bin\r\n"
+  - delay: 34
+    content: "[  0%] \e[34m\e[1mPerforming build step for 'bootloader'\e[0m\r\n"
+  - delay: 137
+    content: "[  4%] Built target __idf_log\r\n"
+  - delay: 43
+    content: "[ 10%] Built target __idf_esp_rom\r\n"
+  - delay: 37
+    content: "[ 12%] Built target __idf_esp_common\r\n"
+  - delay: 39
+    content: "[ 21%] Built target __idf_esp_hw_support\r\n"
+  - delay: 36
+    content: "[ 23%] Built target __idf_esp_system\r\n"
+  - delay: 47
+    content: "[ 30%] Built target __idf_efuse\r\n"
+  - delay: 66
+    content: "[ 53%] Built target __idf_bootloader_support\r\n"
+  - delay: 108
+    content: "[ 55%] Built target __idf_esp_bootloader_format\r\n"
+  - delay: 60
+    content: "[ 56%] Built target __idf_spi_flash\r\n"
+  - delay: 45
+    content: "[ 63%] Built target __idf_hal\r\n"
+  - delay: 36
+    content: "[ 65%] Built target __idf_micro-ecc\r\n"
+  - delay: 41
+    content: "[ 89%] Built target __idf_soc\r\n"
+  - delay: 35
+    content: "[ 92%] Built target __idf_xtensa\r\n"
+  - delay: 35
+    content: "[ 94%] Built target __idf_main\r\n"
+  - delay: 36
+    content: "[ 95%] Built target _project_elf_src\r\n"
+  - delay: 35
+    content: "[ 98%] Built target bootloader.elf\r\n"
+  - delay: 38
+    content: "[100%] Built target gen_project_binary\r\n"
+  - delay: 116
+    content: "Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.\r\n"
+  - delay: 24
+    content: "[100%] Built target bootloader_check_size\r\n"
+  - delay: 37
+    content: "[100%] Built target app\r\n"
+  - delay: 29
+    content: "[  0%] \e[34m\e[1mNo install step for 'bootloader'\e[0m\r\n"
+  - delay: 29
+    content: "[  0%] \e[34m\e[1mCompleted 'bootloader'\e[0m\r\n"
+  - delay: 57
+    content: "[  1%] Built target bootloader\r\n"
+  - delay: 36
+    content: "[  1%] Built target sections.ld.in\r\n"
+  - delay: 37
+    content: "[  1%] Built target custom_bundle\r\n"
+  - delay: 34
+    content: "[  1%] Built target memory.ld\r\n"
+  - delay: 79
+    content: "[  1%] Built target __idf_esp_https_ota\r\n"
+  - delay: 41
+    content: "[  2%] Built target __idf_esp_http_server\r\n"
+  - delay: 42
+    content: "[  3%] Built target __idf_esp_http_client\r\n"
+  - delay: 43
+    content: "[  4%] Built target __idf_tcp_transport\r\n"
+  - delay: 92
+    content: "[  5%] Built target __idf_esp_gdbstub\r\n"
+  - delay: 83
+    content: "[  7%] Built target __idf_esp_eth\r\n"
+  - delay: 56
+    content: "[  8%] Built target __idf_esp_adc\r\n"
+  - delay: 39
+    content: "[  9%] Built target __idf_esp-tls\r\n"
+  - delay: 39
+    content: "[  9%] Built target __idf_http_parser\r\n"
+  - delay: 62
+    content: "[ 10%] Built target __idf_esp_wifi\r\n"
+  - delay: 38
+    content: "[ 10%] Built target __idf_esp_coex\r\n"
+  - delay: 82
+    content: "[ 19%] Built target __idf_wpa_supplicant\r\n"
+  - delay: 42
+    content: "[ 20%] Built target __idf_esp_netif\r\n"
+  - delay: 92
+    content: "[ 29%] Built target __idf_lwip\r\n"
+  - delay: 49
+    content: "[ 30%] Built target __idf_vfs\r\n"
+  - delay: 43
+    content: "[ 30%] Built target __idf_esp_phy\r\n"
+  - delay: 51
+    content: "[ 32%] Built target __idf_nvs_flash\r\n"
+  - delay: 36
+    content: "[ 32%] Built target __idf_esp_event\r\n"
+  - delay: 48
+    content: "[ 32%] Built target __idf_esp_timer\r\n"
+  - delay: 42
+    content: "[ 32%] Built target __idf_esp_common\r\n"
+  - delay: 37
+    content: "[ 33%] Built target __idf_cxx\r\n"
+  - delay: 42
+    content: "[ 35%] Built target __idf_newlib\r\n"
+  - delay: 42
+    content: "[ 37%] Built target __idf_freertos\r\n"
+  - delay: 48
+    content: "[ 41%] Built target __idf_esp_hw_support\r\n"
+  - delay: 80
+    content: "[ 43%] Built target __idf_soc\r\n"
+  - delay: 37
+    content: "[ 44%] Built target __idf_heap\r\n"
+  - delay: 72
+    content: "[ 45%] Built target __idf_log\r\n"
+  - delay: 127
+    content: "[ 50%] Built target __idf_hal\r\n"
+  - delay: 60
+    content: "[ 51%] Built target __idf_esp_rom\r\n"
+  - delay: 74
+    content: "[ 55%] Built target __idf_esp_system\r\n"
+  - delay: 38
+    content: "[ 56%] Built target __idf_pthread\r\n"
+  - delay: 44
+    content: "[ 59%] Built target __idf_spi_flash\r\n"
+  - delay: 36
+    content: "[ 59%] Built target __idf_app_update\r\n"
+  - delay: 40
+    content: "[ 60%] Built target __idf_esp_partition\r\n"
+  - delay: 60
+    content: "[ 62%] Built target __idf_bootloader_support\r\n"
+  - delay: 57
+    content: "[ 62%] Built target __idf_esp_app_format\r\n"
+  - delay: 35
+    content: "[ 62%] Built target __idf_esp_bootloader_format\r\n"
+  - delay: 45
+    content: "[ 64%] Built target mbedtls\r\n"
+  - delay: 41
+    content: "[ 66%] Built target mbedx509\r\n"
+  - delay: 70
+    content: "[ 76%] Built target mbedcrypto\r\n"
+  - delay: 36
+    content: "[ 76%] Built target p256m\r\n"
+  - delay: 37
+    content: "[ 76%] Built target everest\r\n"
+  - delay: 40
+    content: "[ 77%] Built target __idf_mbedtls\r\n"
+  - delay: 38
+    content: "[ 78%] Built target __idf_esp_pm\r\n"
+  - delay: 65
+    content: "[ 84%] Built target __idf_driver\r\n"
+  - delay: 38
+    content: "[ 84%] Built target __idf_esp_mm\r\n"
+  - delay: 37
+    content: "[ 85%] Built target __idf_efuse\r\n"
+  - delay: 35
+    content: "[ 85%] Built target __idf_esp_ringbuf\r\n"
+  - delay: 37
+    content: "[ 86%] Built target __idf_xtensa\r\n"
+  - delay: 120
+    content: "[ 86%] Built target __idf_json\r\n"
+  - delay: 224
+    content: "[ 88%] Built target __idf_console\r\n"
+  - delay: 79
+    content: "[ 88%] Built target __idf_protobuf-c\r\n"
+  - delay: 101
+    content: "[ 89%] Built target __idf_protocomm\r\n"
+  - delay: 62
+    content: "[ 91%] Built target __idf_wifi_provisioning\r\n"
+  - delay: 37
+    content: "[ 91%] Built target __idf_app_trace\r\n"
+  - delay: 39
+    content: "[ 92%] Built target __idf_unity\r\n"
+  - delay: 35
+    content: "[ 92%] Built target __idf_cmock\r\n"
+  - delay: 58
+    content: "[ 92%] Built target __idf_esp_hid\r\n"
+  - delay: 74
+    content: "[ 93%] Built target __idf_esp_lcd\r\n"
+  - delay: 40
+    content: "[ 94%] Built target __idf_esp_local_ctrl\r\n"
+  - delay: 41
+    content: "[ 95%] Built target __idf_espcoredump\r\n"
+  - delay: 38
+    content: "[ 95%] Built target __idf_wear_levelling\r\n"
+  - delay: 39
+    content: "[ 96%] Built target __idf_sdmmc\r\n"
+  - delay: 40
+    content: "[ 97%] Built target __idf_fatfs\r\n"
+  - delay: 40
+    content: "[ 97%] Built target __idf_mqtt\r\n"
+  - delay: 36
+    content: "[ 97%] Built target __idf_nvs_sec_provider\r\n"
+  - delay: 36
+    content: "[ 98%] Built target __idf_perfmon\r\n"
+  - delay: 40
+    content: "[ 98%] Built target __idf_spiffs\r\n"
+  - delay: 35
+    content: "[ 98%] Built target __idf_main\r\n"
+  - delay: 34
+    content: "[ 98%] Built target _project_elf_src\r\n"
+  - delay: 38
+    content: "[ 98%] Built target __ldgen_output_sections.ld\r\n"
+  - delay: 46
+    content: "[100%] Built target hello_world.elf\r\n"
+  - delay: 49
+    content: "[100%] Built target gen_project_binary\r\n"
+  - delay: 91
+    content: "hello_world.bin binary size 0x2b590 bytes. Smallest app partition is 0x100000 bytes. 0xd4a70 bytes (83%) free.\r\n"
+  - delay: 25
+    content: "[100%] Built target app_check_size\r\n"
+  - delay: 34
+    content: "[100%] Built target app\r\n"
+  - delay: 18
+    content: "\e]0;ahsanu@Ah:~/project/2024/hardware/solder-reflow/firmware/v2\a\e[?2004h[ahsanu@Ah v2]$ "
+  - delay: 734
+    content: c
+  - delay: 104
+    content: m
+  - delay: 165
+    content: a
+  - delay: 282
+    content: "\b\e[K"
+  - delay: 164
+    content: "\b\e[K"
+  - delay: 154
+    content: "\b\e[K"
+  - delay: 205
+    content: m
+  - delay: 165
+    content: a
+  - delay: 55
+    content: k
+  - delay: 195
+    content: e
+  - delay: 260
+    content: ' '
+  - delay: 210
+    content: '-'
+  - delay: 226
+    content: b
+  - delay: 504
+    content: "\b\e[K"
+  - delay: 165
+    content: c
+  - delay: 519
+    content: "\b\e[K"
+  - delay: 224
+    content: C
+  - delay: 130
+    content: ' '
+  - delay: 165
+    content: b
+  - delay: 190
+    content: u
+  - delay: 140
+    content: i
+  - delay: 240
+    content: l
+  - delay: 155
+    content: d
+  - delay: 170
+    content: ' '
+  - delay: 862
+    content: f
+  - delay: 105
+    content: l
+  - delay: 135
+    content: a
+  - delay: 110
+    content: s
+  - delay: 75
+    content: h
+  - delay: 255
+    content: "\r\n\e[?2004l\r"
+  - delay: 7
+    content: "make: Entering directory '/home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/build'\r\n"
+  - delay: 99
+    content: "[  0%] Built target partition_table_bin\r\n"
+  - delay: 39
+    content: "[  0%] \e[34m\e[1mPerforming build step for 'bootloader'\e[0m\r\n"
+  - delay: 73
+    content: "[  4%] Built target __idf_log\r\n"
+  - delay: 37
+    content: "[ 10%] Built target __idf_esp_rom\r\n"
+  - delay: 37
+    content: "[ 12%] Built target __idf_esp_common\r\n"
+  - delay: 40
+    content: "[ 21%] Built target __idf_esp_hw_support\r\n"
+  - delay: 37
+    content: "[ 23%] Built target __idf_esp_system\r\n"
+  - delay: 39
+    content: "[ 30%] Built target __idf_efuse\r\n"
+  - delay: 47
+    content: "[ 53%] Built target __idf_bootloader_support\r\n"
+  - delay: 36
+    content: "[ 55%] Built target __idf_esp_bootloader_format\r\n"
+  - delay: 40
+    content: "[ 56%] Built target __idf_spi_flash\r\n"
+  - delay: 39
+    content: "[ 63%] Built target __idf_hal\r\n"
+  - delay: 38
+    content: "[ 65%] Built target __idf_micro-ecc\r\n"
+  - delay: 50
+    content: "[ 89%] Built target __idf_soc\r\n"
+  - delay: 38
+    content: "[ 92%] Built target __idf_xtensa\r\n"
+  - delay: 36
+    content: "[ 94%] Built target __idf_main\r\n"
+  - delay: 37
+    content: "[ 95%] Built target _project_elf_src\r\n"
+  - delay: 37
+    content: "[ 98%] Built target bootloader.elf\r\n"
+  - delay: 35
+    content: "[100%] Built target gen_project_binary\r\n"
+  - delay: 91
+    content: "Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.\r\n"
+  - delay: 24
+    content: "[100%] Built target bootloader_check_size\r\n"
+  - delay: 38
+    content: "[100%] Built target app\r\n"
+  - delay: 28
+    content: "[  0%] \e[34m\e[1mNo install step for 'bootloader'\e[0m\r\n"
+  - delay: 31
+    content: "[  0%] \e[34m\e[1mCompleted 'bootloader'\e[0m\r\n"
+  - delay: 50
+    content: "[  1%] Built target bootloader\r\n"
+  - delay: 37
+    content: "[  1%] Built target sections.ld.in\r\n"
+  - delay: 37
+    content: "[  1%] Built target custom_bundle\r\n"
+  - delay: 35
+    content: "[  1%] Built target memory.ld\r\n"
+  - delay: 38
+    content: "[  1%] Built target __idf_esp_https_ota\r\n"
+  - delay: 44
+    content: "[  2%] Built target __idf_esp_http_server\r\n"
+  - delay: 39
+    content: "[  3%] Built target __idf_esp_http_client\r\n"
+  - delay: 42
+    content: "[  4%] Built target __idf_tcp_transport\r\n"
+  - delay: 38
+    content: "[  5%] Built target __idf_esp_gdbstub\r\n"
+  - delay: 39
+    content: "[  7%] Built target __idf_esp_eth\r\n"
+  - delay: 39
+    content: "[  8%] Built target __idf_esp_adc\r\n"
+  - delay: 40
+    content: "[  9%] Built target __idf_esp-tls\r\n"
+  - delay: 35
+    content: "[  9%] Built target __idf_http_parser\r\n"
+  - delay: 40
+    content: "[ 10%] Built target __idf_esp_wifi\r\n"
+  - delay: 36
+    content: "[ 10%] Built target __idf_esp_coex\r\n"
+  - delay: 79
+    content: "[ 19%] Built target __idf_wpa_supplicant\r\n"
+  - delay: 44
+    content: "[ 20%] Built target __idf_esp_netif\r\n"
+  - delay: 89
+    content: "[ 29%] Built target __idf_lwip\r\n"
+  - delay: 39
+    content: "[ 30%] Built target __idf_vfs\r\n"
+  - delay: 38
+    content: "[ 30%] Built target __idf_esp_phy\r\n"
+  - delay: 50
+    content: "[ 32%] Built target __idf_nvs_flash\r\n"
+  - delay: 39
+    content: "[ 32%] Built target __idf_esp_event\r\n"
+  - delay: 42
+    content: "[ 32%] Built target __idf_esp_timer\r\n"
+  - delay: 40
+    content: "[ 32%] Built target __idf_esp_common\r\n"
+  - delay: 37
+    content: "[ 33%] Built target __idf_cxx\r\n"
+  - delay: 42
+    content: "[ 35%] Built target __idf_newlib\r\n"
+  - delay: 41
+    content: "[ 37%] Built target __idf_freertos\r\n"
+  - delay: 49
+    content: "[ 41%] Built target __idf_esp_hw_support\r\n"
+  - delay: 39
+    content: "[ 43%] Built target __idf_soc\r\n"
+  - delay: 38
+    content: "[ 44%] Built target __idf_heap\r\n"
+  - delay: 36
+    content: "[ 45%] Built target __idf_log\r\n"
+  - delay: 46
+    content: "[ 50%] Built target __idf_hal\r\n"
+  - delay: 36
+    content: "[ 51%] Built target __idf_esp_rom\r\n"
+  - delay: 49
+    content: "[ 55%] Built target __idf_esp_system\r\n"
+  - delay: 39
+    content: "[ 56%] Built target __idf_pthread\r\n"
+  - delay: 42
+    content: "[ 59%] Built target __idf_spi_flash\r\n"
+  - delay: 36
+    content: "[ 59%] Built target __idf_app_update\r\n"
+  - delay: 36
+    content: "[ 60%] Built target __idf_esp_partition\r\n"
+  - delay: 51
+    content: "[ 62%] Built target __idf_bootloader_support\r\n"
+  - delay: 36
+    content: "[ 62%] Built target __idf_esp_app_format\r\n"
+  - delay: 37
+    content: "[ 62%] Built target __idf_esp_bootloader_format\r\n"
+  - delay: 49
+    content: "[ 64%] Built target mbedtls\r\n"
+  - delay: 42
+    content: "[ 66%] Built target mbedx509\r\n"
+  - delay: 71
+    content: "[ 76%] Built target mbedcrypto\r\n"
+  - delay: 37
+    content: "[ 76%] Built target p256m\r\n"
+  - delay: 36
+    content: "[ 76%] Built target everest\r\n"
+  - delay: 38
+    content: "[ 77%] Built target __idf_mbedtls\r\n"
+  - delay: 38
+    content: "[ 78%] Built target __idf_esp_pm\r\n"
+  - delay: 63
+    content: "[ 84%] Built target __idf_driver\r\n"
+  - delay: 37
+    content: "[ 84%] Built target __idf_esp_mm\r\n"
+  - delay: 39
+    content: "[ 85%] Built target __idf_efuse\r\n"
+  - delay: 36
+    content: "[ 85%] Built target __idf_esp_ringbuf\r\n"
+  - delay: 38
+    content: "[ 86%] Built target __idf_xtensa\r\n"
+  - delay: 36
+    content: "[ 86%] Built target __idf_json\r\n"
+  - delay: 43
+    content: "[ 88%] Built target __idf_console\r\n"
+  - delay: 37
+    content: "[ 88%] Built target __idf_protobuf-c\r\n"
+  - delay: 40
+    content: "[ 89%] Built target __idf_protocomm\r\n"
+  - delay: 39
+    content: "[ 91%] Built target __idf_wifi_provisioning\r\n"
+  - delay: 38
+    content: "[ 91%] Built target __idf_app_trace\r\n"
+  - delay: 39
+    content: "[ 92%] Built target __idf_unity\r\n"
+  - delay: 35
+    content: "[ 92%] Built target __idf_cmock\r\n"
+  - delay: 37
+    content: "[ 92%] Built target __idf_esp_hid\r\n"
+  - delay: 40
+    content: "[ 93%] Built target __idf_esp_lcd\r\n"
+  - delay: 46
+    content: "[ 94%] Built target __idf_esp_local_ctrl\r\n"
+  - delay: 40
+    content: "[ 95%] Built target __idf_espcoredump\r\n"
+  - delay: 37
+    content: "[ 95%] Built target __idf_wear_levelling\r\n"
+  - delay: 39
+    content: "[ 96%] Built target __idf_sdmmc\r\n"
+  - delay: 42
+    content: "[ 97%] Built target __idf_fatfs\r\n"
+  - delay: 41
+    content: "[ 97%] Built target __idf_mqtt\r\n"
+  - delay: 39
+    content: "[ 97%] Built target __idf_nvs_sec_provider\r\n"
+  - delay: 37
+    content: "[ 98%] Built target __idf_perfmon\r\n"
+  - delay: 39
+    content: "[ 98%] Built target __idf_spiffs\r\n"
+  - delay: 37
+    content: "[ 98%] Built target __idf_main\r\n"
+  - delay: 36
+    content: "[ 98%] Built target _project_elf_src\r\n"
+  - delay: 36
+    content: "[ 98%] Built target __ldgen_output_sections.ld\r\n"
+  - delay: 36
+    content: "[100%] Built target hello_world.elf\r\n"
+  - delay: 34
+    content: "[100%] Built target gen_project_binary\r\n"
+  - delay: 86
+    content: "hello_world.bin binary size 0x2b590 bytes. Smallest app partition is 0x100000 bytes. 0xd4a70 bytes (83%) free.\r\n"
+  - delay: 24
+    content: "[100%] Built target app_check_size\r\n"
+  - delay: 35
+    content: "[100%] Built target app\r\n"
+  - delay: 35
+    content: "\e[0mNote: python;;/home/ahsanu/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 will search for a serial port. To specify a port, set the ESPPORT environment variable.\e[0m\r\n\e[0mNote: python;;/home/ahsanu/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 will attempt to set baud rate automatically. To specify a baud rate, set the ESPBAUD environment variable.\e[0m\r\n"
+  - delay: 75
+    content: "/usr/bin/python: No module named esptool\r\n"
+  - delay: 15
+    content: "\e[31mCMake Error at run_serial_tool.cmake:66 (message):\r\n  \r\n  python;;/home/ahsanu/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32\r\n  failed.\r\n\r\n\r\n\e[0m\r\nmake[3]: *** [CMakeFiles/flash.dir/build.make:70: CMakeFiles/flash] Error 1\r\nmake[2]: *** [CMakeFiles/Makefile2:1961: CMakeFiles/flash.dir/all] Error 2\r\nmake[1]: *** [CMakeFiles/Makefile2:1968: CMakeFiles/flash.dir/rule] Error 2\r\nmake: *** [Makefile:299: flash] Error 2\r\nmake: Leaving directory '/home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/build'\r\n\e]0;ahsanu@Ah:~/project/2024/hardware/solder-reflow/firmware/v2\a\e[?2004h[ahsanu@Ah v2]$ "
+  - delay: 4993
+    content: make -C build flash
+  - delay: 1098
+    content: "\r\n\e[?2004l\r"
+  - delay: 9
+    content: "make: Entering directory '/home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/build'\r\n"
+  - delay: 107
+    content: "[  0%] Built target partition_table_bin\r\n"
+  - delay: 38
+    content: "[  0%] \e[34m\e[1mPerforming build step for 'bootloader'\e[0m\r\n"
+  - delay: 71
+    content: "[  4%] Built target __idf_log\r\n"
+  - delay: 36
+    content: "[ 10%] Built target __idf_esp_rom\r\n"
+  - delay: 36
+    content: "[ 12%] Built target __idf_esp_common\r\n"
+  - delay: 39
+    content: "[ 21%] Built target __idf_esp_hw_support\r\n"
+  - delay: 37
+    content: "[ 23%] Built target __idf_esp_system\r\n"
+  - delay: 37
+    content: "[ 30%] Built target __idf_efuse\r\n"
+  - delay: 48
+    content: "[ 53%] Built target __idf_bootloader_support\r\n"
+  - delay: 36
+    content: "[ 55%] Built target __idf_esp_bootloader_format\r\n"
+  - delay: 37
+    content: "[ 56%] Built target __idf_spi_flash\r\n"
+  - delay: 38
+    content: "[ 63%] Built target __idf_hal\r\n"
+  - delay: 37
+    content: "[ 65%] Built target __idf_micro-ecc\r\n"
+  - delay: 41
+    content: "[ 89%] Built target __idf_soc\r\n"
+  - delay: 37
+    content: "[ 92%] Built target __idf_xtensa\r\n"
+  - delay: 38
+    content: "[ 94%] Built target __idf_main\r\n"
+  - delay: 33
+    content: "[ 95%] Built target _project_elf_src\r\n"
+  - delay: 37
+    content: "[ 98%] Built target bootloader.elf\r\n"
+  - delay: 35
+    content: "[100%] Built target gen_project_binary\r\n"
+  - delay: 90
+    content: "Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.\r\n"
+  - delay: 24
+    content: "[100%] Built target bootloader_check_size\r\n"
+  - delay: 36
+    content: "[100%] Built target app\r\n"
+  - delay: 29
+    content: "[  0%] \e[34m\e[1mNo install step for 'bootloader'\e[0m\r\n"
+  - delay: 32
+    content: "[  0%] \e[34m\e[1mCompleted 'bootloader'\e[0m\r\n"
+  - delay: 50
+    content: "[  1%] Built target bootloader\r\n"
+  - delay: 35
+    content: "[  1%] Built target sections.ld.in\r\n"
+  - delay: 38
+    content: "[  1%] Built target custom_bundle\r\n"
+  - delay: 35
+    content: "[  1%] Built target memory.ld\r\n"
+  - delay: 42
+    content: "[  1%] Built target __idf_esp_https_ota\r\n"
+  - delay: 45
+    content: "[  2%] Built target __idf_esp_http_server\r\n"
+  - delay: 42
+    content: "[  3%] Built target __idf_esp_http_client\r\n"
+  - delay: 41
+    content: "[  4%] Built target __idf_tcp_transport\r\n"
+  - delay: 40
+    content: "[  5%] Built target __idf_esp_gdbstub\r\n"
+  - delay: 41
+    content: "[  7%] Built target __idf_esp_eth\r\n"
+  - delay: 40
+    content: "[  8%] Built target __idf_esp_adc\r\n"
+  - delay: 41
+    content: "[  9%] Built target __idf_esp-tls\r\n"
+  - delay: 36
+    content: "[  9%] Built target __idf_http_parser\r\n"
+  - delay: 42
+    content: "[ 10%] Built target __idf_esp_wifi\r\n"
+  - delay: 38
+    content: "[ 10%] Built target __idf_esp_coex\r\n"
+  - delay: 82
+    content: "[ 19%] Built target __idf_wpa_supplicant\r\n"
+  - delay: 42
+    content: "[ 20%] Built target __idf_esp_netif\r\n"
+  - delay: 81
+    content: "[ 29%] Built target __idf_lwip\r\n"
+  - delay: 40
+    content: "[ 30%] Built target __idf_vfs\r\n"
+  - delay: 41
+    content: "[ 30%] Built target __idf_esp_phy\r\n"
+  - delay: 48
+    content: "[ 32%] Built target __idf_nvs_flash\r\n"
+  - delay: 39
+    content: "[ 32%] Built target __idf_esp_event\r\n"
+  - delay: 38
+    content: "[ 32%] Built target __idf_esp_timer\r\n"
+  - delay: 44
+    content: "[ 32%] Built target __idf_esp_common\r\n"
+  - delay: 42
+    content: "[ 33%] Built target __idf_cxx\r\n"
+  - delay: 41
+    content: "[ 35%] Built target __idf_newlib\r\n"
+  - delay: 42
+    content: "[ 37%] Built target __idf_freertos\r\n"
+  - delay: 48
+    content: "[ 41%] Built target __idf_esp_hw_support\r\n"
+  - delay: 40
+    content: "[ 43%] Built target __idf_soc\r\n"
+  - delay: 40
+    content: "[ 44%] Built target __idf_heap\r\n"
+  - delay: 38
+    content: "[ 45%] Built target __idf_log\r\n"
+  - delay: 59
+    content: "[ 50%] Built target __idf_hal\r\n"
+  - delay: 38
+    content: "[ 51%] Built target __idf_esp_rom\r\n"
+  - delay: 50
+    content: "[ 55%] Built target __idf_esp_system\r\n"
+  - delay: 39
+    content: "[ 56%] Built target __idf_pthread\r\n"
+  - delay: 43
+    content: "[ 59%] Built target __idf_spi_flash\r\n"
+  - delay: 38
+    content: "[ 59%] Built target __idf_app_update\r\n"
+  - delay: 39
+    content: "[ 60%] Built target __idf_esp_partition\r\n"
+  - delay: 43
+    content: "[ 62%] Built target __idf_bootloader_support\r\n"
+  - delay: 35
+    content: "[ 62%] Built target __idf_esp_app_format\r\n"
+  - delay: 37
+    content: "[ 62%] Built target __idf_esp_bootloader_format\r\n"
+  - delay: 46
+    content: "[ 64%] Built target mbedtls\r\n"
+  - delay: 42
+    content: "[ 66%] Built target mbedx509\r\n"
+  - delay: 71
+    content: "[ 76%] Built target mbedcrypto\r\n"
+  - delay: 37
+    content: "[ 76%] Built target p256m\r\n"
+  - delay: 36
+    content: "[ 76%] Built target everest\r\n"
+  - delay: 37
+    content: "[ 77%] Built target __idf_mbedtls\r\n"
+  - delay: 41
+    content: "[ 78%] Built target __idf_esp_pm\r\n"
+  - delay: 67
+    content: "[ 84%] Built target __idf_driver\r\n"
+  - delay: 37
+    content: "[ 84%] Built target __idf_esp_mm\r\n"
+  - delay: 38
+    content: "[ 85%] Built target __idf_efuse\r\n"
+  - delay: 36
+    content: "[ 85%] Built target __idf_esp_ringbuf\r\n"
+  - delay: 38
+    content: "[ 86%] Built target __idf_xtensa\r\n"
+  - delay: 35
+    content: "[ 86%] Built target __idf_json\r\n"
+  - delay: 41
+    content: "[ 88%] Built target __idf_console\r\n"
+  - delay: 37
+    content: "[ 88%] Built target __idf_protobuf-c\r\n"
+  - delay: 40
+    content: "[ 89%] Built target __idf_protocomm\r\n"
+  - delay: 40
+    content: "[ 91%] Built target __idf_wifi_provisioning\r\n"
+  - delay: 38
+    content: "[ 91%] Built target __idf_app_trace\r\n"
+  - delay: 41
+    content: "[ 92%] Built target __idf_unity\r\n"
+  - delay: 35
+    content: "[ 92%] Built target __idf_cmock\r\n"
+  - delay: 36
+    content: "[ 92%] Built target __idf_esp_hid\r\n"
+  - delay: 39
+    content: "[ 93%] Built target __idf_esp_lcd\r\n"
+  - delay: 38
+    content: "[ 94%] Built target __idf_esp_local_ctrl\r\n"
+  - delay: 40
+    content: "[ 95%] Built target __idf_espcoredump\r\n"
+  - delay: 37
+    content: "[ 95%] Built target __idf_wear_levelling\r\n"
+  - delay: 37
+    content: "[ 96%] Built target __idf_sdmmc\r\n"
+  - delay: 41
+    content: "[ 97%] Built target __idf_fatfs\r\n"
+  - delay: 39
+    content: "[ 97%] Built target __idf_mqtt\r\n"
+  - delay: 35
+    content: "[ 97%] Built target __idf_nvs_sec_provider\r\n"
+  - delay: 35
+    content: "[ 98%] Built target __idf_perfmon\r\n"
+  - delay: 38
+    content: "[ 98%] Built target __idf_spiffs\r\n"
+  - delay: 36
+    content: "[ 98%] Built target __idf_main\r\n"
+  - delay: 35
+    content: "[ 98%] Built target _project_elf_src\r\n"
+  - delay: 35
+    content: "[ 98%] Built target __ldgen_output_sections.ld\r\n"
+  - delay: 38
+    content: "[100%] Built target hello_world.elf\r\n"
+  - delay: 34
+    content: "[100%] Built target gen_project_binary\r\n"
+  - delay: 86
+    content: "hello_world.bin binary size 0x2b590 bytes. Smallest app partition is 0x100000 bytes. 0xd4a70 bytes (83%) free.\r\n"
+  - delay: 25
+    content: "[100%] Built target app_check_size\r\n"
+  - delay: 34
+    content: "[100%] Built target app\r\n"
+  - delay: 35
+    content: "\e[0mNote: python;;/home/ahsanu/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 will search for a serial port. To specify a port, set the ESPPORT environment variable.\e[0m\r\n\e[0mNote: python;;/home/ahsanu/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 will attempt to set baud rate automatically. To specify a baud rate, set the ESPBAUD environment variable.\e[0m\r\n"
+  - delay: 72
+    content: "/usr/bin/python: No module named esptool\r\n"
+  - delay: 15
+    content: "\e[31mCMake Error at run_serial_tool.cmake:66 (message):\r\n  \r\n  python;;/home/ahsanu/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32\r\n  failed.\r\n\r\n\r\n\e[0m\r\nmake[3]: *** [CMakeFiles/flash.dir/build.make:70: CMakeFiles/flash] Error 1\r\nmake[2]: *** [CMakeFiles/Makefile2:1961: CMakeFiles/flash.dir/all] Error 2\r\nmake[1]: *** [CMakeFiles/Makefile2:1968: CMakeFiles/flash.dir/rule] Error 2\r\nmake: *** [Makefile:299: flash] Error 2\r\nmake: Leaving directory '/home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/build'\r\n\e]0;ahsanu@Ah:~/project/2024/hardware/solder-reflow/firmware/v2\a\e[?2004h[ahsanu@Ah v2]$ "
+  - delay: 4081
+    content: "\e[?2004l\r\r\nlogout\r\n"
