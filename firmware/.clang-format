@@ -1,9 +1,0 @@
-BasedOnStyle: Google 
-BinaryOperatorStyle: NonAssignment
-
-AlignConsecutiveAssignments: AcrossEmptyLines
-
-AlignConsecutiveAssignments:
-  Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: false
