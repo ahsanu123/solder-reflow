@@ -65,6 +65,7 @@ Designed With [KICAD](https://www.kicad.org)
 - Order _BOM_ and PCB
 - PCB and BOM Arrive 12 july 2024 about 16:00
 - Start to soldering 13 july 2024 about 06:00 (**weekend**)
+- make adc class to simplify adc initialization 23 july 2024 at 21:21 
 
 <details>
 <summary>Several Notes</summary>
