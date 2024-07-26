@@ -99,6 +99,8 @@ public:
     return retval;
   }
 
+  // TODO: make function to get raw value based on channel
+
   uint32_t GetRawValue(int channelNum) override {
     /*if (channelNum > this->channelNum) {*/
     /*  return 0;*/

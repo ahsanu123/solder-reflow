@@ -1,12 +1,27 @@
 #include "device/ADCDevice.h"
+#include "driver/gpio.h"
 #include "esp_adc/adc_continuous.h"
 #include "esp_log.h"
+#include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
+#include "hal/gpio_types.h"
 #include "sdkconfig.h"
+#include "soc/gpio_num.h"
 #include <stdio.h>
 #include <string.h>
+
+#define INPUT1 GPIO_NUM_27
+#define INPUT2 GPIO_NUM_26
+#define INPUT3 GPIO_NUM_25
+#define INPUT4 GPIO_NUM_22
+#define OUTPUT1 GPIO_NUM_4
+#define OUTPUT2 GPIO_NUM_21
+
+#define GPIO_INPUT_SELECTOR                                                    \
+  ((1ULL << INPUT1) | (1ULL << INPUT2) | (1ULL << INPUT3) | (1ULL << INPUT4))
+#define GPIO_OUTPUT_SELECTOR ((1ULL << OUTPUT1) | (1ULL << OUTPUT2))
 
 #define EXAMPLE_ADC_UNIT ADC_UNIT_1
 #define _EXAMPLE_ADC_UNIT_STR(unit) #unit
@@ -87,12 +102,46 @@ extern "C" {
 
 void app_main(void) {
 
-  auto adcDev = new ADCDevice();
-  adcDev->Init();
-  adcDev->Begin();
+  /*auto adcDev = new ADCDevice();*/
+  /*adcDev->Init();*/
+  /*adcDev->Begin();*/
+
+  gpio_config_t ioConfig = {};
+
+  ioConfig.mode = GPIO_MODE_INPUT;
+  ioConfig.intr_type = GPIO_INTR_DISABLE;
+  ioConfig.pull_up_en = GPIO_PULLUP_ENABLE;
+  ioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
+  ioConfig.pin_bit_mask = GPIO_INPUT_SELECTOR;
+  gpio_config(&ioConfig);
+
+  ioConfig.mode = GPIO_MODE_OUTPUT;
+  ioConfig.pull_up_en = GPIO_PULLUP_DISABLE;
+  ioConfig.pin_bit_mask = GPIO_OUTPUT_SELECTOR;
+  gpio_config(&ioConfig);
 
   while (1) {
-    adcDev->GetRawValue(0);
+    if (!gpio_get_level(INPUT1)) {
+      ESP_LOGI("INPUT", "Input 1 Pressed");
+      gpio_set_level(OUTPUT1, 0);
+    }
+
+    if (!gpio_get_level(INPUT2)) {
+      ESP_LOGI("INPUT", "Input 2 Pressed");
+      gpio_set_level(OUTPUT2, 0);
+    }
+
+    if (!gpio_get_level(INPUT3)) {
+      ESP_LOGI("INPUT", "Input 3 Pressed");
+      gpio_set_level(OUTPUT1, 1);
+    }
+
+    if (!gpio_get_level(INPUT4)) {
+      ESP_LOGI("INPUT", "Input 4 Pressed");
+      gpio_set_level(OUTPUT2, 1);
+    }
+
+    vTaskDelay(10);
   }
 }
 
