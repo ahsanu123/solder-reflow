@@ -1,5 +1,5 @@
 build/
 esp-venv/
 .cache/
-lvgl/
+lvgl/*
 bin/

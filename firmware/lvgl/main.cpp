@@ -1,20 +1,32 @@
+
+#ifdef __cplusplus
+extern "C" {
+#endif // DEBUG
+
 #include "lvgl/lvgl.h"
 #include "lvgl/demos/lv_demos.h"
 #include <anim/lv_example_anim.h>
+#include <examples/get_started/lv_example_get_started.h>
+#include <examples/layouts/flex/lv_example_flex.h>
+#include <examples/widgets/lv_example_widgets.h>
 #include <get_started/lv_example_get_started.h>
+#include <src/core/lv_obj.h>
+#include <src/core/lv_obj_pos.h>
+#include <src/core/lv_obj_style.h>
 #include <src/display/lv_display.h>
 #include <src/lv_api_map_v8.h>
+#include <src/misc/lv_area.h>
+#include <src/misc/lv_color.h>
 #include <src/misc/lv_event.h>
+#include <src/misc/lv_palette.h>
+#include <src/misc/lv_style_gen.h>
 #include <src/widgets/button/lv_button.h>
+#include <src/widgets/label/lv_label.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif // DEBUG
 
 static const char * getenv_default(const char * name, const char * dflt)
 {
@@ -97,12 +109,47 @@ void simpleButtonWithClickEvent()
 {
     auto button = lv_button_create(lv_screen_active());
     lv_obj_set_pos(button, 10, 10);
-    lv_obj_set_size(button, 120, 50);
+    lv_obj_set_size(button, 80, 20);
     lv_obj_add_event_cb(button, buttonCallbak, LV_EVENT_ALL, NULL);
+    lv_obj_center(button);
 
     lv_obj_t * label = lv_label_create(button);
     lv_label_set_text(label, "Button"); /*Set the labels text*/
     lv_obj_center(label);
+
+    auto welcomeLabel = lv_label_create(lv_screen_active());
+    lv_label_set_text(welcomeLabel, "SORE V2");
+    lv_obj_align_to(welcomeLabel, button, LV_ALIGN_TOP_RIGHT, 0, -30);
+}
+
+void soreLayout()
+{
+    lv_style_t sidePanelStyle;
+    lv_style_init(&sidePanelStyle);
+    lv_style_set_shadow_color(&sidePanelStyle, lv_palette_main(LV_PALETTE_BLUE));
+    lv_style_set_bg_color(&sidePanelStyle, lv_palette_main(LV_PALETTE_RED));
+
+    lv_obj_t * sidePanel = lv_obj_create(lv_screen_active());
+    lv_obj_add_style(sidePanel, &sidePanelStyle, 0);
+    lv_obj_align(sidePanel, LV_ALIGN_TOP_LEFT, 0, 0);
+    /*lv_obj_set_size(sidePanel, 100, 100);*/
+
+    /*lv_obj_t * obj1;*/
+    /*obj1 = lv_obj_create(lv_screen_active());*/
+    /*lv_obj_set_size(obj1, 100, 50);*/
+    /*lv_obj_align(obj1, LV_ALIGN_CENTER, -60, -30);*/
+    /**/
+
+    lv_style_t style_shadowwww;
+    lv_style_init(&style_shadowwww);
+    lv_style_set_shadow_width(&style_shadowwww, 10);
+    lv_style_set_shadow_spread(&style_shadowwww, 5);
+    lv_style_set_shadow_color(&style_shadowwww, lv_palette_main(LV_PALETTE_BLUE));
+
+    lv_obj_t * obj2;
+    obj2 = lv_obj_create(lv_screen_active());
+    lv_obj_add_style(obj2, &style_shadowwww, 0);
+    lv_obj_align(obj2, LV_ALIGN_CENTER, 60, 30);
 }
 
 int main(void)
@@ -113,7 +160,8 @@ int main(void)
     hal_init(480, 320);
 
     /*Create a Demo*/
-    simpleButtonWithClickEvent();
+    /*simpleButtonWithClickEvent();*/
+    soreLayout();
     /*Handle LVGL tasks*/
     while(1) {
         lv_timer_handler();
