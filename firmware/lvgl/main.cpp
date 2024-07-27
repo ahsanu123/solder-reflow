@@ -2,12 +2,19 @@
 #include "lvgl/demos/lv_demos.h"
 #include <anim/lv_example_anim.h>
 #include <get_started/lv_example_get_started.h>
+#include <src/display/lv_display.h>
 #include <src/lv_api_map_v8.h>
+#include <src/misc/lv_event.h>
+#include <src/widgets/button/lv_button.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif // DEBUG
 
 static const char * getenv_default(const char * name, const char * dflt)
 {
@@ -53,11 +60,13 @@ static lv_display_t * hal_init(int32_t w, int32_t h)
     lv_indev_set_display(mouse, disp);
     lv_display_set_default(disp);
 
-    LV_IMAGE_DECLARE(mouse_cursor_icon); /*Declare the image file.*/
-    lv_obj_t * cursor_obj;
-    cursor_obj = lv_image_create(lv_screen_active()); /*Create an image object for the cursor */
-    lv_image_set_src(cursor_obj, &mouse_cursor_icon); /*Set the image source*/
-    lv_indev_set_cursor(mouse, cursor_obj);           /*Connect the image  object to the driver*/
+    // add this to enable mouse icon inlay
+
+    // LV_IMAGE_DECLARE(mouse_cursor_icon); /*Declare the image file.*/
+    // lv_obj_t * cursor_obj;
+    // cursor_obj = lv_image_create(lv_screen_active()); /*Create an image object for the cursor */
+    // lv_image_set_src(cursor_obj, &mouse_cursor_icon); /*Set the image source*/
+    // lv_indev_set_cursor(mouse, cursor_obj);           /*Connect the image  object to the driver*/
 
     lv_indev_t * mousewheel = lv_sdl_mousewheel_create();
     lv_indev_set_display(mousewheel, disp);
@@ -69,15 +78,42 @@ static lv_display_t * hal_init(int32_t w, int32_t h)
     return disp;
 }
 
+void buttonCallbak(lv_event_t * e)
+{
+
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t * btn       = (lv_obj_t *)lv_event_get_target(e);
+    if(code == LV_EVENT_CLICKED) {
+        static uint8_t cnt = 0;
+        cnt++;
+
+        /*Get the first child of the button which is the label and change its text*/
+        lv_obj_t * label = lv_obj_get_child(btn, 0);
+        lv_label_set_text_fmt(label, "Button: %d", cnt);
+    }
+}
+
+void simpleButtonWithClickEvent()
+{
+    auto button = lv_button_create(lv_screen_active());
+    lv_obj_set_pos(button, 10, 10);
+    lv_obj_set_size(button, 120, 50);
+    lv_obj_add_event_cb(button, buttonCallbak, LV_EVENT_ALL, NULL);
+
+    lv_obj_t * label = lv_label_create(button);
+    lv_label_set_text(label, "Button"); /*Set the labels text*/
+    lv_obj_center(label);
+}
+
 int main(void)
 {
     lv_init();
 
-    /*Linux display device init*/
+    /*enable sdl2 and start required event driver*/
     hal_init(480, 320);
 
     /*Create a Demo*/
-    lv_example_anim_1();
+    simpleButtonWithClickEvent();
     /*Handle LVGL tasks*/
     while(1) {
         lv_timer_handler();
@@ -86,3 +122,7 @@ int main(void)
 
     return 0;
 }
+
+#ifdef __cplusplus
+}
+#endif

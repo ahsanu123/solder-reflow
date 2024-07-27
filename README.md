@@ -67,6 +67,7 @@ Designed With [KICAD](https://www.kicad.org)
 - Start to soldering 13 july 2024 about 06:00 (**weekend**)
 - make adc class to simplify adc initialization 23 july 2024 at 21:21
 - Check Out GPIO (Worked!!😃) 26 july 2024 at 22:24
+- Try to use JLink for jtag debugging, but fail :( , 27 july 2024 at 17:30
 
 <details>
 <summary>Several Notes</summary>
