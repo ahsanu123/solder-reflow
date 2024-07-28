@@ -67,7 +67,7 @@ GND -> GND
 ```
 2. start openocd-esp32 (use sudo if needed) `sudo openocd -f interface/jlink.cfg -c "adapter speed 500" -f target/esp32.cfg`
 3. next start your esp32 gdb  `xtensa-esp32-elf-gdb path/to/your/name.elf`
-4. inside gdb cli
+4. inside gdb cli [see this why connecting twice](https://esp32.com/viewtopic.php?t=9719#p40510)
 ```shell
 target remote localhost:3333 
 target remote localhost:3333 // dont know esp32 connected after try to connecting twice (doesn't need do twice if already connected
@@ -128,7 +128,8 @@ Info : Listening on port 3333 for gdb connections
 - Start to soldering 13 july 2024 about 06:00 (**weekend**)
 - make adc class to simplify adc initialization 23 july 2024 at 21:21
 - Check Out GPIO (Worked!!😃) 26 july 2024 at 22:24
-- Try to use JLink for jtag debugging, but fail :( , 27 july 2024 at 17:30
+- Try to use JLink for jtag debugging, but fail 😞 , 27 july 2024 at 17:30
+- Try again to use JLink for jtag debugging, Worked!! 😃 , 28 july 2024 at 11:36
 
 <details>
 <summary>Several Notes</summary>
