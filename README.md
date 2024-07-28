@@ -46,8 +46,69 @@ Designed With [KICAD](https://www.kicad.org)
 > - 🥓 10 Pin JTAG Connector
 > - 🧢 0.91' OLED or 1.3' TFT
 
-## 🌱 V2 Project Progress
+## 🐞 Debugging 
+there is many way to debug ESP32 use JTAG, refer to [documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/jtag-debugging/index.html). 
+at this time i only got JLink V8(2014),
 
+🧰 Requirements 
+> xtensa-esp32-elf toolchain
+> openocd-esp32 (fork of official openocd)
+> JLink
+
+🪜 Step To Debug 
+1. connect your board with jlink like this [ref](https://gojimmypi.github.io/ESP32-JTAG-GDB-Debugging/) (make sure your JLink and esp32 power up
+```txt
+TDI -> GPIO12
+TCK -> GPIO13
+TMS -> GPIO14
+TDO -> GPIO15
+TRST -> EN / RST (Reset)
+GND -> GND
+```
+2. start openocd-esp32 (use sudo if needed) `sudo openocd -f interface/jlink.cfg -c "adapter speed 500" -f target/esp32.cfg`
+3. next start your esp32 gdb  `xtensa-esp32-elf-gdb path/to/your/name.elf`
+4. inside gdb cli
+```shell
+target remote localhost:3333 
+target remote localhost:3333 // dont know esp32 connected after try to connecting twice (doesn't need do twice if already connected
+//🐞 Enjoy debug
+```
+
+5. Done ✔️
+---
+
+
+
+🍾 **example gdb remote connection success**
+```shell
+(gdb) target remote localhost:3333
+Remote debugging using localhost:3333
+0x400845e6 in esp_cpu_wait_for_intr () at /home/ahsanu/esp/esp-idf/components/esp_hw_support/cpu.c:145 145}
+```
+🍾 **example openocd connection success**
+```shell
+$ sudo openocd -f interface/jlink.cfg -c "adapter speed 500" -f target/esp32.cfg
+Open On-Chip Debugger v0.12.0-esp32-20240318 (2024-03-18-18:25)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+adapter speed: 500 kHz
+Info : auto-selecting first available session transport "jtag". To override use 'transport select <transport>'.
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : J-Link ARM V8 compiled Nov 28 2014 13:44:46
+Info : Hardware version: 8.00
+Info : VTarget = 3.371 V
+Info : clock speed 500 kHz
+Info : JTAG tap: esp32.cpu0 tap/device found: 0x120034e5 (mfg: 0x272 (Tensilica), part: 0x2003, ver: 0x1)
+Info : JTAG tap: esp32.cpu1 tap/device found: 0x120034e5 (mfg: 0x272 (Tensilica), part: 0x2003, ver: 0x1)
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu1] Examination succeed
+Info : starting gdb server for esp32.cpu0 on 3333
+Info : Listening on port 3333 for gdb connections
+```
+
+## 🌱 V2 Project Progress
 
 <details>
  <summary>
