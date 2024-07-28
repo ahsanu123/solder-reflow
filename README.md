@@ -76,7 +76,12 @@ target remote localhost:3333 // dont know esp32 connected after try to connectin
 5. Done ✔️
 ---
 
-
+🗒️ **svd explorer**  
+you can use xmlstartlet `xml` to see what inside svd, ex(this command will list all property inside svd):  
+```shell
+xml el /path/to/your/name.svd 
+```
+_svd file is xml file_
 
 🍾 **example gdb remote connection success**
 ```shell
