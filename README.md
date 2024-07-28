@@ -50,9 +50,9 @@ there is many way to debug ESP32 use JTAG, refer to [documentation](https://docs
 at this time i only got JLink V8(2014),
 
 🧰 Requirements 
-> xtensa-esp32-elf toolchain
-> openocd-esp32 (fork of official openocd)
-> JLink
+> xtensa-esp32-elf toolchain  
+> openocd-esp32 (fork of official openocd)  
+> JLink  
 
 🪜 Step To Debug 
 1. run `get_idf` to start esp idf environtment (if openocd cant connect to esp32, try to serial monitor first before connecting with openocd, `idf.py -p /dev/ttyUSB0 monitor`) 
