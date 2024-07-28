@@ -70,11 +70,20 @@ GND -> GND
 4. inside gdb cli [see this why connecting twice](https://esp32.com/viewtopic.php?t=9719#p40510)
 ```shell
 target remote localhost:3333 
-target remote localhost:3333 // dont know esp32 connected after try to connecting twice (doesn't need do twice if already connected
-//🐞 Enjoy debug
+target remote localhost:3333 // dont know esp32 connected after try to connecting twice (doesn't need do twice if already connected 
 ```
 
-5. Done ✔️
+5. **anyway** esp-idf (idf.py) got built in to start [gdbgui](gdbgui.com), just run `idf.py gdbgui`, idf will open `localhost:5000` (success with installed gdbgui version 0.15.2.0)
+
+```shell
+$ idf.py gdbgui
+Executing action: gdbgui
+Running:  ['gdbgui', '-g', 'xtensa-esp32-elf-gdb -x=/home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/build/gdbinit/gdbinit']
+gdbgui started as a background task 363884
+Executing action: post_debug
+```
+ 
+6. Enjoy debugging 🐞 😙
 ---
 
 🗒️ **svd explorer**  
