@@ -55,7 +55,8 @@ at this time i only got JLink V8(2014),
 > JLink
 
 🪜 Step To Debug 
-1. connect your board with jlink like this [ref](https://gojimmypi.github.io/ESP32-JTAG-GDB-Debugging/) (make sure your JLink and esp32 power up
+1. run `get_idf` to start esp idf environtment
+2. connect your board with jlink like this [ref](https://gojimmypi.github.io/ESP32-JTAG-GDB-Debugging/) (make sure your JLink and esp32 power up
 ```txt
 TDI -> GPIO12
 TCK -> GPIO13
