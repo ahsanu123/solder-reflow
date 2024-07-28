@@ -2781,8 +2781,16 @@ set python print-stack full
 
 python Dashboard.start()
 
-dashboard svd load ./STM32F407.svd
-dashboard svd add GPIOA IDR /_t
+#reference : https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/jtag-debugging/using-debugger.html#command-line
+target remote :3333
+target remote :3333
+set remote hardware-watchpoint-limit 2
+mon reset halt
+maintenance flush register-cache
+thb app_main
+
+dashboard svd load ./svd/svd/esp32.svd
+dashboard svd add GPIO BT_SELECT /_t
 
 # File variables ---------------------------------------------------------------
 
