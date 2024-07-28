@@ -1,4 +1,5 @@
 
+#include "component/mainWindow.h"
 #ifdef __cplusplus
 extern "C" {
 #endif // DEBUG
@@ -122,36 +123,6 @@ void simpleButtonWithClickEvent()
     lv_obj_align_to(welcomeLabel, button, LV_ALIGN_TOP_RIGHT, 0, -30);
 }
 
-void soreLayout()
-{
-    lv_style_t sidePanelStyle;
-    lv_style_init(&sidePanelStyle);
-    lv_style_set_shadow_color(&sidePanelStyle, lv_palette_main(LV_PALETTE_BLUE));
-    lv_style_set_bg_color(&sidePanelStyle, lv_palette_main(LV_PALETTE_RED));
-
-    lv_obj_t * sidePanel = lv_obj_create(lv_screen_active());
-    lv_obj_add_style(sidePanel, &sidePanelStyle, 0);
-    lv_obj_align(sidePanel, LV_ALIGN_TOP_LEFT, 0, 0);
-    /*lv_obj_set_size(sidePanel, 100, 100);*/
-
-    /*lv_obj_t * obj1;*/
-    /*obj1 = lv_obj_create(lv_screen_active());*/
-    /*lv_obj_set_size(obj1, 100, 50);*/
-    /*lv_obj_align(obj1, LV_ALIGN_CENTER, -60, -30);*/
-    /**/
-
-    lv_style_t style_shadowwww;
-    lv_style_init(&style_shadowwww);
-    lv_style_set_shadow_width(&style_shadowwww, 10);
-    lv_style_set_shadow_spread(&style_shadowwww, 5);
-    lv_style_set_shadow_color(&style_shadowwww, lv_palette_main(LV_PALETTE_BLUE));
-
-    lv_obj_t * obj2;
-    obj2 = lv_obj_create(lv_screen_active());
-    lv_obj_add_style(obj2, &style_shadowwww, 0);
-    lv_obj_align(obj2, LV_ALIGN_CENTER, 60, 30);
-}
-
 int main(void)
 {
     lv_init();
@@ -160,8 +131,8 @@ int main(void)
     hal_init(480, 320);
 
     /*Create a Demo*/
+    initSoreMainWindow();
     /*simpleButtonWithClickEvent();*/
-    soreLayout();
     /*Handle LVGL tasks*/
     while(1) {
         lv_timer_handler();

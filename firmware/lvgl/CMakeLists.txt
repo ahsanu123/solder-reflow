@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(lvgl)
 
-set(CMAKE_C_STANDARD 99)#C99 # lvgl officially support C99 and above
-set(CMAKE_CXX_STANDARD 17)#C17
+set(CMAKE_C_STANDARD 99) #C99 # lvgl officially support C99 and above
+set(CMAKE_CXX_STANDARD 17) #C17
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -10,7 +10,15 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(lvgl)
 target_include_directories(lvgl PUBLIC ${PROJECT_SOURCE_DIR})
 
-add_executable(main main.cpp mouse_cursor_icon.c)
+add_executable(
+  main
+  main.cpp
+  mouse_cursor_icon.c
+
+  ./component/mainWindow.c
+  ./component/mainWindow.h
+
+)
 
 include(${CMAKE_CURRENT_LIST_DIR}/lvgl/tests/FindLibDRM.cmake)
 include_directories(${Libdrm_INCLUDE_DIRS})
