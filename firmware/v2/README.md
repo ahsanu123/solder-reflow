@@ -13,6 +13,10 @@ SORE - Solder Reflow Firmware Version 2
 - to open menu config run `idf.py menuconfig`
 - 🧴 **another option** to build project is use command `idf.py build`, this command will build project use ninja, also you can _flash_ with `idf.py -p PORT flash` PORT is usb name
 
+## Resource 
+
+- [FreeRtos Coding Standard, Testing and Style Guide](https://www.freertos.org/Documentation/02-Kernel/06-Coding-guidelines/02-FreeRTOS-Coding-Standard-and-Style-Guide#NamingConventions)
+
 ## TODO 
 
 - use cxx wrapper [esp-idf-cxx](https://github.com/espressif/esp-idf-cxx)
