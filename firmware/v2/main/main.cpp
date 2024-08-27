@@ -6,6 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
+#include "fsm/SimpleFSM.h"
 #include "hal/gpio_types.h"
 #include "sdkconfig.h"
 #include "soc/gpio_num.h"
@@ -100,11 +101,45 @@ static void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num,
 extern "C" {
 #endif
 
+SimpleFSM fsm;
+
+/////////////////////////////////////////////////////////////////
+
+void light_on() { ESP_LOGI("FSM", "Entering State: ON"); }
+
+void light_off() { ESP_LOGI("FSM", "Entering State: OFF"); }
+
+void exit_light_on() { ESP_LOGI("FSM", "\nLeaving State: ON"); }
+
+void exit_light_off() { ESP_LOGI("FSM", "\nLeaving State: OFF"); }
+
+void on_to_off() { ESP_LOGI("FSM", "ON -> OFF"); }
+
+void off_to_on() { ESP_LOGI("FSM", "OFF -> ON"); }
+
+void ongoing() { ESP_LOGI("FSM", "."); }
+
+/////////////////////////////////////////////////////////////////
+
+State s[] = {State("on", light_on, ongoing, exit_light_on),
+             State("off", light_off, ongoing, exit_light_off)};
+
+enum triggers { light_switch_flipped = 1 };
+
+Transition transitions[] = {
+    Transition(&s[0], &s[1], light_switch_flipped, on_to_off),
+    Transition(&s[1], &s[0], light_switch_flipped, off_to_on)};
+
+int num_transitions = sizeof(transitions) / sizeof(Transition);
+
 void app_main(void) {
 
   /*auto adcDev = new ADCDevice();*/
   /*adcDev->Init();*/
   /*adcDev->Begin();*/
+
+  fsm.add(transitions, num_transitions);
+  fsm.setInitialState(&s[1]);
 
   gpio_config_t ioConfig = {};
 
@@ -121,6 +156,12 @@ void app_main(void) {
   gpio_config(&ioConfig);
 
   while (1) {
+    fsm.run();
+
+    if (fsm.lastTransitioned() > 4000) {
+      fsm.trigger(light_switch_flipped);
+    }
+
     if (!gpio_get_level(INPUT1)) {
       ESP_LOGI("INPUT", "Input 1 Pressed");
       gpio_set_level(OUTPUT1, 0);

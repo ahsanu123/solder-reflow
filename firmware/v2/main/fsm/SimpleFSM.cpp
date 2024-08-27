@@ -1,4 +1,3 @@
-/////////////////////////////////////////////////////////////////
 #include "SimpleFSM.h"
 
 #include "State.h"
@@ -8,48 +7,23 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
-/////////////////////////////////////////////////////////////////
+#include <string>
 
 SimpleFSM::SimpleFSM() {}
-
-/////////////////////////////////////////////////////////////////
-/*
- * Constructor.
- */
 
 SimpleFSM::SimpleFSM(State *initial_state) {
   SimpleFSM();
   setInitialState(initial_state);
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Destructor.
- */
-
 SimpleFSM::~SimpleFSM() {
   transitions = NULL;
   timed = NULL;
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Get the number of transitions.
- */
-
 int SimpleFSM::getTransitionCount() const { return num_standard; }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Get the number of timed transitions.
- */
-
 int SimpleFSM::getTimedTransitionCount() const { return num_timed; }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Reset the FSM to its initial state.
- */
 
 void SimpleFSM::reset() {
   is_initialized = false;
@@ -65,17 +39,7 @@ void SimpleFSM::reset() {
   }
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Set the initial state.
- */
-
 void SimpleFSM::setInitialState(State *state) { inital_state = state; }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Trigger an event.
- */
 
 bool SimpleFSM::trigger(int event_id) {
   if (!is_initialized)
@@ -90,43 +54,15 @@ bool SimpleFSM::trigger(int event_id) {
   return false;
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Get the previous state.
- */
-
 State *SimpleFSM::getPreviousState() const { return prev_state; }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Get the current state.
- */
 
 State *SimpleFSM::getState() const { return current_state; }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Check if the FSM is in a given state.
- */
-
 bool SimpleFSM::isInState(State *t) const { return t == current_state; }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Sets the transition handler.
- */
 
 void SimpleFSM::setTransitionHandler(CallbackFunction f) {
   on_transition_cb = f;
 }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Add transitions to the FSM.
- *
- * @param t[] An array of transitions.
- * @param size The size of the array.
- */
 
 void SimpleFSM::add(Transition newTransitions[], int size) {
   // Count the number of unique transitions
@@ -160,14 +96,6 @@ void SimpleFSM::add(Transition newTransitions[], int size) {
   }
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Add timed transitions to the FSM.
- *
- * @param t[] An array of timed transitions.
- * @param size The size of the array.
- */
-
 void SimpleFSM::add(TimedTransition newTransitions[], int size) {
   // Count the number of unique transitions
   int uniqueCount = 0;
@@ -200,11 +128,6 @@ void SimpleFSM::add(TimedTransition newTransitions[], int size) {
   }
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Check if a timed transition is a duplicate.
- */
-
 bool SimpleFSM::_isDuplicate(const TimedTransition &transition,
                              const TimedTransition *transitionArray,
                              int arraySize) const {
@@ -217,11 +140,6 @@ bool SimpleFSM::_isDuplicate(const TimedTransition &transition,
   }
   return false;
 }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Check if a transition is a duplicate.
- */
 
 bool SimpleFSM::_isDuplicate(const Transition &transition,
                              const Transition *transitionArray,
@@ -236,35 +154,13 @@ bool SimpleFSM::_isDuplicate(const Transition &transition,
   return false;
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Set the finished handler.
- */
-
 void SimpleFSM::setFinishedHandler(CallbackFunction f) { finished_cb = f; }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Get the time since the last transition.
- */
 
 unsigned long SimpleFSM::lastTransitioned() const {
   return (last_transition == 0) ? 0 : (esp_timer_get_time() - last_transition);
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Check if the FSM is finished.
- */
-
 bool SimpleFSM::isFinished() const { return is_finished; }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Run the FSM.
- * interval: The interval in milliseconds.
- * tick_cb: A callback function that is called on every tick.
- */
 
 void SimpleFSM::run(int interval /* = 1000 */,
                     CallbackFunction tick_cb /* = NULL */) {
@@ -293,13 +189,9 @@ void SimpleFSM::run(int interval /* = 1000 */,
     tick_cb();
 }
 
-/////////////////////////////////////////////////////////////////
-
 bool SimpleFSM::_isTimeForRun(unsigned long now, int interval) {
   return now >= last_run + interval;
 }
-
-/////////////////////////////////////////////////////////////////
 
 void SimpleFSM::_handleTimedEvents(unsigned long now) {
   for (int i = 0; i < num_timed; i++) {
@@ -320,11 +212,6 @@ void SimpleFSM::_handleTimedEvents(unsigned long now) {
   }
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Initialize the FSM.
- */
-
 bool SimpleFSM::_initFSM() {
   if (is_initialized)
     return false;
@@ -333,11 +220,6 @@ bool SimpleFSM::_initFSM() {
     return false;
   return _changeToState(inital_state, esp_timer_get_time());
 }
-
-/////////////////////////////////////////////////////////////////
-/*
- * Change to a new state.
- */
 
 bool SimpleFSM::_changeToState(State *s, unsigned long now) {
   if (s == NULL)
@@ -358,17 +240,10 @@ bool SimpleFSM::_changeToState(State *s, unsigned long now) {
   return true;
 }
 
-/////////////////////////////////////////////////////////////////
-/*
- * Get the DOT definition of the FSM.
- */
-
 std::string SimpleFSM::getDotDefinition() {
   return "digraph G {\n" + _dot_header() + dot_definition + _dot_active_node() +
          _dot_inital_state() + "}\n";
 }
-
-/////////////////////////////////////////////////////////////////
 
 bool SimpleFSM::_transitionTo(AbstractTransition *transition) {
   // empty parameter?
@@ -387,15 +262,11 @@ bool SimpleFSM::_transitionTo(AbstractTransition *transition) {
   return _changeToState(transition->to, esp_timer_get_time());
 }
 
-/////////////////////////////////////////////////////////////////
-
 std::string SimpleFSM::_dot_transition(std::string from, std::string to,
                                        std::string label, std::string param) {
   return "\t\"" + from + "\" -> \"" + to + "\"" + " [label=\"" + label + " (" +
          param + ")\"];\n";
 }
-
-/////////////////////////////////////////////////////////////////
 
 std::string SimpleFSM::_dot_inital_state() {
   return inital_state
@@ -404,37 +275,30 @@ std::string SimpleFSM::_dot_inital_state() {
              : "";
 }
 
-/////////////////////////////////////////////////////////////////
-
 std::string SimpleFSM::_dot_active_node() {
   return current_state ? "\t\"" + current_state->getName() +
                              "\" [style=filled fontcolor=white];\n"
                        : "";
 }
 
-/////////////////////////////////////////////////////////////////
-
 std::string SimpleFSM::_dot_header() {
   return "\trankdir=LR; pad=0.5\n\tnode [shape=circle fixedsize=true "
          "width=1.5];\n";
 }
 
-/////////////////////////////////////////////////////////////////
-
+// clang-format off
 void SimpleFSM::_addDotTransition(Transition &t) {
-  dot_definition =
-      dot_definition + _dot_transition(t.from->getName(), t.to->getName(),
-                                       t.getName(),
-                                       "ID=" + std::string(t.event_id));
+  this->dot_definition = this->dot_definition + _dot_transition(
+      t.from->getName(), 
+      t.to->getName(), 
+      "dot",
+      "ID=" + std::to_string(t.event_id));
 }
-
-/////////////////////////////////////////////////////////////////
 
 void SimpleFSM::_addDotTransition(TimedTransition &t) {
-  dot_definition =
-      dot_definition + _dot_transition(t.from->getName(), t.to->getName(),
-                                       t.getName(),
-                                       std::string(t.getInterval()) + "ms");
+  this->dot_definition = this->dot_definition + _dot_transition(
+      t.from->getName(), 
+      t.to->getName(), 
+      "transition",
+      std::to_string(t.getInterval()));
 }
-
-/////////////////////////////////////////////////////////////////

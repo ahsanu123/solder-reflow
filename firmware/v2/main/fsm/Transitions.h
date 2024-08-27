@@ -26,7 +26,7 @@ public:
   // to make this class an interface
   virtual ~AbstractTransition(){};
   virtual int getID() const = 0;
-  std::string getName() const;
+  std::string getName();
 
   void setName(std::string name);
   void setOnRunHandler(CallbackFunction f);
