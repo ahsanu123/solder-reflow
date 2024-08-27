@@ -1,5 +1,4 @@
 #include "SimpleFSM.h"
-
 #include "State.h"
 #include "Transitions.h"
 #include "esp_log.h"
@@ -8,6 +7,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <string>
+
+unsigned long millis() { return esp_timer_get_time() / 1000; }
 
 SimpleFSM::SimpleFSM() {}
 
@@ -157,14 +158,14 @@ bool SimpleFSM::_isDuplicate(const Transition &transition,
 void SimpleFSM::setFinishedHandler(CallbackFunction f) { finished_cb = f; }
 
 unsigned long SimpleFSM::lastTransitioned() const {
-  return (last_transition == 0) ? 0 : (esp_timer_get_time() - last_transition);
+  return (last_transition == 0) ? 0 : (millis() - last_transition);
 }
 
 bool SimpleFSM::isFinished() const { return is_finished; }
 
 void SimpleFSM::run(int interval /* = 1000 */,
                     CallbackFunction tick_cb /* = NULL */) {
-  unsigned long now = esp_timer_get_time();
+  unsigned long now = millis();
   // is the machine set up?
   if (!is_initialized)
     _initFSM();
@@ -218,7 +219,7 @@ bool SimpleFSM::_initFSM() {
   is_initialized = true;
   if (inital_state == NULL)
     return false;
-  return _changeToState(inital_state, esp_timer_get_time());
+  return _changeToState(inital_state, millis());
 }
 
 bool SimpleFSM::_changeToState(State *s, unsigned long now) {
@@ -259,7 +260,7 @@ bool SimpleFSM::_transitionTo(AbstractTransition *transition) {
     transition->on_run_cb();
   if (on_transition_cb != NULL)
     on_transition_cb();
-  return _changeToState(transition->to, esp_timer_get_time());
+  return _changeToState(transition->to, millis());
 }
 
 std::string SimpleFSM::_dot_transition(std::string from, std::string to,

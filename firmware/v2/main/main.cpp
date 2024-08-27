@@ -7,6 +7,7 @@
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 #include "fsm/SimpleFSM.h"
+#include "fsm/State.h"
 #include "hal/gpio_types.h"
 #include "sdkconfig.h"
 #include "soc/gpio_num.h"
@@ -119,10 +120,8 @@ void off_to_on() { ESP_LOGI("FSM", "OFF -> ON"); }
 
 void ongoing() { ESP_LOGI("FSM", "."); }
 
-/////////////////////////////////////////////////////////////////
-
-State s[] = {State("on", light_on, ongoing, exit_light_on),
-             State("off", light_off, ongoing, exit_light_off)};
+State s[] = {State("on", light_on, ongoing, exit_light_on, false),
+             State("off", light_off, ongoing, exit_light_off, false)};
 
 enum triggers { light_switch_flipped = 1 };
 
