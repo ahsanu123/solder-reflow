@@ -76,9 +76,41 @@ ButtonStruct arrayButton[NUM_OF_BUTTONS] = {
 };
 
 std::array<ButtonStruct, NUM_OF_BUTTONS> defaultButtonLists = {
-    arrayButton[0], arrayButton[1], arrayButton[2],
-    arrayButton[3], arrayButton[4],
-};
+    ButtonStruct{
+        .currentState = HIGH,
+        .lastState = HIGH,
+        .pin = gpio_num_t::GPIO_NUM_27,
+        .onPressOut = NULL,
+        .onPressIn = NULL,
+    },
+    ButtonStruct{
+        .currentState = HIGH,
+        .lastState = HIGH,
+        .pin = gpio_num_t::GPIO_NUM_26,
+        .onPressOut = NULL,
+        .onPressIn = NULL,
+    },
+    ButtonStruct{
+        .currentState = HIGH,
+        .lastState = HIGH,
+        .pin = gpio_num_t::GPIO_NUM_25,
+        .onPressOut = NULL,
+        .onPressIn = NULL,
+    },
+    ButtonStruct{
+        .currentState = HIGH,
+        .lastState = HIGH,
+        .pin = gpio_num_t::GPIO_NUM_22,
+        .onPressOut = NULL,
+        .onPressIn = NULL,
+    },
+    ButtonStruct{
+        .currentState = HIGH,
+        .lastState = HIGH,
+        .pin = gpio_num_t::GPIO_NUM_2,
+        .onPressOut = NULL,
+        .onPressIn = NULL,
+    }};
 
 void defaultInitGpioFunction(std::array<gpio_num_t, NUM_OF_BUTTONS> pins) {
   gpio_config_t ioConfig = {};
