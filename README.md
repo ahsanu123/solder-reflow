@@ -144,6 +144,7 @@ Info : Listening on port 3333 for gdb connections
 - Check Out GPIO (Worked!!😃) 26 july 2024 at 22:24
 - Try to use JLink for jtag debugging, but fail 😞 , 27 july 2024 at 17:30
 - Try again to use JLink for jtag debugging, Worked!! 😃 , 28 july 2024 at 11:36
+- Add `Button` class to add Input with callback, 29 Agustus 2024 at 19:42
 
 <details>
 <summary>Several Notes</summary>
