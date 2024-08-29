@@ -19,97 +19,67 @@
 #define OUTPUT2 GPIO_NUM_21
 
 enum eRegisCallbackStatus { Fail = 0, Success = 1 };
+enum eDefaultIO {
+  INPUT_LEFT = 0,
+  INPUT_DOWN = 1,
+  INPUT_UP = 2,
+  INPUT_RIGHT = 3,
+  INPUT_OK = 4,
+};
 
-typedef void (*Callback)();
+typedef void (*Callback)(bool state);
 typedef bool (*ReadPin)(gpio_num_t &pin);
 typedef void (*InitGpiosCallback)(std::array<gpio_num_t, NUM_OF_BUTTONS> pins);
 
 typedef struct {
   bool currentState;
   bool lastState;
+  bool state;
   gpio_num_t pin;
   Callback onPressIn;
   Callback onPressOut;
 } ButtonStruct;
 
-ButtonStruct arrayButton[NUM_OF_BUTTONS] = {
-    [0] =
-        {
-            .currentState = HIGH,
-            .lastState = HIGH,
-            .pin = gpio_num_t::GPIO_NUM_27,
-            .onPressOut = NULL,
-            .onPressIn = NULL,
-        },
-    [1] =
-        {
-            .currentState = HIGH,
-            .lastState = HIGH,
-            .pin = gpio_num_t::GPIO_NUM_26,
-            .onPressOut = NULL,
-            .onPressIn = NULL,
-        },
-    [2] =
-        {
-            .currentState = HIGH,
-            .lastState = HIGH,
-            .pin = gpio_num_t::GPIO_NUM_25,
-            .onPressOut = NULL,
-            .onPressIn = NULL,
-        },
-    [3] =
-        {
-            .currentState = HIGH,
-            .lastState = HIGH,
-            .pin = gpio_num_t::GPIO_NUM_22,
-            .onPressOut = NULL,
-            .onPressIn = NULL,
-        },
-    [4] =
-        {
-            .currentState = HIGH,
-            .lastState = HIGH,
-            .pin = gpio_num_t::GPIO_NUM_2,
-            .onPressOut = NULL,
-            .onPressIn = NULL,
-        },
-};
-
 std::array<ButtonStruct, NUM_OF_BUTTONS> defaultButtonLists = {
     ButtonStruct{
         .currentState = HIGH,
         .lastState = HIGH,
+        .state = HIGH,
         .pin = gpio_num_t::GPIO_NUM_27,
-        .onPressOut = NULL,
         .onPressIn = NULL,
+        .onPressOut = NULL,
     },
     ButtonStruct{
         .currentState = HIGH,
         .lastState = HIGH,
+        .state = HIGH,
         .pin = gpio_num_t::GPIO_NUM_26,
-        .onPressOut = NULL,
         .onPressIn = NULL,
+        .onPressOut = NULL,
     },
     ButtonStruct{
         .currentState = HIGH,
         .lastState = HIGH,
+        .state = HIGH,
         .pin = gpio_num_t::GPIO_NUM_25,
-        .onPressOut = NULL,
         .onPressIn = NULL,
+        .onPressOut = NULL,
     },
     ButtonStruct{
         .currentState = HIGH,
         .lastState = HIGH,
+        .state = HIGH,
         .pin = gpio_num_t::GPIO_NUM_22,
-        .onPressOut = NULL,
         .onPressIn = NULL,
+        .onPressOut = NULL,
     },
     ButtonStruct{
         .currentState = HIGH,
         .lastState = HIGH,
-        .pin = gpio_num_t::GPIO_NUM_2,
-        .onPressOut = NULL,
+        .state = HIGH,
+        .pin = gpio_num_t::GPIO_NUM_0,
         .onPressIn = NULL,
+        .onPressOut = NULL,
     }};
 
 void defaultInitGpioFunction(std::array<gpio_num_t, NUM_OF_BUTTONS> pins) {
@@ -146,6 +116,7 @@ public:
     for (auto &button : this->listButtons) {
       button.onPressIn = NULL;
       button.onPressOut = NULL;
+      button.state = HIGH;
       button.lastState = true;
       button.currentState = true;
     }
@@ -170,7 +141,8 @@ public:
 
       if (button.lastState == HIGH && button.currentState == LOW) {
         if (button.onPressIn != NULL) {
-          button.onPressIn();
+          button.onPressIn(button.state);
+          button.state = !button.state;
         }
 
         button.lastState = button.currentState;
@@ -178,7 +150,8 @@ public:
 
       if (button.lastState == LOW && button.currentState == HIGH) {
         if (button.onPressOut != NULL) {
-          button.onPressOut();
+          button.onPressOut(button.state);
+          button.state = !button.state;
         }
 
         button.lastState = button.currentState;

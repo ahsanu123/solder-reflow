@@ -5,6 +5,7 @@ idf_component_register(
 
   ./device/ADCDevice.h
   ./device/Device.h
+  ./device/GPIODevice.h
 
   ./fsm/Transitions.h
   ./fsm/Transitions.cpp

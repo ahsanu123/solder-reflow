@@ -1,4 +1,5 @@
 #include "device/ADCDevice.h"
+#include "device/GPIODevice.h"
 #include "driver/gpio.h"
 #include "esp_adc/adc_continuous.h"
 #include "esp_log.h"
@@ -104,8 +105,6 @@ extern "C" {
 
 SimpleFSM fsm;
 
-/////////////////////////////////////////////////////////////////
-
 void light_on() { ESP_LOGI("FSM", "Entering State: ON"); }
 
 void light_off() { ESP_LOGI("FSM", "Entering State: OFF"); }
@@ -131,6 +130,14 @@ Transition transitions[] = {
 
 int num_transitions = sizeof(transitions) / sizeof(Transition);
 
+void toggleLedCb(bool state) {
+  ESP_LOGI("INPUT", "state: %d", state);
+  gpio_set_level(OUTPUT2, state);
+  gpio_set_level(OUTPUT1, !state);
+}
+
+Button *button = new Button();
+
 void app_main(void) {
 
   /*auto adcDev = new ADCDevice();*/
@@ -140,48 +147,27 @@ void app_main(void) {
   fsm.add(transitions, num_transitions);
   fsm.setInitialState(&s[1]);
 
+  button->Init();
+  button->SetOnPressInCallback(toggleLedCb, 4);
+
   gpio_config_t ioConfig = {};
 
-  ioConfig.mode = GPIO_MODE_INPUT;
-  ioConfig.intr_type = GPIO_INTR_DISABLE;
-  ioConfig.pull_up_en = GPIO_PULLUP_ENABLE;
-  ioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
-  ioConfig.pin_bit_mask = GPIO_INPUT_SELECTOR;
-  gpio_config(&ioConfig);
-
   ioConfig.mode = GPIO_MODE_OUTPUT;
+  ioConfig.intr_type = GPIO_INTR_DISABLE;
+  ioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
   ioConfig.pull_up_en = GPIO_PULLUP_DISABLE;
   ioConfig.pin_bit_mask = GPIO_OUTPUT_SELECTOR;
   gpio_config(&ioConfig);
 
   while (1) {
     fsm.run();
+    button->Scan();
 
     if (fsm.lastTransitioned() > 4000) {
       fsm.trigger(light_switch_flipped);
     }
 
-    if (!gpio_get_level(INPUT1)) {
-      ESP_LOGI("INPUT", "Input 1 Pressed");
-      gpio_set_level(OUTPUT1, 0);
-    }
-
-    if (!gpio_get_level(INPUT2)) {
-      ESP_LOGI("INPUT", "Input 2 Pressed");
-      gpio_set_level(OUTPUT2, 0);
-    }
-
-    if (!gpio_get_level(INPUT3)) {
-      ESP_LOGI("INPUT", "Input 3 Pressed");
-      gpio_set_level(OUTPUT1, 1);
-    }
-
-    if (!gpio_get_level(INPUT4)) {
-      ESP_LOGI("INPUT", "Input 4 Pressed");
-      gpio_set_level(OUTPUT2, 1);
-    }
-
-    vTaskDelay(10);
+    vTaskDelay(1);
   }
 }
 
