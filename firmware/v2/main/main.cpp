@@ -136,6 +136,8 @@ void toggleLedCb(bool state) {
   gpio_set_level(OUTPUT1, !state);
 }
 
+/*NewAdcDevice *adc = new NewAdcDevice();*/
+ADCDevice *oldAdc = new ADCDevice();
 Button *button = new Button();
 
 void app_main(void) {
@@ -147,8 +149,14 @@ void app_main(void) {
   fsm.add(transitions, num_transitions);
   fsm.setInitialState(&s[1]);
 
+  oldAdc->Init();
+  oldAdc->Begin();
+
+  /*adc->Init();*/
+  /*adc->showLog(true);*/
+
   button->Init();
-  button->SetOnPressInCallback(toggleLedCb, 4);
+  button->SetOnPressInCallback(toggleLedCb, 0);
 
   gpio_config_t ioConfig = {};
 
@@ -161,6 +169,9 @@ void app_main(void) {
 
   while (1) {
     fsm.run();
+
+    /*adc->Scan();*/
+    /*oldAdc->GetRawValue(1);*/
     button->Scan();
 
     if (fsm.lastTransitioned() > 4000) {
