@@ -103,7 +103,7 @@ static void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num,
 extern "C" {
 #endif
 
-SimpleFSM fsm;
+SimpleFSM finiteStateMachine;
 
 void light_on() { ESP_LOGI("FSM", "Entering State: ON"); }
 
@@ -146,8 +146,8 @@ void app_main(void) {
   /*adcDev->Init();*/
   /*adcDev->Begin();*/
 
-  fsm.add(transitions, num_transitions);
-  fsm.setInitialState(&s[1]);
+  finiteStateMachine.add(transitions, num_transitions);
+  finiteStateMachine.setInitialState(&s[1]);
 
   oldAdc->Init();
   oldAdc->Begin();
@@ -168,17 +168,17 @@ void app_main(void) {
   gpio_config(&ioConfig);
 
   while (1) {
-    fsm.run();
+    finiteStateMachine.run();
 
     /*adc->Scan();*/
-    /*oldAdc->GetRawValue(1);*/
-    button->Scan();
+    oldAdc->GetRawValue(1);
+    /*button->Scan();*/
 
-    if (fsm.lastTransitioned() > 4000) {
-      fsm.trigger(light_switch_flipped);
+    if (finiteStateMachine.lastTransitioned() > 4000) {
+      finiteStateMachine.trigger(light_switch_flipped);
     }
 
-    vTaskDelay(1);
+    vTaskDelay(1000);
   }
 }
 

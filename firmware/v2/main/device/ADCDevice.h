@@ -243,6 +243,12 @@ public:
         uint32_t chanNum = dataPointer->type1.channel;
         uint32_t rawData = dataPointer->type1.data;
 
+        ESP_LOGI("INFO", "outlen: %" PRIu32, outLen);
+        ESP_LOGI("INFO", "i: %i", i);
+        ESP_LOGI("INFO", "channel: %" PRIu32, chanNum);
+        ESP_LOGI("INFO", "SOC_ADC_DIGI_RESULT_BYTES: %i",
+                 SOC_ADC_DIGI_RESULT_BYTES);
+
         if (channelNum < SOC_ADC_CHANNEL_NUM(ADC_UNIT_1)) {
           ESP_LOGI("Info", "Unit: %s, Channel: %" PRIu32 ", Value: %" PRIx32,
                    unit, chanNum, rawData);
