@@ -53,3 +53,10 @@ can be used to unblock the task that will process the buffer after a complete me
 or after a break in transmission has been detected
 
 ---
+
+**8.2 Critical Sections and Suspending the Scheduler**
+Basic critical sections must be kept very short, otherwise they will adversely affect interrupt response times.
+Every call to taskENTER_CRITICAL() must be closely paired with a call to taskEXIT_CRITICAL(). For this
+reason, standard out (stdout, or the stream where a computer writes its output data) should not be protected
+using a critical section (as shown in Listing 8.5), because writing to the terminal can be a relatively long
+operation. The examples in this chapter explore alternative solutions
