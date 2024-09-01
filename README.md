@@ -145,7 +145,7 @@ Info : Listening on port 3333 for gdb connections
 - Try to use JLink for jtag debugging, but fail 😞 , 27 july 2024 at 17:30
 - Try again to use JLink for jtag debugging, Worked!! 😃 , 28 july 2024 at 11:36
 - Add `Button` class to add Input with callback, 29 Agustus 2024 at 19:42
-- ⚠️ turn out, TL074 (not TL074xH) need minimum 10v to operate 😞, fortunately there is LM324 (same package and single supply support), currently still in shipping, need to wait if it really work or not, 01 september 2024 at 18:05
+- ⚠️ turn out, TL074 (not TL074xH) need minimum 10v to operate and not single supply quad opamp 😞, fortunately there is LM324 (same package and single supply support), currently still in shipping, need to wait if it really work or not, 01 september 2024 at 18:05
 
 <details>
 <summary>Several Notes</summary>
