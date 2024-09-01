@@ -5,11 +5,14 @@
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
+#include "freertos/projdefs.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 #include "fsm/SimpleFSM.h"
 #include "fsm/State.h"
 #include "hal/gpio_types.h"
+#include "portmacro.h"
+#include "rtos/binarySemaphores.h"
 #include "sdkconfig.h"
 #include "soc/gpio_num.h"
 #include <stdio.h>
@@ -140,47 +143,46 @@ void toggleLedCb(bool state) {
 ADCDevice *oldAdc = new ADCDevice();
 Button *button = new Button();
 
-void app_main(void) {
+/*auto adcDev = new ADCDevice();*/
+/*adcDev->Init();*/
+/*adcDev->Begin();*/
 
-  /*auto adcDev = new ADCDevice();*/
-  /*adcDev->Init();*/
-  /*adcDev->Begin();*/
+/*finiteStateMachine.add(transitions, num_transitions);*/
+/*finiteStateMachine.setInitialState(&s[1]);*/
+/**/
+/*oldAdc->Init();*/
+/*oldAdc->Begin();*/
 
-  finiteStateMachine.add(transitions, num_transitions);
-  finiteStateMachine.setInitialState(&s[1]);
+/*adc->Init();*/
+/*adc->showLog(true);*/
 
-  oldAdc->Init();
-  oldAdc->Begin();
+/*button->Init();*/
+/*button->SetOnPressInCallback(toggleLedCb, 0);*/
+/**/
+/*gpio_config_t ioConfig = {};*/
+/**/
+/*ioConfig.mode = GPIO_MODE_OUTPUT;*/
+/*ioConfig.intr_type = GPIO_INTR_DISABLE;*/
+/*ioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;*/
+/*ioConfig.pull_up_en = GPIO_PULLUP_DISABLE;*/
+/*ioConfig.pin_bit_mask = GPIO_OUTPUT_SELECTOR;*/
+/*gpio_config(&ioConfig);*/
+/**/
+/*while (1) {*/
+/*  finiteStateMachine.run();*/
 
-  /*adc->Init();*/
-  /*adc->showLog(true);*/
+/*adc->Scan();*/
+/*oldAdc->GetRawValue(1);*/
+/*button->Scan();*/
 
-  button->Init();
-  button->SetOnPressInCallback(toggleLedCb, 0);
+/*  if (finiteStateMachine.lastTransitioned() > 4000) {*/
+/*    finiteStateMachine.trigger(light_switch_flipped);*/
+/*  }*/
+/**/
+/*  vTaskDelay(1000);*/
+/*}*/
 
-  gpio_config_t ioConfig = {};
-
-  ioConfig.mode = GPIO_MODE_OUTPUT;
-  ioConfig.intr_type = GPIO_INTR_DISABLE;
-  ioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
-  ioConfig.pull_up_en = GPIO_PULLUP_DISABLE;
-  ioConfig.pin_bit_mask = GPIO_OUTPUT_SELECTOR;
-  gpio_config(&ioConfig);
-
-  while (1) {
-    finiteStateMachine.run();
-
-    /*adc->Scan();*/
-    oldAdc->GetRawValue(1);
-    /*button->Scan();*/
-
-    if (finiteStateMachine.lastTransitioned() > 4000) {
-      finiteStateMachine.trigger(light_switch_flipped);
-    }
-
-    vTaskDelay(1000);
-  }
-}
+void app_main(void) { demoMainBinarySemaphoresFromISR(); }
 
 #ifdef __cplusplus
 }
