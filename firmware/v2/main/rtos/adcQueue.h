@@ -14,14 +14,14 @@
 #include <sys/types.h>
 
 #define ADC_READ_LEN 256
-#define QUEUE_LENGTH 10
+#define QUEUE_LENGTH 256
 #define MS_DELAY(TIME) TIME / portTICK_PERIOD_MS
 
-adc_channel_t channel[2] = {ADC_CHANNEL_6 /*, ADC_CHANNEL_7*/};
+adc_channel_t channel[2] = {ADC_CHANNEL_7 /*, ADC_CHANNEL_6*/};
 
 TaskHandle_t adcTaskHandle;
 QueueHandle_t queueHandle;
-adc_continuous_handle_t ghandle = NULL;
+adc_continuous_handle_t globalAdcHandle = NULL;
 
 static bool
 adcConversionCompleteCallback(adc_continuous_handle_t handle,
@@ -46,7 +46,7 @@ void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num,
   ESP_ERROR_CHECK(adc_continuous_new_handle(&adc_config, &handle));
 
   adc_continuous_config_t dig_cfg = {
-      .sample_freq_hz = 100,
+      .sample_freq_hz = 20 * 1000,
       .conv_mode = adc_digi_convert_mode_t::ADC_CONV_SINGLE_UNIT_1,
       .format = adc_digi_output_format_t::ADC_DIGI_OUTPUT_FORMAT_TYPE1,
   };
@@ -71,61 +71,73 @@ void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num,
 void adcProcessor(void *parameter) {
   uint32_t retNum;
   uint8_t result[ADC_READ_LEN] = {0};
-  uint32_t avgResult = 0;
+  uint16_t avgResult = 0;
+  uint16_t bufResult = 0;
   esp_err_t ret;
 
   continuous_adc_init(channel, sizeof(channel) / sizeof(adc_channel_t),
-                      &ghandle);
+                      &globalAdcHandle);
 
   adc_continuous_evt_cbs_t cbs = {
       .on_conv_done = adcConversionCompleteCallback,
   };
 
-  ESP_ERROR_CHECK(adc_continuous_register_event_callbacks(ghandle, &cbs, NULL));
-  ESP_ERROR_CHECK(adc_continuous_start(ghandle));
+  ESP_ERROR_CHECK(
+      adc_continuous_register_event_callbacks(globalAdcHandle, &cbs, NULL));
+  ESP_ERROR_CHECK(adc_continuous_start(globalAdcHandle));
 
   while (true) {
-    ulTaskNotifyTake(pdTRUE, MS_DELAY(5));
-    ret = adc_continuous_read(ghandle, result, ADC_READ_LEN, &retNum, 0);
+    ulTaskNotifyTake(pdTRUE, MS_DELAY(1));
+    ret =
+        adc_continuous_read(globalAdcHandle, result, ADC_READ_LEN, &retNum, 0);
     if (ret == ESP_OK) {
       for (int i = 0; i < retNum; i += SOC_ADC_DIGI_RESULT_BYTES) {
         adc_digi_output_data_t *p = (adc_digi_output_data_t *)&result[i];
-        avgResult += p->type1.data;
+
+        bufResult = p->type1.data;
+        avgResult += bufResult;
+
+        /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", bufResult);*/
+        /*if (i == 1 || i == 10 || i == 100) {*/
+        /*  ESP_LOGI("INFO", "instant: %" PRIu16, bufResult);*/
+        /*}*/
       }
       xQueueSendToBack(queueHandle, &avgResult, pdMS_TO_TICKS(20));
       avgResult = 0;
     }
-    vTaskDelay(MS_DELAY(3));
   }
 }
 
 void adcMessageFlusher(void *parameter) {
   BaseType_t xStatus;
-  uint32_t receivedData = 0;
+  uint16_t receivedData = 0;
+  float calculatedResult = 0.0;
   while (true) {
 
     if (uxQueueMessagesWaiting(queueHandle) != QUEUE_LENGTH) {
-      ESP_LOGI("INFO", "...");
+      /*ESP_LOGI("INFO", "...");*/
     }
 
     xStatus = xQueueReceive(queueHandle, &receivedData, 0);
 
     if (xStatus == pdPASS) {
-      ESP_LOGI("INFO", "received Data: %" PRIu32, receivedData);
+      /*ESP_LOGI("", "%" PRIu16, receivedData);*/
+      esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", receivedData);
+
+      /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 ", %f\n", receivedData,*/
+      /*              calculatedResult);*/
     }
 
-    vTaskDelay(MS_DELAY(600));
+    vTaskDelay(MS_DELAY(10));
   }
 }
 
 void demoAdcQueueData() {
-  queueHandle = xQueueCreate(QUEUE_LENGTH, sizeof(uint32_t));
+  queueHandle = xQueueCreate(QUEUE_LENGTH, sizeof(uint16_t));
 
   if (queueHandle != NULL) {
     xTaskCreate(adcProcessor, "adcProcessor", 4096, NULL, 2, &adcTaskHandle);
     xTaskCreate(adcMessageFlusher, "adcMessageFlusher", 2048, NULL, 1, NULL);
-  }
-  while (true) {
   }
 }
 
