@@ -10,18 +10,51 @@
 #include "hal/adc_types.h"
 #include "portmacro.h"
 #include "taskNotification.h"
+#include <cmath>
 #include <cstdint>
+#include <esp_adc/adc_cali.h>
 #include <sys/types.h>
+
+#define ESP32_ADC_MAX_VOLTAGE 1.1
+#define ESP32_ADC_MAX_BITWIDTH 4095.0
+// there is a document for this, read more if curious
+
+// rtd use Callendar-Van Dusen equation.
+// R(T) = R0(1 + A × T + B × T2 – 100 × C × T3 + C × T4)
+// references:
+// https://www.mouser.com/pdfDocs/AN7186.pdf?srsltid=AfmBOopeBfHLf53xncZfWz4oKvHtpG818oGd7nUIX1V4p0UtETFTVqrB
+#define RTD_CONST_A 3.90830e-3
+#define RTD_CONST_B -5.775e-7
+#define RTD_CONST_C 4.18301e-10
+#define RTD_CONST_R0 100.0 // pt100 0 degre resistance
+
+// RTD_CONST_C its conditional value based on current position, look
+// references for details
 
 #define ADC_READ_LEN 256
 #define QUEUE_LENGTH 256
 #define MS_DELAY(TIME) TIME / portTICK_PERIOD_MS
 
-adc_channel_t channel[2] = {ADC_CHANNEL_7 /*, ADC_CHANNEL_6*/};
+adc_channel_t channel[3] = {ADC_CHANNEL_7, ADC_CHANNEL_6, ADC_CHANNEL_5};
 
 TaskHandle_t adcTaskHandle;
 QueueHandle_t queueHandle;
 adc_continuous_handle_t globalAdcHandle = NULL;
+
+float calculateTemperatureInC(uint16_t rawData) {
+  float RTD_voltage =
+      rawData * (ESP32_ADC_MAX_VOLTAGE / ESP32_ADC_MAX_BITWIDTH);
+  float RTD_resistance = RTD_voltage / 1e-3;
+
+  float underRoot = (pow(RTD_CONST_A, 2)) -
+                    4 * RTD_CONST_B * (1 - RTD_resistance / RTD_CONST_R0);
+  float squareRootResult = sqrt(underRoot);
+
+  float RTD_temperatureResult =
+      (-1 * RTD_CONST_A + squareRootResult) / (2 * RTD_CONST_B);
+
+  return RTD_resistance;
+}
 
 static bool
 adcConversionCompleteCallback(adc_continuous_handle_t handle,
@@ -46,7 +79,7 @@ void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num,
   ESP_ERROR_CHECK(adc_continuous_new_handle(&adc_config, &handle));
 
   adc_continuous_config_t dig_cfg = {
-      .sample_freq_hz = 20 * 1000,
+      .sample_freq_hz = 40 * 1000,
       .conv_mode = adc_digi_convert_mode_t::ADC_CONV_SINGLE_UNIT_1,
       .format = adc_digi_output_format_t::ADC_DIGI_OUTPUT_FORMAT_TYPE1,
   };
@@ -73,7 +106,9 @@ void adcProcessor(void *parameter) {
   uint8_t result[ADC_READ_LEN] = {0};
   uint16_t avgResult = 0;
   uint16_t bufResult = 0;
+  uint16_t count = 0;
   esp_err_t ret;
+  adc_cali_handle_t adcCaliHandle;
 
   continuous_adc_init(channel, sizeof(channel) / sizeof(adc_channel_t),
                       &globalAdcHandle);
@@ -92,18 +127,25 @@ void adcProcessor(void *parameter) {
         adc_continuous_read(globalAdcHandle, result, ADC_READ_LEN, &retNum, 0);
     if (ret == ESP_OK) {
       for (int i = 0; i < retNum; i += SOC_ADC_DIGI_RESULT_BYTES) {
-        adc_digi_output_data_t *p = (adc_digi_output_data_t *)&result[i];
+        adc_digi_output_data_t *outputPtr =
+            (adc_digi_output_data_t *)&result[i];
 
-        bufResult = p->type1.data;
-        avgResult += bufResult;
+        bufResult = outputPtr->type1.data;
 
+        if (outputPtr->type1.channel == 7) {
+          count += 1;
+          esp_log_write(ESP_LOG_INFO, "", "%f\n",
+                        calculateTemperatureInC(bufResult));
+        }
         /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", bufResult);*/
         /*if (i == 1 || i == 10 || i == 100) {*/
         /*  ESP_LOGI("INFO", "instant: %" PRIu16, bufResult);*/
         /*}*/
       }
+      avgResult /= count;
       xQueueSendToBack(queueHandle, &avgResult, pdMS_TO_TICKS(20));
       avgResult = 0;
+      count = 0;
     }
   }
 }
@@ -121,8 +163,10 @@ void adcMessageFlusher(void *parameter) {
     xStatus = xQueueReceive(queueHandle, &receivedData, 0);
 
     if (xStatus == pdPASS) {
+      /*esp_log_write(ESP_LOG_INFO, "", "%f,\n",*/
+      /*              calculateTemperatureInC(receivedData));*/
       /*ESP_LOGI("", "%" PRIu16, receivedData);*/
-      esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", receivedData);
+      /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", receivedData);*/
 
       /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 ", %f\n", receivedData,*/
       /*              calculatedResult);*/
