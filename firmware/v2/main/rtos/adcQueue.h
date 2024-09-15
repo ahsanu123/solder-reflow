@@ -79,7 +79,7 @@ void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num,
   ESP_ERROR_CHECK(adc_continuous_new_handle(&adc_config, &handle));
 
   adc_continuous_config_t dig_cfg = {
-      .sample_freq_hz = 40 * 1000,
+      .sample_freq_hz = 1000 * 1000,
       .conv_mode = adc_digi_convert_mode_t::ADC_CONV_SINGLE_UNIT_1,
       .format = adc_digi_output_format_t::ADC_DIGI_OUTPUT_FORMAT_TYPE1,
   };
@@ -89,7 +89,7 @@ void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num,
   dig_cfg.pattern_num = channel_num;
 
   for (int i = 0; i < channel_num; i++) {
-    adc_pattern[i].atten = adc_digi_convert_mode_t::ADC_CONV_SINGLE_UNIT_1;
+    adc_pattern[i].atten = ADC_ATTEN_DB_0;
     adc_pattern[i].channel = channel[i] & 0x7;
     adc_pattern[i].unit = adc_unit_t::ADC_UNIT_1;
     adc_pattern[i].bit_width = SOC_ADC_DIGI_MAX_BITWIDTH;
@@ -105,7 +105,7 @@ void adcProcessor(void *parameter) {
   uint32_t retNum;
   uint8_t result[ADC_READ_LEN] = {0};
   uint16_t avgResult = 0;
-  uint16_t bufResult = 0;
+  uint32_t bufResult = 0;
   uint16_t count = 0;
   esp_err_t ret;
   adc_cali_handle_t adcCaliHandle;
@@ -130,23 +130,21 @@ void adcProcessor(void *parameter) {
         adc_digi_output_data_t *outputPtr =
             (adc_digi_output_data_t *)&result[i];
 
-        bufResult = outputPtr->type1.data;
+        /*bufResult = outputPtr->type1.data;*/
+        uint32_t data = outputPtr->type1.data;
+        uint32_t chan_num = outputPtr->type1.channel;
 
         if (outputPtr->type1.channel == 7) {
-          count += 1;
-          esp_log_write(ESP_LOG_INFO, "", "%f\n",
-                        calculateTemperatureInC(bufResult));
+          ESP_LOGI("info", "Channel: %" PRIu32 ", Value: %" PRIu32, chan_num,
+                   data);
+          /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu32 "\n", bufResult);*/
         }
-        /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", bufResult);*/
-        /*if (i == 1 || i == 10 || i == 100) {*/
-        /*  ESP_LOGI("INFO", "instant: %" PRIu16, bufResult);*/
-        /*}*/
       }
-      avgResult /= count;
       xQueueSendToBack(queueHandle, &avgResult, pdMS_TO_TICKS(20));
       avgResult = 0;
       count = 0;
     }
+    vTaskDelay(2);
   }
 }
 
@@ -165,7 +163,7 @@ void adcMessageFlusher(void *parameter) {
     if (xStatus == pdPASS) {
       /*esp_log_write(ESP_LOG_INFO, "", "%f,\n",*/
       /*              calculateTemperatureInC(receivedData));*/
-      /*ESP_LOGI("", "%" PRIu16, receivedData);*/
+      ESP_LOGI("", "%" PRIu16, receivedData);
       /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", receivedData);*/
 
       /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 ", %f\n", receivedData,*/
