@@ -147,6 +147,7 @@ Info : Listening on port 3333 for gdb connections
 - Add `Button` class to add Input with callback, 29 Agustus 2024 at 19:42
 - ⚠️ turn out, TL074 (not TL074xH) need minimum 10v to operate and not single supply quad opamp 😞, fortunately there is LM324 (same package and single supply support), currently still in shipping, need to wait if it really work or not, 01 september 2024 at 18:05
 - ✔️ ok LM324 worked, currently still investigate why adc are really noisy, 03 september 2024 at 13:34
+- looks ESP32 IDF adc getting more stable if `frequency` increased, try to use 20Khz but its not stable, but use 1Mhz its more stable 14 september 2024 at 21:00
 
 <details>
 <summary>Several Notes</summary>
