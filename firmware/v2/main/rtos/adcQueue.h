@@ -8,6 +8,7 @@
 #include "freertos/idf_additions.h"
 #include "freertos/projdefs.h"
 #include "hal/adc_types.h"
+#include "lvglGui.h"
 #include "portmacro.h"
 #include "taskNotification.h"
 #include <cmath>
@@ -152,6 +153,7 @@ void adcMessageFlusher(void *parameter) {
   BaseType_t xStatus;
   uint16_t receivedData = 0;
   float calculatedResult = 0.0;
+  demoLvglGuiST7789();
   while (true) {
 
     if (uxQueueMessagesWaiting(queueHandle) != QUEUE_LENGTH) {
@@ -179,7 +181,8 @@ void demoAdcQueueData() {
 
   if (queueHandle != NULL) {
     xTaskCreate(adcProcessor, "adcProcessor", 4096, NULL, 2, &adcTaskHandle);
-    xTaskCreate(adcMessageFlusher, "adcMessageFlusher", 2048, NULL, 1, NULL);
+    xTaskCreate(adcMessageFlusher, "adcMessageFlusher", 4096 * 2, NULL, 1,
+                NULL);
   }
 }
 

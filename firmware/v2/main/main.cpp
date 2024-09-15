@@ -3,6 +3,7 @@
 #include "driver/gpio.h"
 #include "esp_adc/adc_continuous.h"
 #include "esp_log.h"
+#include "esp_lvgl_port.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/projdefs.h"
@@ -11,9 +12,9 @@
 #include "fsm/SimpleFSM.h"
 #include "fsm/State.h"
 #include "hal/gpio_types.h"
+#include "music/lv_demo_music.h"
 #include "portmacro.h"
 #include "rtos/adcQueue.h"
-#include "rtos/lvglGui.h"
 #include "sdkconfig.h"
 #include "soc/gpio_num.h"
 #include <stdio.h>

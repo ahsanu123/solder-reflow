@@ -102,7 +102,7 @@ void lcdPanelDriverInitialization() {
                                            LCD_HEIGHT * 80 * sizeof(uint16_t)};
 
   esp_lcd_panel_io_spi_config_t lcdPanel_spiConfig = {
-      .cs_gpio_num = -1, // LCD_SPI_CS,// its not connected actually
+      .cs_gpio_num = -1,
       .dc_gpio_num = LCD_SPI_DC,
       .spi_mode = 0,
       .pclk_hz = LCD_PIXEL_CLOCK,
@@ -144,6 +144,7 @@ void lcdPanelDriverInitialization() {
 
   esp_lcd_panel_reset(lcdPanel_handle);
   esp_lcd_panel_init(lcdPanel_handle);
+  esp_lcd_panel_disp_on_off(lcdPanel_handle, true);
 }
 
 void lvglAppInitialization() {
@@ -185,24 +186,25 @@ void lvglAppInitialization() {
   };
 
   lvglDisplay = lvgl_port_add_disp(&lvglDisplay_config);
+  lv_display_set_default(lvglDisplay);
 }
 
 void lvglMainGui() {
 
-  lvgl_port_lock(0);
+  if(lvgl_port_lock(0)){
+    lv_obj_t *screen = lv_scr_act();
+    lv_obj_t *label = lv_label_create(screen);
+    lv_obj_set_width(label, LCD_WIDTH);
+    /*lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);*/
 
-  lv_obj_t *screen = lv_scr_act();
-  lv_obj_t *label = lv_label_create(screen);
-  lv_obj_set_width(label, LCD_WIDTH);
-  /*lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);*/
+    lv_label_set_text(label, LV_SYMBOL_BELL
+                      " Hello world Espressif and LVGL " LV_SYMBOL_BELL
+                      "\n " LV_SYMBOL_WARNING
+                      " For simplier initialization, use BSP " LV_SYMBOL_WARNING);
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 20);
 
-  lv_label_set_text(label, LV_SYMBOL_BELL
-                    " Hello world Espressif and LVGL " LV_SYMBOL_BELL
-                    "\n " LV_SYMBOL_WARNING
-                    " For simplier initialization, use BSP " LV_SYMBOL_WARNING);
-  lv_obj_align(label, LV_ALIGN_CENTER, 0, 20);
-
-  lvgl_port_unlock();
+    lvgl_port_unlock();
+  } 
 }
 
 void demoLvglGuiST7789() {
@@ -211,6 +213,8 @@ void demoLvglGuiST7789() {
 
   /*lv_timer_handler();*/
   lvglMainGui();
+  /*lv_display_t *disp = lv_display_get_default();*/
+  /*ESP_LOGI("getDISPLAY", "%li", disp->hor_res);*/
 }
 
 #endif
