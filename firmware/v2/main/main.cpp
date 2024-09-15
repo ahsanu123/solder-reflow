@@ -13,6 +13,7 @@
 #include "hal/gpio_types.h"
 #include "portmacro.h"
 #include "rtos/adcQueue.h"
+#include "rtos/lvglGui.h"
 #include "sdkconfig.h"
 #include "soc/gpio_num.h"
 #include <stdio.h>
@@ -185,7 +186,8 @@ extern "C" {
 /*  vTaskDelay(1000);*/
 /*}*/
 
-void app_main(void) { demoAdcQueueData(); }
+/*void app_main(void) { demoAdcQueueData(); }*/
+void app_main(void) { demoLvglGuiST7789(); }
 
 #ifdef __cplusplus
 }

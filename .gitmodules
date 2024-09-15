@@ -1,9 +1,11 @@
-[submodule "firmware/components/lcdgfx"]
-	path = firmware/components/lcdgfx
-	url = https://github.com/lexus2k/lcdgfx.git
+; [submodule "firmware/components/lcdgfx"]
+; 	path = firmware/components/lcdgfx
+; 	url = https://github.com/lexus2k/lcdgfx.git
+
 [submodule "firmware/v2/svd"]
 	path = firmware/v2/svd
 	url = https://github.com/espressif/svd.git
-[submodule "firmware/v2/components/lvgl_esp32_drivers"]
-	path = firmware/v2/components/lvgl_esp32_drivers
-	url = https://github.com/lvgl/lvgl_esp32_drivers.git
+
+; [submodule "firmware/v2/components/lvgl_esp32_drivers"]
+; 	path = firmware/v2/components/lvgl_esp32_drivers
+; 	url = https://github.com/lvgl/lvgl_esp32_drivers.git

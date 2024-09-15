@@ -1,5 +1,5 @@
 build/
 esp-venv/
 .cache/
-managed_components/*
-!managed_components/README.md
+# managed_components/*
+# !managed_components/README.md
