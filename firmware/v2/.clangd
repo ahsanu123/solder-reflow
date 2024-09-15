@@ -1,6 +1,10 @@
 Diagnostics:
   ClangTidy: 
     Add: pp_file*
+
+  Suppress: [
+    'pp_file_not_found'
+  ]
 CompileFlags:
   Add: -Wno-unknown-warning-argument
   Remove: [
