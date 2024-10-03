@@ -8,7 +8,7 @@
 #include "freertos/idf_additions.h"
 #include "freertos/projdefs.h"
 #include "hal/adc_types.h"
-#include "lvglGui.h"
+#include "lvglGuiPort.h"
 #include "portmacro.h"
 #include "taskNotification.h"
 #include <cmath>
