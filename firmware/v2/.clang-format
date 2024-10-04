@@ -1,0 +1,12 @@
+Language: Cpp
+IndentWidth: 2
+ObjCBlockIndentWidth: 2
+ContinuationIndentWidth: 2
+ColumnLimit: 120
+BinPackArguments: false
+BinPackParameters: false
+AlignAfterOpenBracket: BlockIndent
+IndentCaseLabels: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AlignConsecutiveAssignments: AcrossEmptyLines
+AlignConsecutiveDeclarations: AcrossEmptyLines

@@ -8,8 +8,8 @@
 #include <cstdint>
 #include <sys/types.h>
 
-#define MS_DELAY(TIME) TIME / portTICK_PERIOD_MS
 TaskHandle_t receiverHandler = NULL;
+#define MS_DELAY(TIME) TIME / portTICK_PERIOD_MS
 
 void sender(void *param) {
   while (true) {

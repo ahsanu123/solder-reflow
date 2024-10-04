@@ -17,7 +17,6 @@
 #include "rtos/adcQueue.h"
 #include "rtos/binarySemaphores.h"
 #include "rtos/lvglGuiNative.h"
-#include "rtos/lvglGuiPort.h"
 #include "sdkconfig.h"
 #include "soc/gpio_num.h"
 #include <stdio.h>
@@ -191,9 +190,7 @@ extern "C" {
 /*}*/
 
 /*void app_main(void) { demoAdcQueueData(); }*/
-void app_main(void) {
-  demoLvglGuiST7789();
-}
+void app_main(void) { nativeDemoLVGL(); }
 
 #ifdef __cplusplus
 }

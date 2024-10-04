@@ -13,7 +13,7 @@
 #define MS_DELAY(TIME) TIME / portTICK_PERIOD_MS
 TaskHandle_t receiverHandler = NULL;
 
-void sender(void *param) {
+void         sender(void *param) {
   while (true) {
     xTaskNotifyGive(receiverHandler);
     xTaskNotifyGive(receiverHandler);

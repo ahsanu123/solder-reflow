@@ -36,7 +36,7 @@
                               (1<<OUTPUT2)
 
 // clang-format on
-SemaphoreHandle_t semaphoreHandle;
+SemaphoreHandle_t     semaphoreHandle;
 
 static void IRAM_ATTR gpio_ISR(void *arg) {
 
@@ -65,11 +65,11 @@ void demoMainBinarySemaphoresFromISR() {
 
   // setup gpio
   gpio_config_t config = {};
-  config.mode = GPIO_MODE_INPUT;
-  config.intr_type = GPIO_INTR_NEGEDGE;
-  config.pull_up_en = GPIO_PULLUP_ENABLE;
-  config.pull_down_en = GPIO_PULLDOWN_DISABLE;
-  config.pin_bit_mask = GPIO_INPUT_SELECTOR;
+  config.mode          = GPIO_MODE_INPUT;
+  config.intr_type     = GPIO_INTR_NEGEDGE;
+  config.pull_up_en    = GPIO_PULLUP_ENABLE;
+  config.pull_down_en  = GPIO_PULLDOWN_DISABLE;
+  config.pin_bit_mask  = GPIO_INPUT_SELECTOR;
 
   gpio_config(&config);
   gpio_install_isr_service(ESP_INTR_FLAG_LEVEL1);
@@ -78,16 +78,15 @@ void demoMainBinarySemaphoresFromISR() {
   gpio_isr_handler_add(INPUT3, gpio_ISR, NULL);
   gpio_isr_handler_add(INPUT4, gpio_ISR, NULL);
 
-  config.mode = GPIO_MODE_OUTPUT;
-  config.intr_type = GPIO_INTR_DISABLE;
-  config.pull_up_en = GPIO_PULLUP_DISABLE;
+  config.mode         = GPIO_MODE_OUTPUT;
+  config.intr_type    = GPIO_INTR_DISABLE;
+  config.pull_up_en   = GPIO_PULLUP_DISABLE;
   config.pin_bit_mask = GPIO_OUTPUT_SELECTOR;
   gpio_config(&config);
 
   gpio_set_level(OUTPUT1, 0);
   gpio_set_level(OUTPUT2, 0);
 
-  xTaskCreate(taskThatWaitSemaphoresFromGPIO, "taskThatWaitISR", 4096, NULL, 2,
-              NULL);
+  xTaskCreate(taskThatWaitSemaphoresFromGPIO, "taskThatWaitISR", 4096, NULL, 2, NULL);
 }
 #endif
