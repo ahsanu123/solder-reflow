@@ -25,12 +25,13 @@
 #include "hal/spi_types.h"
 #include "layouts/flex/lv_example_flex.h"
 #include "lvgl.h"
+#include "misc/lv_area.h"
 #include "misc/lv_types.h"
 #include "scroll/lv_example_scroll.h"
 #include "widgets/button/lv_button.h"
 #include "widgets/lv_example_widgets.h"
 
-static SemaphoreHandle_t lvgl_api_lock;
+static SemaphoreHandle_t lvgl_api_lock = NULL;
 
 #define LVGL_TICK_PERIOD_MS 2
 #define LVGL_TASK_PRIORITY 2
@@ -75,7 +76,7 @@ static void example_lvgl_port_update_callback(lv_display_t *disp) {
     case LV_DISPLAY_ROTATION_90:
       // Rotate LCD  display
       esp_lcd_panel_swap_xy(panel_handle, true);
-      esp_lcd_panel_mirror(panel_handle, true, true);
+      esp_lcd_panel_mirror(panel_handle, true, false);
       break;
     case LV_DISPLAY_ROTATION_180:
       // Rotate LCD  display
@@ -111,15 +112,12 @@ static void example_lvgl_port_task(void *arg) {
   uint32_t time_threshold_ms = 1000 / CONFIG_FREERTOS_HZ;
 
   while (true) {
-
-    ESP_LOGI(TAG, "TICK");
-    /*xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));*/
+    xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
     time_till_next_ms = lv_timer_handler();
-    /*xSemaphoreGive(&lvgl_api_lock);*/
+    xSemaphoreGive(lvgl_api_lock);
 
     time_till_next_ms = MAX(time_till_next_ms, time_threshold_ms);
-    usleep(100 * time_till_next_ms);
-    /*vTaskDelay(pdMS_TO_TICKS(time_till_next_ms));*/
+    usleep(1000 * time_till_next_ms);
   }
 }
 
@@ -171,7 +169,7 @@ void nativeDemoLVGL() {
   ESP_ERROR_CHECK(esp_lcd_panel_reset(lcdPanel_handle));
   ESP_ERROR_CHECK(esp_lcd_panel_init(lcdPanel_handle));
   ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(lcdPanel_handle, true));
-  ESP_ERROR_CHECK(esp_lcd_panel_mirror(lcdPanel_handle, true, false));
+  /*ESP_ERROR_CHECK(esp_lcd_panel_mirror(lcdPanel_handle, false, false));*/
 
   lv_init();
   lv_display_t *display = lv_display_create(LCD_WIDTH, LCD_HEIGHT);
@@ -212,19 +210,34 @@ void nativeDemoLVGL() {
   xTaskCreate(example_lvgl_port_task, "LVGL", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL);
 
   // Lock the mutex due to the LVGL APIs are not thread-safe
-  /*xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));*/
+  xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
   /*lv_example_get_started_1();*/
   /*lv_example_anim_1();*/
   /*lv_example_scroll_1();*/
   /*lv_example_spinner_1();*/
   /*lv_example_menu_1();*/
   /*lv_example_anim_timeline_1();*/
-  /*xSemaphoreGive(&lvgl_api_lock);*/
 
+  lv_display_set_rotation(display, LV_DISPLAY_ROTATION_90);
   lv_obj_t *spinner = lv_spinner_create(lv_screen_active());
-  lv_obj_set_size(spinner, 70, 70);
+  lv_obj_set_size(spinner, 30, 30);
   lv_obj_center(spinner);
-  lv_spinner_set_anim_params(spinner, 1700, 20);
+  lv_spinner_set_anim_params(spinner, 1700, 50);
+
+  lv_obj_t *label1 = lv_label_create(lv_screen_active());
+  lv_label_set_long_mode(label1, LV_LABEL_LONG_WRAP);
+  lv_label_set_text(label1, "HELL YEAH!!!");
+  lv_obj_set_width(label1, 150);
+  lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(label1, LV_ALIGN_CENTER, 0, -40);
+
+  lv_obj_t *label2 = lv_label_create(lv_screen_active());
+  lv_label_set_long_mode(label2, LV_LABEL_LONG_SCROLL_CIRCULAR);
+  lv_obj_set_width(label2, 150);
+  lv_label_set_text(label2, "Made With Love By Ah...");
+  lv_obj_align(label2, LV_ALIGN_CENTER, 0, 40);
+
+  xSemaphoreGive(lvgl_api_lock);
 }
 
 #endif
