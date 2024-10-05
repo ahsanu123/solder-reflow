@@ -148,43 +148,8 @@ Info : Listening on port 3333 for gdb connections
 - ⚠️ turn out, TL074 (not TL074xH) need minimum 10v to operate and not single supply quad opamp 😞, fortunately there is LM324 (same package and single supply support), currently still in shipping, need to wait if it really work or not, 01 september 2024 at 18:05
 - ✔️ ok LM324 worked, currently still investigate why adc are really noisy, 03 september 2024 at 13:34
 - looks ESP32 IDF adc getting more stable if `frequency` increased, try to use 20Khz but its not stable, but use 1Mhz its more stable 14 september 2024 at 21:00
+- ✔️ LVGL worked but task semaphore block update of LVGL (still investigate), 05 oktober 2024 at 10:13
 
-```shell
-E (11760) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:
-E (11760) task_wdt:  - IDLE0 (CPU 0)
-E (11760) task_wdt: Tasks currently running:
-E (11760) task_wdt: CPU 0: LVGL task
-E (11760) task_wdt: CPU 1: IDLE1
-E (11760) task_wdt: Print CPU 0 (current core) backtrace
-
-
-Backtrace: 0x4010FF0B:0x3FFB0F20 0x40110328:0x3FFB0F40 0x4008336D:0x3FFB0F70 0x400DC613:0x3FFC80C0 0x400DCA41:0x3FFC80
-E0 0x400DD2DD:0x3FFC8100 0x400DD464:0x3FFC8130 0x400DD56D:0x3FFC8170 0x400DD78F:0x3FFC8190 0x400EB40D:0x3FFC81B0 0x400
-EB4CB:0x3FFC81D0 0x400D692C:0x3FFC81F0 0x40087861:0x3FFC8220
-0x4010ff0b: task_wdt_timeout_handling at /home/ahsanu/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c:441
-0x40110328: task_wdt_isr at /home/ahsanu/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c:515
-0x4008336d: _xt_lowint1 at /home/ahsanu/esp/esp-idf/components/xtensa/xtensa_vectors.S:1240
-0x400dc613: wait_for_flushing at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/lvgl_
-_lvgl/src/core/lv_refr.c:1231 (discriminator 1)
-0x400dca41: draw_buf_flush at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/lvgl__lv
-gl/src/core/lv_refr.c:1167
-0x400dd2dd: refr_area_part at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/lvgl__lv
-gl/src/core/lv_refr.c:760
-0x400dd464: refr_area at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/lvgl__lvgl/sr
-c/core/lv_refr.c:679
-0x400dd56d: refr_invalid_areas at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/lvgl
-__lvgl/src/core/lv_refr.c:586
-0x400dd78f: lv_display_refr_timer at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/l
-vgl__lvgl/src/core/lv_refr.c:398
-0x400eb40d: lv_timer_exec at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/lvgl__lvg
-l/src/misc/lv_timer.c:326 (discriminator 2)
-0x400eb4cb: lv_timer_handler at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/lvgl__
-lvgl/src/misc/lv_timer.c:107
-0x400d692c: lvgl_port_task at /home/ahsanu/project/2024/hardware/solder-reflow/firmware/v2/managed_components/espressi
-f__esp_lvgl_port/src/lvgl9/esp_lvgl_port.c:250
-0x40087861: vPortTaskWrapper at /home/ahsanu/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:13
-4
-```
 
 <details>
 <summary>Several Notes</summary>
