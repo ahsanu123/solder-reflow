@@ -29,6 +29,7 @@
 #include "widgets/button/lv_button.h"
 
 static SemaphoreHandle_t lvgl_api_lock;
+
 #define LVGL_TICK_PERIOD_MS 2
 #define LVGL_TASK_PRIORITY 2
 #define LVGL_TASK_STACK_SIZE (4 * 1024)
@@ -40,7 +41,7 @@ static SemaphoreHandle_t lvgl_api_lock;
 #define LCD_SPI_CLK gpio_num_t::GPIO_NUM_18
 #define LCD_SPI_D gpio_num_t::GPIO_NUM_23
 #define LCD_HEIGHT 320 // 240
-#define LCD_WIDTH 212  // 240
+#define LCD_WIDTH 210  // 240
 #define LCD_SPI_HOST SPI2_HOST
 
 #define LCD_PIXEL_CLOCK (20 * 1000 * 1000)
@@ -101,21 +102,21 @@ static void example_lvgl_flush_cb(lv_display_t *disp, const lv_area_t *area, uin
 static void example_increase_lvgl_tick(void *arg) { lv_tick_inc(LVGL_TICK_PERIOD_MS); }
 
 static void example_lvgl_port_task(void *arg) {
-  ESP_LOGI(
-    TAG,
-    "Starting LVGL "
-    "task"
-  );
+  ESP_LOGI(TAG, "Starting LVGL task");
+
+  lvgl_api_lock              = xSemaphoreCreateBinary();
   uint32_t time_till_next_ms = 0;
   uint32_t time_threshold_ms = 1000 / CONFIG_FREERTOS_HZ;
-  while (1) {
 
-    xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(100));
+  while (true) {
+
+    ESP_LOGI(TAG, "TICK");
+    /*xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));*/
     time_till_next_ms = lv_timer_handler();
-    xSemaphoreGive(&lvgl_api_lock);
+    /*xSemaphoreGive(&lvgl_api_lock);*/
 
     time_till_next_ms = MAX(time_till_next_ms, time_threshold_ms);
-    vTaskDelay(pdMS_TO_TICKS(2));
+    vTaskDelay(pdMS_TO_TICKS(time_till_next_ms));
   }
 }
 
@@ -129,8 +130,6 @@ void *spi_bus_dma_memory_alloc(spi_host_device_t host_id, size_t size, uint32_t 
 }
 
 void nativeDemoLVGL() {
-  lvgl_api_lock                     = xSemaphoreCreateBinary();
-
   spi_bus_config_t lcdSpi_busConfig = {
     .mosi_io_num     = LCD_SPI_D,
     .miso_io_num     = GPIO_NUM_NC,
@@ -169,6 +168,7 @@ void nativeDemoLVGL() {
   ESP_ERROR_CHECK(esp_lcd_panel_reset(lcdPanel_handle));
   ESP_ERROR_CHECK(esp_lcd_panel_init(lcdPanel_handle));
   ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(lcdPanel_handle, true));
+  ESP_ERROR_CHECK(esp_lcd_panel_mirror(lcdPanel_handle, true, false));
 
   lv_init();
   lv_display_t *display = lv_display_create(LCD_WIDTH, LCD_HEIGHT);
@@ -209,9 +209,11 @@ void nativeDemoLVGL() {
   xTaskCreate(example_lvgl_port_task, "LVGL", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL);
 
   // Lock the mutex due to the LVGL APIs are not thread-safe
-  xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(100));
-  lv_example_get_started_1();
-  xSemaphoreGive(&lvgl_api_lock);
+  /*xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));*/
+  /*lv_example_get_started_1();*/
+  lv_example_anim_1();
+  /*lv_example_anim_timeline_1();*/
+  /*xSemaphoreGive(&lvgl_api_lock);*/
 }
 
 #endif
