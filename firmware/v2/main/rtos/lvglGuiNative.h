@@ -26,7 +26,9 @@
 #include "layouts/flex/lv_example_flex.h"
 #include "lvgl.h"
 #include "misc/lv_types.h"
+#include "scroll/lv_example_scroll.h"
 #include "widgets/button/lv_button.h"
+#include "widgets/lv_example_widgets.h"
 
 static SemaphoreHandle_t lvgl_api_lock;
 
@@ -116,7 +118,8 @@ static void example_lvgl_port_task(void *arg) {
     /*xSemaphoreGive(&lvgl_api_lock);*/
 
     time_till_next_ms = MAX(time_till_next_ms, time_threshold_ms);
-    vTaskDelay(pdMS_TO_TICKS(time_till_next_ms));
+    usleep(100 * time_till_next_ms);
+    /*vTaskDelay(pdMS_TO_TICKS(time_till_next_ms));*/
   }
 }
 
@@ -211,9 +214,17 @@ void nativeDemoLVGL() {
   // Lock the mutex due to the LVGL APIs are not thread-safe
   /*xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));*/
   /*lv_example_get_started_1();*/
-  lv_example_anim_1();
+  /*lv_example_anim_1();*/
+  /*lv_example_scroll_1();*/
+  /*lv_example_spinner_1();*/
+  /*lv_example_menu_1();*/
   /*lv_example_anim_timeline_1();*/
   /*xSemaphoreGive(&lvgl_api_lock);*/
+
+  lv_obj_t *spinner = lv_spinner_create(lv_screen_active());
+  lv_obj_set_size(spinner, 70, 70);
+  lv_obj_center(spinner);
+  lv_spinner_set_anim_params(spinner, 1700, 20);
 }
 
 #endif
