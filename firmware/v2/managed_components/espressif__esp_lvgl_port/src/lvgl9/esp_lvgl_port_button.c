@@ -84,7 +84,7 @@ lv_indev_t *lvgl_port_add_navigation_buttons(const lvgl_port_nav_btns_cfg_t *but
     buttons_ctx->btn_next = false;
     buttons_ctx->btn_enter = false;
 
-    lvgl_port_lock(0);
+    // lvgl_port_lock(0);
     /* Register a touchpad input device */
     indev = lv_indev_create();
     lv_indev_set_type(indev, LV_INDEV_TYPE_ENCODER);
@@ -94,7 +94,7 @@ lv_indev_t *lvgl_port_add_navigation_buttons(const lvgl_port_nav_btns_cfg_t *but
     lv_indev_set_user_data(indev, buttons_ctx);
     //buttons_ctx->indev->long_press_repeat_time = 300;
     buttons_ctx->indev = indev;
-    lvgl_port_unlock();
+    // lvgl_port_unlock();
 
     return indev;
 

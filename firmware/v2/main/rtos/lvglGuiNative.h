@@ -1,6 +1,7 @@
 #ifndef LVGL_NATIVE
 #define LVGL_NATIVE
 
+#include <cstdint>
 #include <stdio.h>
 #include <sys/lock.h>
 #include <sys/param.h>
@@ -16,13 +17,16 @@
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_panel_vendor.h"
 #include "esp_log.h"
+#include "esp_lvgl_port_button.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/idf_additions.h"
 #include "freertos/projdefs.h"
 #include "freertos/task.h"
 #include "get_started/lv_example_get_started.h"
+#include "hal/gpio_types.h"
 #include "hal/spi_types.h"
+#include "iot_button.h"
 #include "layouts/flex/lv_example_flex.h"
 #include "lvgl.h"
 #include "misc/lv_area.h"
@@ -52,6 +56,34 @@ static SemaphoreHandle_t lvgl_api_lock = NULL;
 #define LCD_PARAM_BITS 8
 #define LCD_BUF_HEIGHT 50
 #define LCD_BIT_PER_PIXEL 16
+
+#define LCD_BUTTON_BACK gpio_num_t::GPIO_NUM_27
+#define LCD_BUTTON_PREV gpio_num_t::GPIO_NUM_26
+#define LCD_BUTTON_NEXT gpio_num_t::GPIO_NUM_25
+#define LCD_BUTTON_ENTR gpio_num_t::GPIO_NUM_22
+
+esp_err_t customButtonInit(void *param) {
+  gpio_config_t buttonInputConfig = {
+    .pin_bit_mask = LCD_BUTTON_BACK,
+    .mode         = GPIO_MODE_INPUT,
+    .pull_up_en   = GPIO_PULLUP_ENABLE,
+    .pull_down_en = GPIO_PULLDOWN_DISABLE,
+  };
+  esp_err_t returnValue = gpio_config(&buttonInputConfig);
+  return returnValue;
+}
+
+esp_err_t customButtonDeinit(void *param) {
+  ESP_LOGI(TAG, "DEINIT");
+  return ESP_OK;
+}
+
+uint8_t customButtonGetLevel(void *param) {
+  int inputButtonLevel = gpio_get_level(LCD_BUTTON_BACK);
+
+  ESP_LOGI(TAG, "LEVEL: %i", inputButtonLevel);
+  return inputButtonLevel;
+}
 
 static bool example_notify_lvgl_flush_ready(
   esp_lcd_panel_io_handle_t      panel_io,
@@ -206,36 +238,99 @@ void nativeDemoLVGL() {
 
   ESP_ERROR_CHECK(esp_lcd_panel_io_register_event_callbacks(lcdPanelIO_handle, &cbs, display));
 
+  // Input Devices
+  button_gpio_config_t buttonGpioConfigs[] = {
+    {
+      .gpio_num     = LCD_BUTTON_PREV,
+      .active_level = 0,
+    },
+    {
+      .gpio_num     = LCD_BUTTON_NEXT,
+      .active_level = 0,
+    },
+    {
+      .gpio_num     = LCD_BUTTON_ENTR,
+      .active_level = 0,
+    },
+  };
+
+  button_custom_config_t buttonCustomConfig = {
+    .active_level                = 0,
+    .button_custom_init          = customButtonInit,
+    .button_custom_get_key_value = customButtonGetLevel,
+    .button_custom_deinit        = customButtonDeinit,
+  };
+
+  button_config_t buttonConfigs[] = {
+    {
+      .type               = BUTTON_TYPE_GPIO,
+      .gpio_button_config = buttonGpioConfigs[0],
+    },
+    {
+      .type               = BUTTON_TYPE_GPIO,
+      .gpio_button_config = buttonGpioConfigs[1],
+    },
+    {
+      .type               = BUTTON_TYPE_GPIO,
+      .gpio_button_config = buttonGpioConfigs[2],
+    },
+    {
+      .type                 = BUTTON_TYPE_GPIO,
+      .custom_button_config = buttonCustomConfig,
+    }
+  };
+
+  const lvgl_port_nav_btns_cfg_t lvglButtons = {
+    .disp         = display,
+    .button_prev  = &buttonConfigs[0],
+    .button_next  = &buttonConfigs[1],
+    .button_enter = &buttonConfigs[3]
+  };
+  lv_indev_t *buttonHandle = lvgl_port_add_navigation_buttons(&lvglButtons);
+
   ESP_LOGI(TAG, "Create LVGL task");
   xTaskCreate(example_lvgl_port_task, "LVGL", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL);
 
   // Lock the mutex due to the LVGL APIs are not thread-safe
   xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
-  /*lv_example_get_started_1();*/
-  /*lv_example_anim_1();*/
-  /*lv_example_scroll_1();*/
-  /*lv_example_spinner_1();*/
-  /*lv_example_menu_1();*/
-  /*lv_example_anim_timeline_1();*/
-
   lv_display_set_rotation(display, LV_DISPLAY_ROTATION_90);
-  lv_obj_t *spinner = lv_spinner_create(lv_screen_active());
-  lv_obj_set_size(spinner, 30, 30);
-  lv_obj_center(spinner);
-  lv_spinner_set_anim_params(spinner, 1700, 50);
+  lv_obj_t *label;
 
-  lv_obj_t *label1 = lv_label_create(lv_screen_active());
-  lv_label_set_long_mode(label1, LV_LABEL_LONG_WRAP);
-  lv_label_set_text(label1, "HELL YEAH!!!");
-  lv_obj_set_width(label1, 150);
-  lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(label1, LV_ALIGN_CENTER, 0, -40);
+  lv_obj_t *btn1 = lv_button_create(lv_screen_active());
+  /*lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);*/
+  lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
+  lv_obj_remove_flag(btn1, LV_OBJ_FLAG_PRESS_LOCK);
 
-  lv_obj_t *label2 = lv_label_create(lv_screen_active());
-  lv_label_set_long_mode(label2, LV_LABEL_LONG_SCROLL_CIRCULAR);
-  lv_obj_set_width(label2, 150);
-  lv_label_set_text(label2, "Made With Love By Ah...");
-  lv_obj_align(label2, LV_ALIGN_CENTER, 0, 40);
+  label = lv_label_create(btn1);
+  lv_label_set_text(label, "Button");
+  lv_obj_center(label);
+
+  lv_obj_t *btn2 = lv_button_create(lv_screen_active());
+  /*lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, NULL);*/
+  lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
+  lv_obj_add_flag(btn2, LV_OBJ_FLAG_CHECKABLE);
+  lv_obj_set_height(btn2, LV_SIZE_CONTENT);
+
+  label = lv_label_create(btn2);
+  lv_label_set_text(label, "Toggle");
+  lv_obj_center(label);
+  /*lv_obj_t *spinner = lv_spinner_create(lv_screen_active());*/
+  /*lv_obj_set_size(spinner, 30, 30);*/
+  /*lv_obj_center(spinner);*/
+  /*lv_spinner_set_anim_params(spinner, 1700, 50);*/
+  /**/
+  /*lv_obj_t *label1 = lv_label_create(lv_screen_active());*/
+  /*lv_label_set_long_mode(label1, LV_LABEL_LONG_WRAP);*/
+  /*lv_label_set_text(label1, "HELL YEAH!!!");*/
+  /*lv_obj_set_width(label1, 150);*/
+  /*lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);*/
+  /*lv_obj_align(label1, LV_ALIGN_CENTER, 0, -40);*/
+  /**/
+  /*lv_obj_t *label2 = lv_label_create(lv_screen_active());*/
+  /*lv_label_set_long_mode(label2, LV_LABEL_LONG_SCROLL_CIRCULAR);*/
+  /*lv_obj_set_width(label2, 150);*/
+  /*lv_label_set_text(label2, "Made With Love By Ah...");*/
+  /*lv_obj_align(label2, LV_ALIGN_CENTER, 0, 40);*/
 
   xSemaphoreGive(lvgl_api_lock);
 }
