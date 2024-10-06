@@ -7,4 +7,5 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # add_definitions(-DESP_LVGL_PORT_BUTTON_COMPONENT )
 add_compile_definitions(ESP_LVGL_PORT_BUTTON_COMPONENT  ON)
 
+
 project(SORE_V2)

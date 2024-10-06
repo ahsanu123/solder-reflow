@@ -1,13 +1,8 @@
 #ifndef LVGL_NATIVE
 #define LVGL_NATIVE
 
-#include <cstdint>
-#include <stdio.h>
-#include <sys/lock.h>
-#include <sys/param.h>
-#include <unistd.h>
-
 #include "anim/lv_example_anim.h"
+#include "core/lv_group.h"
 #include "driver/gpio.h"
 #include "driver/spi_common.h"
 #include "driver/spi_master.h"
@@ -26,6 +21,7 @@
 #include "get_started/lv_example_get_started.h"
 #include "hal/gpio_types.h"
 #include "hal/spi_types.h"
+#include "indev/lv_indev.h"
 #include "iot_button.h"
 #include "layouts/flex/lv_example_flex.h"
 #include "lvgl.h"
@@ -34,8 +30,19 @@
 #include "scroll/lv_example_scroll.h"
 #include "widgets/button/lv_button.h"
 #include "widgets/lv_example_widgets.h"
+#include <array>
+#include <cassert>
+#include <cstdint>
+#include <stdio.h>
+#include <sys/lock.h>
+#include <sys/param.h>
+#include <unistd.h>
 
 static SemaphoreHandle_t lvgl_api_lock = NULL;
+static lv_group_t       *mainGroup     = NULL;
+static lv_indev_t       *indev         = NULL;
+
+using namespace std;
 
 #define LVGL_TICK_PERIOD_MS 2
 #define LVGL_TASK_PRIORITY 2
@@ -57,10 +64,117 @@ static SemaphoreHandle_t lvgl_api_lock = NULL;
 #define LCD_BUF_HEIGHT 50
 #define LCD_BIT_PER_PIXEL 16
 
-#define LCD_BUTTON_BACK gpio_num_t::GPIO_NUM_27
-#define LCD_BUTTON_PREV gpio_num_t::GPIO_NUM_26
-#define LCD_BUTTON_NEXT gpio_num_t::GPIO_NUM_25
-#define LCD_BUTTON_ENTR gpio_num_t::GPIO_NUM_22
+#define LCD_BUTTON_BACK GPIO_NUM_27
+#define LCD_BUTTON_PREV GPIO_NUM_26
+#define LCD_BUTTON_NEXT GPIO_NUM_25
+#define LCD_BUTTON_ENTR GPIO_NUM_22
+#define LCD_BUTTON_NUM 3
+#define LCD_BUTTON_ACTIVE_STATE 0
+
+using ButtonConfigs          = array<button_config_t, LCD_BUTTON_NUM>;
+using ButtonData             = array<bool, LCD_BUTTON_NUM>;
+
+static ButtonData buttonData = {
+  false,
+  false,
+  false,
+};
+
+ButtonConfigs defaultButtonInputConfigs = {
+  button_config_t{
+    .type = BUTTON_TYPE_GPIO,
+    .gpio_button_config =
+      {
+        .gpio_num     = LCD_BUTTON_PREV,
+        .active_level = LCD_BUTTON_ACTIVE_STATE,
+      }
+  },
+  button_config_t{
+    .type = BUTTON_TYPE_GPIO,
+    .gpio_button_config =
+      {
+        .gpio_num     = LCD_BUTTON_NEXT,
+        .active_level = LCD_BUTTON_ACTIVE_STATE,
+      }
+  },
+  button_config_t{
+    .type = BUTTON_TYPE_GPIO,
+    .gpio_button_config =
+      {
+        .gpio_num     = LCD_BUTTON_ENTR,
+        .active_level = LCD_BUTTON_ACTIVE_STATE,
+      }
+  },
+};
+
+enum eLvglButtonEvent {
+  OnNext = 0,
+  OnPrev,
+  OnEnter,
+};
+
+void lvglInputReadCallback(lv_indev_t *indev_drv, lv_indev_data_t *data) {
+  ESP_LOGI(TAG, "LVG Reading Callback");
+  if (buttonData[eLvglButtonEvent::OnPrev] == true) {
+    data->key                            = LV_KEY_PREV;
+    data->state                          = LV_INDEV_STATE_PRESSED;
+    buttonData[eLvglButtonEvent::OnPrev] = false;
+  }
+  if (buttonData[eLvglButtonEvent::OnNext] == true) {
+    data->key                            = LV_KEY_NEXT;
+    data->state                          = LV_INDEV_STATE_PRESSED;
+    buttonData[eLvglButtonEvent::OnNext] = false;
+  }
+  if (buttonData[eLvglButtonEvent::OnEnter] == true) {
+    data->key                             = LV_KEY_ENTER;
+    data->state                           = LV_INDEV_STATE_PRESSED;
+    buttonData[eLvglButtonEvent::OnEnter] = false;
+  }
+}
+
+void buttonEventCallback(void *arg, void *data) {
+  eLvglButtonEvent enumData = (eLvglButtonEvent)(int)data;
+  ESP_LOGI(TAG, "DATA: %i", enumData);
+
+  if (enumData == eLvglButtonEvent::OnPrev)
+    buttonData[eLvglButtonEvent::OnPrev] = true;
+
+  if (enumData == eLvglButtonEvent::OnNext)
+    buttonData[eLvglButtonEvent::OnNext] = true;
+
+  if (enumData == eLvglButtonEvent::OnEnter)
+    buttonData[eLvglButtonEvent::OnEnter] = true;
+}
+
+esp_err_t initInputButton(ButtonConfigs buttonConfigs, lv_display_t *display) {
+  esp_err_t err = ESP_OK;
+  for (auto &buttonConfig : buttonConfigs) {
+    button_handle_t buttonHandle = iot_button_create(&buttonConfig);
+    assert(buttonHandle);
+
+    if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_ENTR) {
+      err |=
+        iot_button_register_cb(buttonHandle, BUTTON_PRESS_DOWN, buttonEventCallback, (void *)eLvglButtonEvent::OnEnter);
+    }
+    if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_PREV) {
+      err |=
+        iot_button_register_cb(buttonHandle, BUTTON_PRESS_DOWN, buttonEventCallback, (void *)eLvglButtonEvent::OnPrev);
+    }
+    if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_NEXT) {
+      err |=
+        iot_button_register_cb(buttonHandle, BUTTON_PRESS_DOWN, buttonEventCallback, (void *)eLvglButtonEvent::OnNext);
+    }
+  }
+
+  indev = lv_indev_create();
+  lv_indev_set_type(indev, LV_INDEV_TYPE_ENCODER);
+  lv_indev_set_mode(indev, LV_INDEV_MODE_EVENT);
+  lv_indev_set_read_cb(indev, lvglInputReadCallback);
+  lv_indev_set_display(indev, display);
+  lv_indev_set_user_data(indev, &buttonData);
+
+  return err;
+}
 
 esp_err_t customButtonInit(void *param) {
   gpio_config_t buttonInputConfig = {
@@ -146,6 +260,7 @@ static void example_lvgl_port_task(void *arg) {
   while (true) {
     xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
     time_till_next_ms = lv_timer_handler();
+    lv_indev_read(indev);
     xSemaphoreGive(lvgl_api_lock);
 
     time_till_next_ms = MAX(time_till_next_ms, time_threshold_ms);
@@ -238,68 +353,21 @@ void nativeDemoLVGL() {
 
   ESP_ERROR_CHECK(esp_lcd_panel_io_register_event_callbacks(lcdPanelIO_handle, &cbs, display));
 
-  // Input Devices
-  button_gpio_config_t buttonGpioConfigs[] = {
-    {
-      .gpio_num     = LCD_BUTTON_PREV,
-      .active_level = 0,
-    },
-    {
-      .gpio_num     = LCD_BUTTON_NEXT,
-      .active_level = 0,
-    },
-    {
-      .gpio_num     = LCD_BUTTON_ENTR,
-      .active_level = 0,
-    },
-  };
-
-  button_custom_config_t buttonCustomConfig = {
-    .active_level                = 0,
-    .button_custom_init          = customButtonInit,
-    .button_custom_get_key_value = customButtonGetLevel,
-    .button_custom_deinit        = customButtonDeinit,
-  };
-
-  button_config_t buttonConfigs[] = {
-    {
-      .type               = BUTTON_TYPE_GPIO,
-      .gpio_button_config = buttonGpioConfigs[0],
-    },
-    {
-      .type               = BUTTON_TYPE_GPIO,
-      .gpio_button_config = buttonGpioConfigs[1],
-    },
-    {
-      .type               = BUTTON_TYPE_GPIO,
-      .gpio_button_config = buttonGpioConfigs[2],
-    },
-    {
-      .type                 = BUTTON_TYPE_GPIO,
-      .custom_button_config = buttonCustomConfig,
-    }
-  };
-
-  const lvgl_port_nav_btns_cfg_t lvglButtons = {
-    .disp         = display,
-    .button_prev  = &buttonConfigs[0],
-    .button_next  = &buttonConfigs[1],
-    .button_enter = &buttonConfigs[3]
-  };
-  lv_indev_t *buttonHandle = lvgl_port_add_navigation_buttons(&lvglButtons);
-
+  ESP_ERROR_CHECK(initInputButton(defaultButtonInputConfigs, display));
   ESP_LOGI(TAG, "Create LVGL task");
   xTaskCreate(example_lvgl_port_task, "LVGL", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL);
 
   // Lock the mutex due to the LVGL APIs are not thread-safe
   xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
   lv_display_set_rotation(display, LV_DISPLAY_ROTATION_90);
-  lv_obj_t *label;
 
+  mainGroup = lv_group_create();
+  lv_indev_set_group(indev, mainGroup);
+
+  lv_obj_t *label;
   lv_obj_t *btn1 = lv_button_create(lv_screen_active());
   /*lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);*/
   lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
-  lv_obj_remove_flag(btn1, LV_OBJ_FLAG_PRESS_LOCK);
 
   label = lv_label_create(btn1);
   lv_label_set_text(label, "Button");
@@ -308,12 +376,17 @@ void nativeDemoLVGL() {
   lv_obj_t *btn2 = lv_button_create(lv_screen_active());
   /*lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, NULL);*/
   lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
-  lv_obj_add_flag(btn2, LV_OBJ_FLAG_CHECKABLE);
   lv_obj_set_height(btn2, LV_SIZE_CONTENT);
 
   label = lv_label_create(btn2);
   lv_label_set_text(label, "Toggle");
   lv_obj_center(label);
+
+  lv_group_add_obj(mainGroup, btn1);
+  lv_group_add_obj(mainGroup, btn2);
+  lv_group_add_obj(mainGroup, label);
+  lv_group_set_editing(mainGroup, true);
+
   /*lv_obj_t *spinner = lv_spinner_create(lv_screen_active());*/
   /*lv_obj_set_size(spinner, 30, 30);*/
   /*lv_obj_center(spinner);*/

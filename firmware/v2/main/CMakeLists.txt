@@ -16,4 +16,5 @@ idf_component_register(
 
   INCLUDE_DIRS ""
 )
+component_compile_options(-Wno-void-pointer-to-enum-cast)
 

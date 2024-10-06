@@ -190,7 +190,11 @@ extern "C" {
 /*}*/
 
 /*void app_main(void) { demoAdcQueueData(); }*/
-void app_main(void) { nativeDemoLVGL(); }
+/*void app_main(void) { nativeDemoLVGL(); }*/
+void app_main(void) {
+  nativeDemoLVGL();
+  /*button_init(25);*/
+}
 
 #ifdef __cplusplus
 }
