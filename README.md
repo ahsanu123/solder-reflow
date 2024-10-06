@@ -149,6 +149,7 @@ Info : Listening on port 3333 for gdb connections
 - ✔️ ok LM324 worked, currently still investigate why adc are really noisy, 03 september 2024 at 13:34
 - looks ESP32 IDF adc getting more stable if `frequency` increased, try to use 20Khz but its not stable, but use 1Mhz its more stable 14 september 2024 at 21:00
 - ✔️ LVGL worked but task semaphore block update of LVGL (still investigate), 05 oktober 2024 at 10:13
+- ✔️ now LVGL with Button input worked!! 😃, need learn more how to map LVGL key to input button, 05 oktober 2024 at 13:23
 
 
 <details>
