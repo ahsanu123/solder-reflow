@@ -41,6 +41,7 @@
 static SemaphoreHandle_t lvgl_api_lock = NULL;
 static lv_group_t       *mainGroup     = NULL;
 static lv_indev_t       *indev         = NULL;
+static int               stepIndex     = 0;
 
 using namespace std;
 
@@ -113,28 +114,70 @@ enum eLvglButtonEvent {
   OnEnter,
 };
 
+static void event_cb(lv_event_t *e) {
+  lv_event_code_t code = lv_event_get_code(e);
+
+  switch (code) {
+    case LV_EVENT_PRESSED:
+      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_PRESSED");
+      break;
+    case LV_EVENT_CLICKED:
+      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_CLICKED");
+      break;
+    case LV_EVENT_LONG_PRESSED:
+      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_LONG_PRESSED");
+      break;
+    case LV_EVENT_LONG_PRESSED_REPEAT:
+      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_LONG_PRESSED_REPEAT");
+      break;
+    default:
+      break;
+  }
+}
+
 void lvglInputReadCallback(lv_indev_t *indev_drv, lv_indev_data_t *data) {
   ESP_LOGI(TAG, "LVG Reading Callback");
+
+  // ON
   if (buttonData[eLvglButtonEvent::OnPrev] == true) {
     data->key                            = LV_KEY_PREV;
     data->state                          = LV_INDEV_STATE_PRESSED;
+    data->enc_diff                       = stepIndex -= 1;
     buttonData[eLvglButtonEvent::OnPrev] = false;
+    return;
   }
   if (buttonData[eLvglButtonEvent::OnNext] == true) {
     data->key                            = LV_KEY_NEXT;
     data->state                          = LV_INDEV_STATE_PRESSED;
+    data->enc_diff                       = stepIndex += 1;
     buttonData[eLvglButtonEvent::OnNext] = false;
+    return;
   }
   if (buttonData[eLvglButtonEvent::OnEnter] == true) {
     data->key                             = LV_KEY_ENTER;
     data->state                           = LV_INDEV_STATE_PRESSED;
     buttonData[eLvglButtonEvent::OnEnter] = false;
+    return;
+  }
+
+  // OFF
+  if (buttonData[eLvglButtonEvent::OnPrev] == false) {
+    data->key   = LV_KEY_PREV;
+    data->state = LV_INDEV_STATE_RELEASED;
+  }
+  if (buttonData[eLvglButtonEvent::OnNext] == false) {
+    data->key   = LV_KEY_NEXT;
+    data->state = LV_INDEV_STATE_RELEASED;
+  }
+  if (buttonData[eLvglButtonEvent::OnEnter] == false) {
+    data->key   = LV_KEY_ENTER;
+    data->state = LV_INDEV_STATE_RELEASED;
   }
 }
 
-void buttonEventCallback(void *arg, void *data) {
+void buttonDownEventCallback(void *arg, void *data) {
   eLvglButtonEvent enumData = (eLvglButtonEvent)(int)data;
-  ESP_LOGI(TAG, "DATA: %i", enumData);
+  /*ESP_LOGI(TAG, "DATA: %i", enumData);*/
 
   if (enumData == eLvglButtonEvent::OnPrev)
     buttonData[eLvglButtonEvent::OnPrev] = true;
@@ -146,6 +189,20 @@ void buttonEventCallback(void *arg, void *data) {
     buttonData[eLvglButtonEvent::OnEnter] = true;
 }
 
+void buttonUpEventCallback(void *arg, void *data) {
+  eLvglButtonEvent enumData = (eLvglButtonEvent)(int)data;
+  /*ESP_LOGI(TAG, "DATA: %i", enumData);*/
+
+  if (enumData == eLvglButtonEvent::OnPrev)
+    buttonData[eLvglButtonEvent::OnPrev] = false;
+
+  if (enumData == eLvglButtonEvent::OnNext)
+    buttonData[eLvglButtonEvent::OnNext] = false;
+
+  if (enumData == eLvglButtonEvent::OnEnter)
+    buttonData[eLvglButtonEvent::OnEnter] = false;
+}
+
 esp_err_t initInputButton(ButtonConfigs buttonConfigs, lv_display_t *display) {
   esp_err_t err = ESP_OK;
   for (auto &buttonConfig : buttonConfigs) {
@@ -153,21 +210,24 @@ esp_err_t initInputButton(ButtonConfigs buttonConfigs, lv_display_t *display) {
     assert(buttonHandle);
 
     if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_ENTR) {
-      err |=
-        iot_button_register_cb(buttonHandle, BUTTON_PRESS_DOWN, buttonEventCallback, (void *)eLvglButtonEvent::OnEnter);
+      err |= iot_button_register_cb(
+        buttonHandle, BUTTON_PRESS_DOWN, buttonDownEventCallback, (void *)eLvglButtonEvent::OnEnter
+      );
     }
     if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_PREV) {
-      err |=
-        iot_button_register_cb(buttonHandle, BUTTON_PRESS_DOWN, buttonEventCallback, (void *)eLvglButtonEvent::OnPrev);
+      err |= iot_button_register_cb(
+        buttonHandle, BUTTON_PRESS_DOWN, buttonDownEventCallback, (void *)eLvglButtonEvent::OnPrev
+      );
     }
     if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_NEXT) {
-      err |=
-        iot_button_register_cb(buttonHandle, BUTTON_PRESS_DOWN, buttonEventCallback, (void *)eLvglButtonEvent::OnNext);
+      err |= iot_button_register_cb(
+        buttonHandle, BUTTON_PRESS_DOWN, buttonDownEventCallback, (void *)eLvglButtonEvent::OnNext
+      );
     }
   }
 
   indev = lv_indev_create();
-  lv_indev_set_type(indev, LV_INDEV_TYPE_ENCODER);
+  lv_indev_set_type(indev, LV_INDEV_TYPE_KEYPAD);
   lv_indev_set_mode(indev, LV_INDEV_MODE_EVENT);
   lv_indev_set_read_cb(indev, lvglInputReadCallback);
   lv_indev_set_display(indev, display);
@@ -370,17 +430,19 @@ void nativeDemoLVGL() {
   lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
 
   label = lv_label_create(btn1);
-  lv_label_set_text(label, "Button");
+  lv_label_set_text(label, "Button 1");
   lv_obj_center(label);
 
   lv_obj_t *btn2 = lv_button_create(lv_screen_active());
-  /*lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, NULL);*/
+  /*lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);*/
   lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
-  lv_obj_set_height(btn2, LV_SIZE_CONTENT);
 
   label = lv_label_create(btn2);
-  lv_label_set_text(label, "Toggle");
+  lv_label_set_text(label, "Button 2");
   lv_obj_center(label);
+
+  /*lv_obj_add_event_cb(btn1, event_cb, LV_EVENT_ALL, NULL);*/
+  /*lv_obj_add_event_cb(btn2, event_cb, LV_EVENT_ALL, NULL);*/
 
   lv_group_add_obj(mainGroup, btn1);
   lv_group_add_obj(mainGroup, btn2);
