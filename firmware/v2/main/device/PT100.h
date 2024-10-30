@@ -13,8 +13,7 @@
 #define TEMP_CURRENT_CONSTANT 0.00113636
 #define TEMP_GAIN_CONSTANT 11.63829
 
-adc_continuous_handle_cfg_t adcConfig = {.max_store_buf_size = 1024,
-                                         .conv_frame_size = 100};
+adc_continuous_handle_cfg_t adcConfig = {.max_store_buf_size = 1024, .conv_frame_size = 100};
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,10 +23,10 @@ class PT100 : public TempDevice {
   adc_continuous_handle_t handle;
 
 public:
-  float GetTemp() override { return 1.9; }
+  float    GetTemp() override { return 1.9; }
   uint16_t GetRawAdc() override { return 21; }
 
-  bool InitDevice() override {
+  bool     InitDevice() override {
     auto handleResult = adc_continuous_new_handle(&adcConfig, &handle);
     ESP_ERROR_CHECK(handleResult);
 

@@ -3,6 +3,7 @@
 
 #include "anim/lv_example_anim.h"
 #include "core/lv_group.h"
+#include "core/lv_obj.h"
 #include "driver/gpio.h"
 #include "driver/spi_common.h"
 #include "driver/spi_master.h"
@@ -26,6 +27,7 @@
 #include "layouts/flex/lv_example_flex.h"
 #include "lvgl.h"
 #include "misc/lv_area.h"
+#include "misc/lv_style.h"
 #include "misc/lv_types.h"
 #include "scroll/lv_example_scroll.h"
 #include "widgets/button/lv_button.h"
@@ -38,6 +40,7 @@
 #include <sys/param.h>
 #include <unistd.h>
 
+static lv_display_t     *display       = NULL;
 static SemaphoreHandle_t lvgl_api_lock = NULL;
 static lv_group_t       *mainGroup     = NULL;
 static lv_indev_t       *indev         = NULL;
@@ -47,7 +50,7 @@ using namespace std;
 
 #define LVGL_TICK_PERIOD_MS 2
 #define LVGL_TASK_PRIORITY 2
-#define LVGL_TASK_STACK_SIZE (4 * 1024)
+#define LVGL_TASK_STACK_SIZE (8 * 1024)
 #define TAG "NATIVE"
 
 #define LCD_SPI_RST gpio_num_t::GPIO_NUM_32
@@ -69,7 +72,7 @@ using namespace std;
 #define LCD_BUTTON_PREV GPIO_NUM_26
 #define LCD_BUTTON_NEXT GPIO_NUM_25
 #define LCD_BUTTON_ENTR GPIO_NUM_22
-#define LCD_BUTTON_NUM 3
+#define LCD_BUTTON_NUM 4
 #define LCD_BUTTON_ACTIVE_STATE 0
 
 using ButtonConfigs          = array<button_config_t, LCD_BUTTON_NUM>;
@@ -106,34 +109,22 @@ ButtonConfigs defaultButtonInputConfigs = {
         .active_level = LCD_BUTTON_ACTIVE_STATE,
       }
   },
+  button_config_t{
+    .type = BUTTON_TYPE_GPIO,
+    .gpio_button_config =
+      {
+        .gpio_num     = LCD_BUTTON_BACK,
+        .active_level = LCD_BUTTON_ACTIVE_STATE,
+      }
+  },
 };
 
 enum eLvglButtonEvent {
   OnNext = 0,
   OnPrev,
   OnEnter,
+  OnBack,
 };
-
-static void event_cb(lv_event_t *e) {
-  lv_event_code_t code = lv_event_get_code(e);
-
-  switch (code) {
-    case LV_EVENT_PRESSED:
-      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_PRESSED");
-      break;
-    case LV_EVENT_CLICKED:
-      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_CLICKED");
-      break;
-    case LV_EVENT_LONG_PRESSED:
-      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_LONG_PRESSED");
-      break;
-    case LV_EVENT_LONG_PRESSED_REPEAT:
-      ESP_LOGI("TAG", "The last button event:\nLV_EVENT_LONG_PRESSED_REPEAT");
-      break;
-    default:
-      break;
-  }
-}
 
 void lvglInputReadCallback(lv_indev_t *indev_drv, lv_indev_data_t *data) {
   ESP_LOGI(TAG, "LVG Reading Callback");
@@ -159,6 +150,12 @@ void lvglInputReadCallback(lv_indev_t *indev_drv, lv_indev_data_t *data) {
     buttonData[eLvglButtonEvent::OnEnter] = false;
     return;
   }
+  if (buttonData[eLvglButtonEvent::OnBack] == true) {
+    data->key                            = LV_KEY_RIGHT;
+    data->state                          = LV_INDEV_STATE_PRESSED;
+    buttonData[eLvglButtonEvent::OnBack] = false;
+    return;
+  }
 
   // OFF
   if (buttonData[eLvglButtonEvent::OnPrev] == false) {
@@ -171,6 +168,10 @@ void lvglInputReadCallback(lv_indev_t *indev_drv, lv_indev_data_t *data) {
   }
   if (buttonData[eLvglButtonEvent::OnEnter] == false) {
     data->key   = LV_KEY_ENTER;
+    data->state = LV_INDEV_STATE_RELEASED;
+  }
+  if (buttonData[eLvglButtonEvent::OnBack] == false) {
+    data->key   = LV_KEY_RIGHT;
     data->state = LV_INDEV_STATE_RELEASED;
   }
 }
@@ -187,6 +188,9 @@ void buttonDownEventCallback(void *arg, void *data) {
 
   if (enumData == eLvglButtonEvent::OnEnter)
     buttonData[eLvglButtonEvent::OnEnter] = true;
+
+  if (enumData == eLvglButtonEvent::OnBack)
+    buttonData[eLvglButtonEvent::OnBack] = true;
 }
 
 void buttonUpEventCallback(void *arg, void *data) {
@@ -201,6 +205,9 @@ void buttonUpEventCallback(void *arg, void *data) {
 
   if (enumData == eLvglButtonEvent::OnEnter)
     buttonData[eLvglButtonEvent::OnEnter] = false;
+
+  if (enumData == eLvglButtonEvent::OnBack)
+    buttonData[eLvglButtonEvent::OnBack] = false;
 }
 
 esp_err_t initInputButton(ButtonConfigs buttonConfigs, lv_display_t *display) {
@@ -222,6 +229,11 @@ esp_err_t initInputButton(ButtonConfigs buttonConfigs, lv_display_t *display) {
     if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_NEXT) {
       err |= iot_button_register_cb(
         buttonHandle, BUTTON_PRESS_DOWN, buttonDownEventCallback, (void *)eLvglButtonEvent::OnNext
+      );
+    }
+    if (buttonConfig.gpio_button_config.gpio_num == LCD_BUTTON_BACK) {
+      err |= iot_button_register_cb(
+        buttonHandle, BUTTON_PRESS_DOWN, buttonDownEventCallback, (void *)eLvglButtonEvent::OnBack
       );
     }
   }
@@ -310,13 +322,48 @@ static void example_lvgl_flush_cb(lv_display_t *disp, const lv_area_t *area, uin
 
 static void example_increase_lvgl_tick(void *arg) { lv_tick_inc(LVGL_TICK_PERIOD_MS); }
 
+void        guiInitialization() {
+  // Lock the mutex due to the LVGL APIs are not thread-safe
+  xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
+  mainGroup = lv_group_create();
+  lv_indev_set_group(indev, mainGroup);
+
+  lv_display_set_rotation(display, LV_DISPLAY_ROTATION_90);
+  lv_obj_t *calendar = lv_calendar_create(lv_screen_active());
+  lv_obj_set_size(calendar, 185, 230);
+  lv_obj_align(calendar, LV_ALIGN_CENTER, 0, 27);
+  /*lv_obj_add_event_cb(calendar, event_handler, LV_EVENT_ALL, NULL);*/
+
+  lv_calendar_set_today_date(calendar, 2021, 02, 23);
+  lv_calendar_set_showed_date(calendar, 2021, 02);
+
+  /*Highlight a few days*/
+  static lv_calendar_date_t highlighted_days[3]; /*Only its pointer will be saved so should be static*/
+  highlighted_days[0].year  = 2021;
+  highlighted_days[0].month = 02;
+  highlighted_days[0].day   = 6;
+
+  highlighted_days[1].year  = 2021;
+  highlighted_days[1].month = 02;
+  highlighted_days[1].day   = 11;
+
+  highlighted_days[2].year  = 2022;
+  highlighted_days[2].month = 02;
+  highlighted_days[2].day   = 22;
+
+  lv_calendar_set_highlighted_dates(calendar, highlighted_days, 3);
+
+  lv_group_set_editing(mainGroup, true);
+  xSemaphoreGive(lvgl_api_lock);
+}
+
 static void example_lvgl_port_task(void *arg) {
   ESP_LOGI(TAG, "Starting LVGL task");
 
   lvgl_api_lock              = xSemaphoreCreateBinary();
   uint32_t time_till_next_ms = 0;
   uint32_t time_threshold_ms = 1000 / CONFIG_FREERTOS_HZ;
-
+  guiInitialization();
   while (true) {
     xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
     time_till_next_ms = lv_timer_handler();
@@ -379,7 +426,7 @@ void nativeDemoLVGL() {
   /*ESP_ERROR_CHECK(esp_lcd_panel_mirror(lcdPanel_handle, false, false));*/
 
   lv_init();
-  lv_display_t *display = lv_display_create(LCD_WIDTH, LCD_HEIGHT);
+  display = lv_display_create(LCD_WIDTH, LCD_HEIGHT);
 
   // alloc draw buffers used by LVGL
   // it's recommended to choose the size of the draw buffer(s) to be at least 1/10 screen sized
@@ -416,58 +463,6 @@ void nativeDemoLVGL() {
   ESP_ERROR_CHECK(initInputButton(defaultButtonInputConfigs, display));
   ESP_LOGI(TAG, "Create LVGL task");
   xTaskCreate(example_lvgl_port_task, "LVGL", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL);
-
-  // Lock the mutex due to the LVGL APIs are not thread-safe
-  xSemaphoreTake(lvgl_api_lock, pdMS_TO_TICKS(1));
-  lv_display_set_rotation(display, LV_DISPLAY_ROTATION_90);
-
-  mainGroup = lv_group_create();
-  lv_indev_set_group(indev, mainGroup);
-
-  lv_obj_t *label;
-  lv_obj_t *btn1 = lv_button_create(lv_screen_active());
-  /*lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);*/
-  lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
-
-  label = lv_label_create(btn1);
-  lv_label_set_text(label, "Button 1");
-  lv_obj_center(label);
-
-  lv_obj_t *btn2 = lv_button_create(lv_screen_active());
-  /*lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);*/
-  lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
-
-  label = lv_label_create(btn2);
-  lv_label_set_text(label, "Button 2");
-  lv_obj_center(label);
-
-  /*lv_obj_add_event_cb(btn1, event_cb, LV_EVENT_ALL, NULL);*/
-  /*lv_obj_add_event_cb(btn2, event_cb, LV_EVENT_ALL, NULL);*/
-
-  lv_group_add_obj(mainGroup, btn1);
-  lv_group_add_obj(mainGroup, btn2);
-  lv_group_add_obj(mainGroup, label);
-  lv_group_set_editing(mainGroup, true);
-
-  /*lv_obj_t *spinner = lv_spinner_create(lv_screen_active());*/
-  /*lv_obj_set_size(spinner, 30, 30);*/
-  /*lv_obj_center(spinner);*/
-  /*lv_spinner_set_anim_params(spinner, 1700, 50);*/
-  /**/
-  /*lv_obj_t *label1 = lv_label_create(lv_screen_active());*/
-  /*lv_label_set_long_mode(label1, LV_LABEL_LONG_WRAP);*/
-  /*lv_label_set_text(label1, "HELL YEAH!!!");*/
-  /*lv_obj_set_width(label1, 150);*/
-  /*lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);*/
-  /*lv_obj_align(label1, LV_ALIGN_CENTER, 0, -40);*/
-  /**/
-  /*lv_obj_t *label2 = lv_label_create(lv_screen_active());*/
-  /*lv_label_set_long_mode(label2, LV_LABEL_LONG_SCROLL_CIRCULAR);*/
-  /*lv_obj_set_width(label2, 150);*/
-  /*lv_label_set_text(label2, "Made With Love By Ah...");*/
-  /*lv_obj_align(label2, LV_ALIGN_CENTER, 0, 40);*/
-
-  xSemaphoreGive(lvgl_api_lock);
 }
 
 #endif

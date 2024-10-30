@@ -1,4 +1,5 @@
 build/
+plotter/
 esp-venv/
 .cache/
 # managed_components/*
