@@ -15,7 +15,7 @@
 #include <esp_adc/adc_cali.h>
 #include <sys/types.h>
 
-#define ESP32_ADC_MAX_VOLTAGE 1.1
+#define ESP32_ADC_MAX_VOLTAGE 3.3
 #define ESP32_ADC_MAX_BITWIDTH 4095.0
 // there is a document for this, read more if curious
 
@@ -31,21 +31,21 @@
 // RTD_CONST_C its conditional value based on current position, look
 // references for details
 
-#define ADC_READ_LEN 256
-#define QUEUE_LENGTH 256
-#define MS_DELAY(TIME) TIME / portTICK_PERIOD_MS
-
 adc_channel_t           channel[3] = {ADC_CHANNEL_7, ADC_CHANNEL_6, ADC_CHANNEL_5};
 
 TaskHandle_t            adcTaskHandle;
 QueueHandle_t           queueHandle;
 adc_continuous_handle_t globalAdcHandle = NULL;
 
-float                   calculateTemperatureInC(uint16_t rawData) {
-  float RTD_voltage    = rawData * (ESP32_ADC_MAX_VOLTAGE / ESP32_ADC_MAX_BITWIDTH);
-  float RTD_resistance = RTD_voltage / 1e-3;
+#define ADC_READ_LEN 256
+#define QUEUE_LENGTH 256
+#define MS_DELAY(TIME) TIME / portTICK_PERIOD_MS
 
-  float underRoot = (pow(RTD_CONST_A, 2)) - 4 * RTD_CONST_B * (1 - RTD_resistance / RTD_CONST_R0);
+float calculateTemperatureInC(uint16_t rawData) {
+  float RTD_voltage           = rawData * (ESP32_ADC_MAX_VOLTAGE / ESP32_ADC_MAX_BITWIDTH);
+  float RTD_resistance        = RTD_voltage / 1e-3;
+
+  float underRoot             = (pow(RTD_CONST_A, 2)) - 4 * RTD_CONST_B * (1 - RTD_resistance / RTD_CONST_R0);
   float squareRootResult      = sqrt(underRoot);
 
   float RTD_temperatureResult = (-1 * RTD_CONST_A + squareRootResult) / (2 * RTD_CONST_B);
@@ -57,14 +57,12 @@ static bool
 adcConversionCompleteCallback(adc_continuous_handle_t handle, const adc_continuous_evt_data_t *edata, void *user_data) {
   BaseType_t yield = pdFALSE;
   vTaskNotifyGiveFromISR(adcTaskHandle, &yield);
-
   return (yield == pdTRUE);
 }
 
 void continuous_adc_init(adc_channel_t *channel, uint8_t channel_num, adc_continuous_handle_t *out_handle) {
 
   adc_continuous_handle_t     handle     = NULL;
-
   adc_continuous_handle_cfg_t adc_config = {
     .max_store_buf_size = 1024,
     .conv_frame_size    = ADC_READ_LEN,
@@ -120,14 +118,14 @@ void adcProcessor(void *parameter) {
       for (int i = 0; i < retNum; i += SOC_ADC_DIGI_RESULT_BYTES) {
         adc_digi_output_data_t *outputPtr = (adc_digi_output_data_t *)&result[i];
 
-        /*bufResult = outputPtr->type1.data;*/
-        uint32_t data     = outputPtr->type1.data;
-        uint32_t chan_num = outputPtr->type1.channel;
+        bufResult                         = outputPtr->type1.data;
+        uint32_t data                     = outputPtr->type1.data;
+        uint32_t chan_num                 = outputPtr->type1.channel;
 
-        if (outputPtr->type1.channel == 7) {
-          ESP_LOGI("info", "Channel: %" PRIu32 ", Value: %" PRIu32, chan_num, data);
-          /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu32 "\n", bufResult);*/
-        }
+        /*if (outputPtr->type1.channel == 7) {*/
+        /*ESP_LOGI("info", "Channel: %" PRIu32 ", Value: %" PRIu32, chan_num, data);*/
+        esp_log_write(ESP_LOG_INFO, "", "%" PRIu32 "\n", bufResult);
+        /*}*/
       }
       xQueueSendToBack(queueHandle, &avgResult, pdMS_TO_TICKS(20));
       avgResult = 0;

@@ -45,6 +45,11 @@ Designed With [KICAD](https://www.kicad.org)
 > - 🥓 10 Pin JTAG Connector
 > - 🧢 0.91' OLED or 1.3' TFT
 
+## 🪗 Plot of Sampled Data
+> - first time sampled diagram [30 oktober 2024]
+![image](https://github.com/user-attachments/assets/2c9f545f-8a4b-424a-9164-6b96f2deb1fe)
+
+
 ## 🐞 Debugging 
 there is many way to debug ESP32 use JTAG, refer to [documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/jtag-debugging/index.html). 
 at this time i only got JLink V8(2014),
@@ -150,6 +155,7 @@ Info : Listening on port 3333 for gdb connections
 - looks ESP32 IDF adc getting more stable if `frequency` increased, try to use 20Khz but its not stable, but use 1Mhz its more stable 14 september 2024 at 21:00
 - ✔️ LVGL worked but task semaphore block update of LVGL (still investigate), 05 oktober 2024 at 10:13
 - ✔️ now LVGL with Button input worked!! 😃, need learn more how to map LVGL key to input button, 05 oktober 2024 at 13:23
+- ✔️ sampling data from heater and plot it, 30 oktober 2024 at 2015
 
 
 <details>

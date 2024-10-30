@@ -34,7 +34,7 @@ using namespace std;
 enum device_pinout_type_t { INPUT, OUTPUT, IO, POWER };
 
 typedef struct {
-  string name;
+  string               name;
   device_pinout_type_t type;
 } device_pinout_t;
 

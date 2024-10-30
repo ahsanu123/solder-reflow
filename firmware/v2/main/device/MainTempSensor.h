@@ -7,9 +7,9 @@ extern "C" {
 
 class TempDevice {
 public:
-  virtual float GetTemp() = 0;
-  virtual uint16_t GetRawAdc() = 0;
-  virtual bool InitDevice() = 0;
+  virtual float    GetTemp()    = 0;
+  virtual uint16_t GetRawAdc()  = 0;
+  virtual bool     InitDevice() = 0;
 };
 
 class MainTempSensor {

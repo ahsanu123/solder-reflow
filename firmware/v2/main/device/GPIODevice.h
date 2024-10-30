@@ -3,6 +3,8 @@
 #define INCLUDE_GPIO_DEVICE
 
 #include "driver/gpio.h"
+#include "esp_err.h"
+#include "hal/gpio_types.h"
 #include "soc/gpio_num.h"
 #include <array>
 #include <cstddef>
@@ -20,75 +22,88 @@
 
 enum eRegisCallbackStatus { Fail = 0, Success = 1 };
 enum eDefaultIO {
-  INPUT_LEFT = 0,
-  INPUT_DOWN = 1,
-  INPUT_UP = 2,
+  INPUT_LEFT  = 0,
+  INPUT_DOWN  = 1,
+  INPUT_UP    = 2,
   INPUT_RIGHT = 3,
-  INPUT_OK = 4,
+  INPUT_OK    = 4,
 };
 
 typedef void (*Callback)(bool state);
 typedef bool (*ReadPin)(gpio_num_t &pin);
 typedef void (*InitGpiosCallback)(std::array<gpio_num_t, NUM_OF_BUTTONS> pins);
 
-typedef struct {
-  bool currentState;
-  bool lastState;
-  bool state;
+typedef struct ButtonStruct_t {
+  bool       currentState;
+  bool       lastState;
+  bool       state;
   gpio_num_t pin;
-  Callback onPressIn;
-  Callback onPressOut;
+  Callback   onPressIn;
+  Callback   onPressOut;
 } ButtonStruct;
 
 std::array<ButtonStruct, NUM_OF_BUTTONS> defaultButtonLists = {
-    ButtonStruct{
-        .currentState = HIGH,
-        .lastState = HIGH,
-        .state = HIGH,
-        .pin = gpio_num_t::GPIO_NUM_27,
-        .onPressIn = NULL,
-        .onPressOut = NULL,
-    },
-    ButtonStruct{
-        .currentState = HIGH,
-        .lastState = HIGH,
-        .state = HIGH,
-        .pin = gpio_num_t::GPIO_NUM_26,
-        .onPressIn = NULL,
-        .onPressOut = NULL,
-    },
-    ButtonStruct{
-        .currentState = HIGH,
-        .lastState = HIGH,
-        .state = HIGH,
-        .pin = gpio_num_t::GPIO_NUM_25,
-        .onPressIn = NULL,
-        .onPressOut = NULL,
-    },
-    ButtonStruct{
-        .currentState = HIGH,
-        .lastState = HIGH,
-        .state = HIGH,
-        .pin = gpio_num_t::GPIO_NUM_22,
-        .onPressIn = NULL,
-        .onPressOut = NULL,
-    },
-    ButtonStruct{
-        .currentState = HIGH,
-        .lastState = HIGH,
-        .state = HIGH,
-        .pin = gpio_num_t::GPIO_NUM_0,
-        .onPressIn = NULL,
-        .onPressOut = NULL,
-    }};
+  ButtonStruct{
+    .currentState = HIGH,
+    .lastState    = HIGH,
+    .state        = HIGH,
+    .pin          = gpio_num_t::GPIO_NUM_27,
+    .onPressIn    = NULL,
+    .onPressOut   = NULL,
+  },
+  ButtonStruct{
+    .currentState = HIGH,
+    .lastState    = HIGH,
+    .state        = HIGH,
+    .pin          = gpio_num_t::GPIO_NUM_26,
+    .onPressIn    = NULL,
+    .onPressOut   = NULL,
+  },
+  ButtonStruct{
+    .currentState = HIGH,
+    .lastState    = HIGH,
+    .state        = HIGH,
+    .pin          = gpio_num_t::GPIO_NUM_25,
+    .onPressIn    = NULL,
+    .onPressOut   = NULL,
+  },
+  ButtonStruct{
+    .currentState = HIGH,
+    .lastState    = HIGH,
+    .state        = HIGH,
+    .pin          = gpio_num_t::GPIO_NUM_22,
+    .onPressIn    = NULL,
+    .onPressOut   = NULL,
+  },
+  ButtonStruct{
+    .currentState = HIGH,
+    .lastState    = HIGH,
+    .state        = HIGH,
+    .pin          = gpio_num_t::GPIO_NUM_0,
+    .onPressIn    = NULL,
+    .onPressOut   = NULL,
+  }
+};
 
+esp_err_t initIoAsOutput(gpio_num_t pin) {
+
+  gpio_config_t ioConfig = {};
+
+  ioConfig.mode          = GPIO_MODE_OUTPUT;
+  ioConfig.intr_type     = GPIO_INTR_DISABLE;
+  ioConfig.pull_up_en    = GPIO_PULLUP_ENABLE;
+  ioConfig.pull_down_en  = GPIO_PULLDOWN_DISABLE;
+  ioConfig.pin_bit_mask  = (1ULL << pin);
+
+  return gpio_config(&ioConfig);
+}
 void defaultInitGpioFunction(std::array<gpio_num_t, NUM_OF_BUTTONS> pins) {
   gpio_config_t ioConfig = {};
 
-  ioConfig.mode = GPIO_MODE_INPUT;
-  ioConfig.intr_type = GPIO_INTR_DISABLE;
-  ioConfig.pull_up_en = GPIO_PULLUP_ENABLE;
-  ioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
+  ioConfig.mode          = GPIO_MODE_INPUT;
+  ioConfig.intr_type     = GPIO_INTR_DISABLE;
+  ioConfig.pull_up_en    = GPIO_PULLUP_ENABLE;
+  ioConfig.pull_down_en  = GPIO_PULLDOWN_DISABLE;
 
   for (auto &pin : pins) {
     ioConfig.pin_bit_mask += (1ULL << pin);
@@ -104,20 +119,21 @@ bool defaultReadPinCallback(gpio_num_t &pin) {
 class Button {
 private:
   std::array<ButtonStruct, NUM_OF_BUTTONS> listButtons;
-  ReadPin readPinCallback;
+  ReadPin                                  readPinCallback;
 
 public:
-  Button(std::array<ButtonStruct, NUM_OF_BUTTONS> buttons = defaultButtonLists,
-         ReadPin readPinCallback = defaultReadPinCallback) {
-
+  Button(
+    std::array<ButtonStruct, NUM_OF_BUTTONS> buttons         = defaultButtonLists,
+    ReadPin                                  readPinCallback = defaultReadPinCallback
+  ) {
     this->readPinCallback = readPinCallback;
-    this->listButtons = buttons;
+    this->listButtons     = buttons;
 
     for (auto &button : this->listButtons) {
-      button.onPressIn = NULL;
-      button.onPressOut = NULL;
-      button.state = HIGH;
-      button.lastState = true;
+      button.onPressIn    = NULL;
+      button.onPressOut   = NULL;
+      button.state        = HIGH;
+      button.lastState    = true;
       button.currentState = true;
     }
   }
@@ -125,7 +141,7 @@ public:
   void Init(InitGpiosCallback initFunction = defaultInitGpioFunction) {
 
     std::array<gpio_num_t, NUM_OF_BUTTONS> pins;
-    int index = 0;
+    int                                    index = 0;
 
     for (auto &button : this->listButtons) {
       pins.at(index) = button.pin;
