@@ -45,7 +45,7 @@ Designed With [KICAD](https://www.kicad.org)
 > - 🥓 10 Pin JTAG Connector
 > - 🧢 0.91' OLED or 1.3' TFT
 
-## 🪗 Plot of Sampled Data
+## 🖍️ Plot of Sampled Data
 > - first time sampled diagram [30 oktober 2024]
 ![image](https://github.com/user-attachments/assets/2c9f545f-8a4b-424a-9164-6b96f2deb1fe)
 
@@ -59,7 +59,7 @@ at this time i only got JLink V8(2014),
 > openocd-esp32 (fork of official openocd)  
 > JLink  
 
-🪜 Step To Debug 
+🩹 Step To Debug 
 1. run `get_idf` to start esp idf environtment (if openocd cant connect to esp32, try to serial monitor first before connecting with openocd, `idf.py -p /dev/ttyUSB0 monitor`) 
 2. connect your board with jlink like this [ref](https://gojimmypi.github.io/ESP32-JTAG-GDB-Debugging/) (make sure your JLink and esp32 power up
 ```txt
