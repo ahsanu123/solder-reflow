@@ -46,8 +46,15 @@ Designed With [KICAD](https://www.kicad.org)
 > - 🧢 0.91' OLED or 1.3' TFT
 
 ## 🖍️ Plot of Sampled Data
-> - first time sampled diagram [30 oktober 2024]
+- Transfer Function Estimation
+
+$`y(t) = 350(1-e^{(t-d)/tau})`$ in PT100 resistance (ohm), d = 17.5 second
+![image](./docs/transfer_function_estimation.png)
+
+- first time sampled diagram [30 oktober 2024]
 ![image](https://github.com/user-attachments/assets/2c9f545f-8a4b-424a-9164-6b96f2deb1fe)
+
+
 
 
 ## 🐞 Debugging 
