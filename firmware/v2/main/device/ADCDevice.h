@@ -147,7 +147,7 @@ public:
     InitAdcHandle                     initAdcHandleFunction = defaultInitAdcHandle
   ) {
     this->adcDev    = adcDevices;
-    this->handle    = initAdcHandleFunction(this->adcDev, 20000);
+    this->handle    = initAdcHandleFunction(this->adcDev, 2000000);
     this->isShowlog = false;
   }
 

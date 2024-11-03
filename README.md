@@ -46,16 +46,24 @@ Designed With [KICAD](https://www.kicad.org)
 > - 🧢 0.91' OLED or 1.3' TFT
 
 ## 🖍️ Plot of Sampled Data
-- Transfer Function Estimation
 
-$`y(t) = 350(1-e^{(t-d)/tau})`$ in PT100 resistance (ohm), d = 17.5 second
+<details>
+ <summary>
+  Plot Collection
+ </summary>
+ 
+- multiple sampling at 2Mhz (except first one)
+signal was moving averaged filter, first graph was actually noisy, and rest was actually not really noisy, but after filtered low noise signal look bumped
+![image](./docs/multiple_plot_with_diference_pwm_duty_cycle.png)
+
+- Transfer Function Estimation
+$`y(t) = 350(1-e^{(t-d)/tau})`$ in temperature degre (celcius), d = 17.5 second
 ![image](./docs/transfer_function_estimation.png)
 
 - first time sampled diagram [30 oktober 2024]
 ![image](https://github.com/user-attachments/assets/2c9f545f-8a4b-424a-9164-6b96f2deb1fe)
 
-
-
+</details>
 
 ## 🐞 Debugging 
 there is many way to debug ESP32 use JTAG, refer to [documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/jtag-debugging/index.html). 
