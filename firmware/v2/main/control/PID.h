@@ -19,73 +19,75 @@ struct PIDReturnData_t {
   double proportional;
   double setpoint;
   double output;
-  double realOutput;
+  double unBoundedOutput;
 };
 
 class PID {
 public:
   ~PID();
   PID(double dt, double max, double min, double Kp, double Kd, double Ki)
-      : _dt(dt), _max(max), _min(min), _Kp(Kp), _Kd(Kd), _Ki(Ki), _pre_error(0), _integral(0) {}
+      : _timeSpan(dt), _maximumDriverValue(max), _minimumDriverValue(min), _constantProportional(Kp),
+        _constantDerivation(Kd), _constantIntegration(Ki), _lastPlanValue(0), _integralValue(0) {}
 
-  double calculate(double setpoint, double pv) {
-
-    // Calculate error
-    double error = setpoint - pv;
+  double calculate(double setPoint, double error, double plantValue) {
 
     // Proportional term
-    double Pout = _Kp * error;
+    double proportionalOut = _constantProportional * error;
+    if (proportionalOut < 0)
+      proportionalOut *= -1;
 
     // Integral term
-    _integral += error * _dt;
-    double Iout = _Ki * _integral;
+    _integralValue += error;
+    double integralOut = _constantIntegration * _integralValue;
+
+    if (integralOut > _maximumDriverValue)
+      integralOut = _maximumDriverValue;
 
     // Derivative term
-    double derivative = (error - _pre_error) / _dt;
-    double Dout       = _Kd * derivative;
+    double derivative    = (plantValue - _lastPlanValue) / _timeSpan;
+    double derivativeOut = _constantDerivation * derivative;
 
     // Calculate total output
-    double output      = Pout + Iout + Dout;
-
-    double mapedOutput = map(output, -15, 15, _min, _max);
+    double output        = proportionalOut + integralOut + derivativeOut;
+    double boundedOutput = output;
 
     // Restrict to max/min
-    if (mapedOutput > _max)
-      mapedOutput = _min;
-    if (mapedOutput < _min)
-      mapedOutput = _max;
+    if (output > _maximumDriverValue)
+      boundedOutput = _maximumDriverValue;
+    if (output < _minimumDriverValue)
+      boundedOutput = _minimumDriverValue;
 
     // Save error to previous error
-    _pre_error     = error;
+    _lastPlanValue  = plantValue;
 
-    this->pidInfos = {
-      .error        = error,
-      .integral     = Iout,
-      .derivative   = derivative,
-      .proportional = Pout,
-      .setpoint     = setpoint,
-      .output       = mapedOutput,
-      .realOutput   = output,
+    this->_pidInfos = {
+      .error           = error,
+      .integral        = integralOut,
+      .derivative      = derivativeOut,
+      .proportional    = proportionalOut,
+      .setpoint        = setPoint,
+      .output          = boundedOutput,
+      .unBoundedOutput = output,
     };
 
-    return mapedOutput;
+    return boundedOutput;
   }
 
-  PIDReturnData_t getDebugInfo() { return this->pidInfos; }
+  PIDReturnData_t getDebugInfo() { return this->_pidInfos; }
   void            setDirection(bool value) { this->_direction = value; }
 
 private:
-  double          _dt;
-  double          _max;
-  double          _min;
-  double          _Kp;
-  double          _Kd;
-  double          _Ki;
-  double          _pre_error;
-  double          _integral;
+  double          _timeSpan;
+  double          _maximumDriverValue;
+  double          _minimumDriverValue;
+  double          _constantProportional;
+  double          _constantDerivation;
+  double          _constantIntegration;
+  double          _lastPlanValue;
+  double          _integralValue;
   bool            _direction = false;
 
-  PIDReturnData_t pidInfos;
+  PIDReturnData_t _pidInfos;
 };
 
 #endif //

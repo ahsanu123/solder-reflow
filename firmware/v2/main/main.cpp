@@ -11,12 +11,14 @@
 #define HEATER1_PIN GPIO_NUM_4
 #define HEATER2_PIN GPIO_NUM_21
 
-#define PID_DT 0.01
-#define PID_MAX 0.1
-#define PID_MIN 4096
-#define PID_KP 0.01
-#define PID_KD 0.0005 // 0.05
-#define PID_KI 0      // 0.05
+#define PID_DT 0.1
+#define PID_MAX 4096
+#define PID_MIN 0.1
+#define PID_KP 17
+#define PID_KD 0     // 0.05
+#define PID_KI 0.001 // 0.01
+
+#define AVG_COUNT 500
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,6 +64,7 @@ void setOutput(double pidValue) {
 // MAIN
 void app_main() {
 
+  double setPoint = 360;
   init_led_c();
   PID *pid = new PID(PID_DT, PID_MAX, PID_MIN, PID_KP, PID_KD, PID_KI);
   /*pid->setDirection(true);*/
@@ -73,11 +76,12 @@ void app_main() {
   /*button->SetOnPressInCallback(turnOffHeater, 2);*/
 
   while (true) {
+
     temp->Scan();
 
     double tempValue = (double)raw2temp(temp->GetRawValue(0));
-    double output    = pid->calculate(250, tempValue);
-    setOutput(output);
+    double output    = pid->calculate(setPoint, setPoint - tempValue, tempValue);
+    setOutput(4096.0 - output);
 
     PIDReturnData_t debugValue = pid->getDebugInfo();
     esp_log_write(
@@ -86,15 +90,15 @@ void app_main() {
       "%f,%f,%f,%f,%f,%f,%f,%f\n",
       tempValue,
       debugValue.output,
-      debugValue.realOutput,
+      debugValue.unBoundedOutput,
       debugValue.error,
       debugValue.integral,
       debugValue.derivative,
       debugValue.proportional,
       debugValue.setpoint
     );
-    /*esp_log_write(ESP_LOG_INFO, "", "%" PRIu16 "\n", temp->GetRawValue(0));*/
-    vTaskDelay(pdMS_TO_TICKS(10));
+
+    vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
 }
