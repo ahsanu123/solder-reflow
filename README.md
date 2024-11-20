@@ -24,7 +24,11 @@
 
 ## ✏️ SORE - Solder Reflow
 
-Designed With [KICAD](https://www.kicad.org)
+🌕 SORE - Solder Reflow,  DIY hot plate made from several reference across internet, 
+use PT100 for temperature sensor controlled with ESP32-WROOM-32D, with 1.47 IPS LCD, 
+programmed in ESP IDF Framework with LVGL for display. 
+
+> Designed With [KICAD](https://www.kicad.org)
 
 <p align="center" style="background-color: white;">
 <img alt="schematic" src="./hardware/board/docs/solder-reflow.svg">
