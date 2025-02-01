@@ -34,6 +34,19 @@ programmed in ESP IDF Framework with LVGL for display.
 <img alt="schematic" src="./hardware/board/docs/solder-reflow.svg">
 </p>
 
+
+## 🏆 Achieved Goal For Version 2
+
+this is just my own diy solder reflow made from seferal reference accross internet.
+at initial of this project, i want: (❌ ->  todo) 
+  1. use ptc heater instead of iron ✔️
+  2. design some case for this project ❌
+  3. use esp32 or wemos ✔️ -> use esp32 wemos suck
+  4. use native toolchain instead arduino ✔️ -> ESP-IDF V5
+  6. make good documentation about this project ❌ 
+  7. UI with lvgl ❌ -> done  basic setup but not complete yet
+  8. PID  Control ✔️ -> done but need  more  tweak
+
 ## 🥈 Version 2.0 - Main Info
 
 <p align="center" style="background-color: white;">
@@ -43,7 +56,7 @@ programmed in ESP IDF Framework with LVGL for display.
 > - 🥑 Built In 5V and 3.3v Voltage Source
 > - 0️⃣ Built in SSR Zero Crossing
 > - ⛓️ Built In USB Serial Interface
-> - 🎣 Use TL074 For PT100 Signal Conditioning
+> - 🎣 Use LM324 For PT100 Signal Conditioning
 > - 🌮 5 Programmable User Input
 > - 🍒 Use ESP32-Wroom
 > - 🥓 10 Pin JTAG Connector
@@ -177,23 +190,9 @@ Info : Listening on port 3333 for gdb connections
 - ✔️ sampling data from heater and plot it, 30 oktober 2024 at 2015
 
 
-<details>
-<summary>Several Notes</summary>
-
-## 📔 Note to Myself
-this is just my own diy solder reflow made from seferal reference accross internet.
-at initial of this project, i want:
-  1. use ptc heater instead of iron 
-  2. design some case for this project 
-  3. use esp32 or wemos
-  4. use native toolchain instead arduino 
-  6. make good documentation about this project 
-
 ## 🐍 Reference
 - maker moekoe: https://github.com/makermoekoe/Hotplate-Soldering-Iron  
 - casing design: https://cdn.shopify.com/s/files/1/1978/9859/files/DSC_7360.jpg?v=1609830857
- 
-</details>
 
-<sup> Work In Progress, Made with ♥️ by AH... </sup>
+<sup> Version 2 Complete, Version 3 for 2025 (maybe), Made with ♥️ by AH... </sup>
 
