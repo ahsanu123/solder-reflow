@@ -1,5 +1,5 @@
 
- <h1 align="center">🌕 SORE</h1>
+ <h1 align="center">🌕 SORE V3</h1>
 <p align="center">The DIY Solder Reflow 
 <p align="center">
   <a href="https://github.com/ahsanu123/solder-reflow">
