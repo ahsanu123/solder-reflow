@@ -1,2 +1,0 @@
-    this->stop();
-    startBlock(m_column,m_page+1,0);

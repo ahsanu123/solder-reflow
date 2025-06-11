@@ -1,2 +1,0 @@
-    m_rotate_output = rotate;
-    this->setRotation( m_rotation );

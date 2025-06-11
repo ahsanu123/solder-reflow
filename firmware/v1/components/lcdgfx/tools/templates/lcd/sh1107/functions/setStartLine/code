@@ -1,5 +1,0 @@
-    m_startLine = line;
-    commandStart();
-    this->send( 0xDC );
-    this->send( line & 0x7F ); // start line
-    this->stop();

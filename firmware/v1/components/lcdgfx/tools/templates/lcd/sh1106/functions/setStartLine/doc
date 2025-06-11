@@ -1,5 +1,0 @@
-    /**
-     * Sets start line in gdram to start display content with
-     *
-     * @param line start line in range 0 - 63
-     */

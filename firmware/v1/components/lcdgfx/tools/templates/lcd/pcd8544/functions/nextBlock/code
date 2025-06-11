@@ -1,5 +1,0 @@
-    if ( m_width != 1)
-    {
-        this->stop();
-        startBlock(m_column, m_page+1, m_width);
-    }

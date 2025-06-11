@@ -1,4 +1,0 @@
-    commandStart();
-    this->send( 0xD3 );
-    this->send( offset & 0x7F ); // start line
-    this->stop();

@@ -1,5 +1,0 @@
-build/
-esp-venv/
-.cache/
-lvgl/*
-bin/

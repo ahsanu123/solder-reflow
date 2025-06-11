@@ -1,6 +1,0 @@
-build/
-plotter/
-esp-venv/
-.cache/
-# managed_components/*
-# !managed_components/README.md

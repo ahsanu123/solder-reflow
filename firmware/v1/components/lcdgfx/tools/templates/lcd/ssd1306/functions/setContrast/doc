@@ -1,4 +1,0 @@
-    /**
-     * Set display contrast, ie light intensity
-     * @param contrast - contrast value to see, refer to ~CONTROLLER~ datasheet
-     */

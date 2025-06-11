@@ -1,3 +1,0 @@
-    commandStart();
-    this->send( mode ? 0xC0 : 0xC8 );
-    this->stop();
