@@ -1,5 +1,4 @@
-
- <h1 align="center">🌕 SORE V3</h1>
+<h1 align="center">🌕 SORE V3</h1>
 <p align="center">The DIY Solder Reflow 
 <p align="center">
   <a href="https://github.com/ahsanu123/solder-reflow">
@@ -44,8 +43,13 @@ programmed in ESP IDF Framework with LVGL for display.
 > - correcting display orientation,
 > - and try to program it with ratatui embedded backend [mousefood](https://github.com/j-g00da/mousefood)
 > - think about how to stack the heater so its not separated, model it with inventor
-> - if possible, buy local component only 
+> - if possible, buy local component only
+> - take change to make ui with slint.dev, and make simple ui as sketch below
 
+<details>
+ <summary>Sketch</summary>
+ <img src="./docs/1751369923938.jpg" width="250px"/> 
+</details>
 
 ## 🥈 Version 2.0 - Main Info
 
@@ -94,8 +98,7 @@ $`y(t) = 350(1-e^{(t-d)/tau})`$ in temperature degre (celcius), d = 17.5 second
   </a>
 </p>
 </details>
-
-
+ 
 - PCB Design Finished 10 june 2024 20:51
 - Order _BOM_ and PCB
 - PCB and BOM Arrive 12 july 2024 about 16:00
