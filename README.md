@@ -121,7 +121,8 @@ $`y(t) = 350(1-e^{(t-d)/tau})`$ in temperature degre (celcius), d = 17.5 second
 
 - Slint MCU support Discussion -> https://github.com/slint-ui/slint/discussions/5008
 - Slint MCU Template (raspi pico) -> https://github.com/slint-ui/slint-mcu-rust-template/blob/main/src/main.rs
-- Slint Linux Template (Linux, etc) -> https://github.com/slint-ui/slint-rust-template/tree/main 
+- Slint Linux Template (Linux, etc) -> https://github.com/slint-ui/slint-rust-template/tree/main
+- Slint ESP32 Example -> https://github.com/slint-ui/slint/blob/master/examples/mcu-board-support/esp32_s3_box_3.rs 
 
 <sup> Work In Progress Version 3 for 2025 🔥, Made with ♥️ by AH... </sup>
 
