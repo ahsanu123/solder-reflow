@@ -86,7 +86,7 @@ $`y(t) = 350(1-e^{(t-d)/tau})`$ in temperature degre (celcius), d = 17.5 second
 
 </details>
 
-## 🌱 V2 Project Progress
+## 🌱 V3 Project Progress
 
 <details>
  <summary>
@@ -115,7 +115,13 @@ $`y(t) = 350(1-e^{(t-d)/tau})`$ in temperature degre (celcius), d = 17.5 second
 - ✔️ now LVGL with Button input worked!! 😃, need learn more how to map LVGL key to input button, 05 oktober 2024 at 13:23
 - ✔️ sampling data from heater and plot it, 30 oktober 2024 at 2015
 - ⏰11 June 2025 19:31, make it version 3,
- 
+
+
+## 🌴 Reference 
+
+- Slint MCU support Discussion -> https://github.com/slint-ui/slint/discussions/5008
+- Slint MCU Template (raspi pico) -> https://github.com/slint-ui/slint-mcu-rust-template/blob/main/src/main.rs
+- Slint Linux Template (Linux, etc) -> https://github.com/slint-ui/slint-rust-template/tree/main 
 
 <sup> Work In Progress Version 3 for 2025 🔥, Made with ♥️ by AH... </sup>
 
