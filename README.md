@@ -30,7 +30,7 @@ programmed in ESP IDF Framework with LVGL for display.
 > Designed With [KICAD](https://www.kicad.org)
 
 <p align="center" style="background-color: white;">
-<img alt="schematic" src="./hardware/board/docs/solder-reflow.svg">
+<img alt="schematic" src="./hardware/v2/docs/solder-reflow.svg">
 </p>
 
 
