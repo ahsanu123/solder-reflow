@@ -1,8 +1,9 @@
 <h1 align="center">🌕 SORE V3</h1>
 <p align="center">The DIY Solder Reflow 
 <p align="center">
-  <a href="https://github.com/ahsanu123/solder-reflow">
-   <img src="./docs/SoreBannerV2.png" alt="SoreIcon">
+  <a href="https://github.com/ahsanu123/solder-reflow"> 
+    <img width="1708" height="512" alt="Screenshot 2025-09-14 124651" src="https://github.com/user-attachments/assets/7f1d46f2-981e-44d9-8de2-d78fe3957206" />
+    <img width="1710" height="515" alt="Screenshot 2025-09-14 124636" src="https://github.com/user-attachments/assets/ef996372-657a-4ec5-85d8-7bb3e0693fa1" />
   </a>
 </p>
 
