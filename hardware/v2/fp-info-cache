@@ -1,4 +1,4 @@
-23906002929903283
+23925430760942139
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -67444,6 +67444,41 @@ DIL DIP PDIP 2.54mm 7.62mm 300mil
 0
 4
 4
+PCM_kikit
+Board
+Mark board for extraction
+
+0
+0
+0
+PCM_kikit
+Error
+Mark board for extraction
+
+0
+0
+0
+PCM_kikit
+Fiducial
+Circular Fiducial
+fiducial
+0
+1
+0
+PCM_kikit
+NPTH
+
+
+0
+0
+0
+PCM_kikit
+Tab
+A symbol representing annotation for tab placement
+
+0
+0
+0
 PCM_marbastlib-choc
 LED_choc_1206R
 Add-on for regular choc-footprints with MHT151RGBCT 1206 reverse mount LED
@@ -97649,3 +97684,45 @@ RELAY_G3MB202PDC12
 0
 4
 4
+esp32-s3-tempel-lib
+esp32-s3-tempel
+
+
+0
+40
+40
+kikit
+Board
+Mark board for extraction
+
+0
+0
+0
+kikit
+Error
+Mark board for extraction
+
+0
+0
+0
+kikit
+Fiducial
+Circular Fiducial
+fiducial
+0
+1
+0
+kikit
+NPTH
+
+
+0
+0
+0
+kikit
+Tab
+A symbol representing annotation for tab placement
+
+0
+0
+0
