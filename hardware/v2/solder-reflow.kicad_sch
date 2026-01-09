@@ -7981,8 +7981,20 @@
 		(uuid "88eaabdb-8edc-412d-933d-bccabc97f6f0")
 	)
 	(no_connect
+		(at 35.56 149.86)
+		(uuid "a5685e75-6825-46d2-924c-98fd21e3aa4f")
+	)
+	(no_connect
+		(at 386.08 246.38)
+		(uuid "ab8850ef-69ca-4e1e-b9ac-ad0197134ded")
+	)
+	(no_connect
 		(at 194.31 181.61)
 		(uuid "b4ccae2b-6eee-4f12-8eb2-b66b29136e45")
+	)
+	(no_connect
+		(at 391.16 246.38)
+		(uuid "cbef572f-f0f7-4ddf-89c7-cb904242681d")
 	)
 	(no_connect
 		(at 217.17 143.51)
@@ -9012,16 +9024,6 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 149.86) (xy 35.56 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3a014839-3ad8-439f-b114-cad68e3b148e")
-	)
-	(wire
-		(pts
 			(xy 88.265 88.265) (xy 88.265 91.44)
 		)
 		(stroke
@@ -9860,6 +9862,16 @@
 		)
 		(uuid "749173e7-2375-4b7b-a5d3-dee7112af1ed")
 	)
+	(wire
+		(pts
+			(xy 20.32 149.86) (xy 35.56 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74fe22e0-1935-4c06-b3f2-02d12b660837")
+	)
 	(bus
 		(pts
 			(xy 341.63 80.01) (xy 359.41 80.01)
@@ -10552,16 +10564,6 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 233.68) (xy 35.56 233.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a5a33d6b-58ee-48e6-a01e-64af898b077b")
-	)
-	(wire
-		(pts
 			(xy 238.76 95.25) (xy 227.33 95.25)
 		)
 		(stroke
@@ -11069,6 +11071,16 @@
 			(type default)
 		)
 		(uuid "c581acbd-bb17-47f6-9897-d27d74df91e8")
+	)
+	(wire
+		(pts
+			(xy 20.32 233.68) (xy 35.56 233.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c64ee73f-2881-4b31-801b-c7267ada806d")
 	)
 	(wire
 		(pts
@@ -11889,6 +11901,18 @@
 			(type default)
 		)
 		(uuid "ff56381e-0c99-4db5-9286-7be5f0f93cb5")
+	)
+	(rectangle
+		(start 15.24 205.74)
+		(end 147.32 276.86)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 6a35ec2f-02ad-49ef-8e1a-8d824db7f764)
 	)
 	(image
 		(at 577.342 191.262)
@@ -14612,7 +14636,7 @@
 	)
 	(text "Reference Design Schematic: \nesp32-s3 \nhttps://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/esp-hardware-design-guidelines-en-master-esp32s3.pdf\nhttps://dl.espressif.com/dl/schematics/SCH_ESP32-S3-DevKitC-1_V1.1_20221130.pdf"
 		(exclude_from_sim no)
-		(at 162.56 364.49 0)
+		(at 256.286 129.54 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14621,6 +14645,16 @@
 			(justify left)
 		)
 		(uuid "902057bb-5564-4cbd-8a9e-bbcb6d1cd808")
+	)
+	(text "Curently Excluded"
+		(exclude_from_sim no)
+		(at 120.396 272.796 0)
+		(effects
+			(font
+				(size 3.81 3.81)
+			)
+		)
+		(uuid "94c93d8e-74d3-4481-af61-0da1070f2773")
 	)
 	(text "LCD"
 		(exclude_from_sim no)
@@ -14726,6 +14760,7 @@
 	)
 	(label "IO5"
 		(at 171.45 153.67 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14822,17 +14857,6 @@
 		)
 		(uuid "1a9f75d3-992a-40b7-b673-6c9ba1c05a79")
 	)
-	(label "IO5"
-		(at 20.32 149.86 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1c08d3cc-0aa9-4936-8871-7772b02bdc77")
-	)
 	(label "CS0"
 		(at 204.47 191.77 90)
 		(fields_autoplaced yes)
@@ -14854,17 +14878,6 @@
 			(justify right bottom)
 		)
 		(uuid "1f1faa7b-af5f-464b-a692-3fffb6debebf")
-	)
-	(label "IO5"
-		(at 20.32 233.68 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "21b06746-fc1b-49b0-afd9-9d04586fe564")
 	)
 	(label "sw2"
 		(at 320.04 49.53 0)
@@ -14967,6 +14980,7 @@
 	)
 	(label "IO4"
 		(at 171.45 151.13 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15008,6 +15022,17 @@
 		)
 		(uuid "5333358e-0f7b-4e8e-812d-099fe927e3b7")
 	)
+	(label "IO42"
+		(at 234.95 153.67 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "53eaaaa1-a4e6-45e9-b67d-75cbf8382831")
+	)
 	(label "sw3"
 		(at 370.84 54.61 0)
 		(fields_autoplaced yes)
@@ -15030,17 +15055,6 @@
 		)
 		(uuid "58d85a93-7256-48a4-adef-22152d668258")
 	)
-	(label "MTDI"
-		(at 234.95 156.21 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "66f8bbe9-3e14-4809-915a-a860f9433214")
-	)
 	(label "WS"
 		(at 234.95 173.99 180)
 		(fields_autoplaced yes)
@@ -15051,6 +15065,17 @@
 			(justify right bottom)
 		)
 		(uuid "69df6715-a3f8-4cf7-aa68-020668e290c7")
+	)
+	(label "IO41"
+		(at 20.32 233.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6b156a61-8306-4ad4-8280-77528db7764d")
 	)
 	(label "SCLK"
 		(at 181.61 254 180)
@@ -15096,17 +15121,6 @@
 		)
 		(uuid "7bbffc72-8063-4f4d-90d1-572d36ae6d82")
 	)
-	(label "MTMS"
-		(at 234.95 153.67 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7eb7bcba-bebf-4dd4-a2e0-8e6271d3e77f")
-	)
 	(label "SCLK"
 		(at 209.55 191.77 90)
 		(fields_autoplaced yes)
@@ -15150,6 +15164,17 @@
 			(justify left bottom)
 		)
 		(uuid "8e634bfb-71c7-4834-9e1f-39ce226ab7e5")
+	)
+	(label "IO42"
+		(at 20.32 149.86 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8eff1f98-417c-411e-b2f9-9e431a21ac79")
 	)
 	(label "IN6"
 		(at 389.89 105.41 180)
@@ -15282,6 +15307,17 @@
 			(justify right bottom)
 		)
 		(uuid "c6a268d8-20e3-4c11-9353-dc93f1375f61")
+	)
+	(label "IO41"
+		(at 234.95 156.21 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c6bcb3b0-1712-422e-bbec-abefa3e09c36")
 	)
 	(label "SSRIN1"
 		(at 59.055 60.96 0)
@@ -15563,7 +15599,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 314.96 57.15 0)
 			(effects
 				(font
@@ -17215,7 +17251,7 @@
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "24dd6c81-5d39-4112-8a61-3c39755671f7")
 		(property "Reference" "C14"
@@ -17510,7 +17546,7 @@
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "28a976d2-481b-4f58-ba3a-767aef53c5b6")
@@ -17717,7 +17753,7 @@
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom no)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "30247834-65cf-4443-9724-e4cb412ec0fb")
@@ -18383,6 +18419,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 386.08 243.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3bb4d04f-4c77-45f0-9cb4-fe77ae987484")
+		(property "Reference" "H3"
+			(at 387.35 238.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 383.54 241.3001 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965_Pad"
+			(at 386.08 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 386.08 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 386.08 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "109af4c1-9d38-4c5e-b23e-7ae3fa86d07e")
+		)
+		(instances
+			(project "solder-reflow"
+				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 373.38 124.46 0)
 		(unit 1)
@@ -18626,7 +18729,7 @@
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "4044d402-495c-4140-b0ec-72faa5803c33")
 		(property "Reference" "R4"
@@ -18695,7 +18798,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "409ae758-a5a7-497b-a856-d124e635d332")
 		(property "Reference" "#PWR021"
@@ -19113,7 +19216,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 344.17 113.03 0)
 			(effects
 				(font
@@ -19772,7 +19875,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "559d0e2e-8c84-4c2f-b74a-4f2dc999295b")
 		(property "Reference" "#PWR025"
@@ -19904,7 +20007,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "57006f25-5a85-4825-8e1d-1a39f99f240d")
 		(property "Reference" "J3"
@@ -20398,7 +20501,7 @@
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "5dcef70d-e474-4ff2-a07f-4201abd54026")
 		(property "Reference" "C11"
@@ -20467,7 +20570,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "5f8fd647-cb8e-4d5f-97a2-dca3b9160c22")
 		(property "Reference" "#PWR022"
@@ -21063,6 +21166,73 @@
 			(project "solder-reflow"
 				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
 					(reference "#PWR042")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 391.16 243.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6c329590-f5d2-4912-af12-ca4f8970e51b")
+		(property "Reference" "H4"
+			(at 392.43 238.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 388.62 241.3001 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965_Pad"
+			(at 391.16 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 391.16 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 391.16 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d73f8152-e7a9-494b-bc74-16d78f2cf3c1")
+		)
+		(instances
+			(project "solder-reflow"
+				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -21732,7 +21902,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 289.56 57.15 0)
 			(effects
 				(font
@@ -21871,7 +22041,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 318.77 113.03 0)
 			(effects
 				(font
@@ -22052,7 +22222,7 @@
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "82db7de2-30d5-45a8-8fe1-0faa2d610377")
 		(property "Reference" "C7"
@@ -22923,7 +23093,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "a784e390-6121-478f-a4f3-f049a7c50bf7")
 		(property "Reference" "#PWR026"
@@ -23344,7 +23514,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 368.3 113.03 0)
 			(effects
 				(font
@@ -23889,7 +24059,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 			(at 340.36 57.15 0)
 			(effects
 				(font
@@ -25044,7 +25214,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ef0f8e02-774a-4de0-8b3b-1a78348a133d")
