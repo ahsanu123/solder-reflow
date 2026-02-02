@@ -10370,6 +10370,16 @@
 	)
 	(wire
 		(pts
+			(xy 234.95 181.61) (xy 234.95 182.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "866f4452-a68a-4b2a-8709-b0ac3f96b153")
+	)
+	(wire
+		(pts
 			(xy 345.44 62.23) (xy 345.44 64.77)
 		)
 		(stroke
@@ -10547,6 +10557,16 @@
 			(type default)
 		)
 		(uuid "91468585-d825-46d4-93ae-9e1b59866346")
+	)
+	(wire
+		(pts
+			(xy 234.95 200.66) (xy 234.95 199.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "91b15f72-2f97-4e71-8b22-4883529cc639")
 	)
 	(wire
 		(pts
@@ -11337,6 +11357,16 @@
 			(type default)
 		)
 		(uuid "c24c5cda-e6d5-425f-9838-0cdbaf7351e1")
+	)
+	(wire
+		(pts
+			(xy 234.95 190.5) (xy 234.95 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2aa4d07-1e13-41a3-a7e9-a9d09be8574f")
 	)
 	(wire
 		(pts
@@ -19412,6 +19442,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Jumper:SolderJumper_2_Open")
+		(at 234.95 177.8 90)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4e51afbb-d5b1-4dce-b2c6-dea5c872ab13")
+		(property "Reference" "JP6"
+			(at 237.49 176.5299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "2_Wire"
+			(at 237.49 179.0699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm"
+			(at 234.95 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 234.95 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Solder Jumper, 2-pole, open"
+			(at 234.95 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "60aaa6f7-0d98-41a8-93c8-6f25072d93b8")
+		)
+		(pin "2"
+			(uuid "3564b7dc-ff7a-4e1a-958d-93f988aed65c")
+		)
+		(instances
+			(project "solder-reflow"
+				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
+					(reference "JP6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 265.43 265.43 0)
 		(unit 1)
@@ -24656,6 +24756,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 234.95 200.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "db8b5224-2cbc-4afe-8f6b-3bd9331a3633")
+		(property "Reference" "#PWR032"
+			(at 234.95 207.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 232.41 203.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 234.95 200.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 234.95 200.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 234.95 200.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c45a8b2f-c2a2-4f2a-b0f3-cc61891bb1b3")
+		)
+		(instances
+			(project "solder-reflow"
+				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
+					(reference "#PWR032")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 299.72 49.53 270)
 		(unit 1)
@@ -24783,6 +24949,73 @@
 			(project "solder-reflow"
 				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
 					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 234.95 195.58 180)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "de239ae9-33da-4899-896a-e20b27009f5c")
+		(property "Reference" "R5"
+			(at 231.14 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1K"
+			(at 231.14 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 233.934 195.326 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 234.95 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 234.95 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ad3d26b7-426f-42b5-ac9e-e8bc2360dd04")
+		)
+		(pin "2"
+			(uuid "cbd3906c-53ba-4dfa-81d9-e6526e9b20dc")
+		)
+		(instances
+			(project "solder-reflow"
+				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
+					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -25351,6 +25584,76 @@
 			(project "solder-reflow"
 				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
 					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 234.95 186.69 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eff59ade-1026-48f8-9c4d-6b16329e8a95")
+		(property "Reference" "D3"
+			(at 231.14 187.0074 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Indicator"
+			(at 231.14 189.5474 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+			(at 234.95 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 234.95 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 234.95 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "484cabdf-6518-4c86-bfb1-3be6feb2afec")
+		)
+		(pin "2"
+			(uuid "d456bd6f-c21c-45b6-9edf-dd2d8c93dfb1")
+		)
+		(instances
+			(project "solder-reflow"
+				(path "/32abe4d1-fc3a-4afc-a299-9299d720f3a4"
+					(reference "D3")
 					(unit 1)
 				)
 			)

@@ -196,6 +196,8 @@
 	(net 72 "/IO42")
 	(net 73 "unconnected-(H3-Pad1)")
 	(net 74 "unconnected-(H4-Pad1)")
+	(net 75 "Net-(D3-A)")
+	(net 76 "Net-(D3-K)")
 	(footprint "MountingHole:MountingHole_3.2mm_M3_DIN965_Pad"
 		(layer "F.Cu")
 		(uuid "02852802-79bd-4b85-b7af-ee8576e4c898")
@@ -226,7 +228,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -254,7 +256,7 @@
 		)
 		(property ki_fp_filters "MountingHole*Pad*")
 		(path "/6c329590-f5d2-4912-af12-ca4f8970e51b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -333,7 +335,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -361,7 +363,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/a89606e5-141f-447b-a0fe-4d9b60cdad21")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -536,7 +538,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -564,7 +566,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/3499816c-0c81-4976-993d-b3c3f5e614f1")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -709,6 +711,207 @@
 			)
 		)
 	)
+	(footprint "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm"
+		(layer "F.Cu")
+		(uuid "0aafa9a7-eed2-4dee-b4d7-a1922570756b")
+		(at 195.5 55.5)
+		(descr "SMD Solder Jumper, 1x1.5mm Triangular Pads, 0.3mm gap, open")
+		(tags "solder jumper open")
+		(property "Reference" "JP6"
+			(at 0 -1.8 0)
+			(layer "F.SilkS")
+			(uuid "184fa81b-f6f0-4059-b53c-1bb271e07400")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "2_Wire"
+			(at 0 1.9 0)
+			(layer "F.Fab")
+			(uuid "54c5fd11-f819-422a-8e33-0aa9c8180cd4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7d9661a2-b3d5-4836-9726-ba3661b76404")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "Solder Jumper, 2-pole, open"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c58c8259-a080-4726-a02f-695a035818b2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "SolderJumper*Open*")
+		(path "/4e51afbb-d5b1-4dce-b2c6-dea5c872ab13")
+		(sheetname "/")
+		(sheetfile "solder-reflow.kicad_sch")
+		(zone_connect 1)
+		(attr exclude_from_pos_files exclude_from_bom allow_soldermask_bridges)
+		(fp_rect
+			(start -1.225 -0.75)
+			(end 1.225 0.75)
+			(stroke
+				(width 0)
+				(type default)
+			)
+			(fill yes)
+			(layer "F.Mask")
+			(uuid "e6abdbd5-f520-402a-86a8-3958cb88b190")
+		)
+		(fp_line
+			(start -1.4 -1)
+			(end 1.4 -1)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "cd9f1e6f-1d38-4a61-a6ac-ba55886e4913")
+		)
+		(fp_line
+			(start -1.4 1)
+			(end -1.4 -1)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "d530ddc7-344c-4dcb-b4a8-6da855d4f3bb")
+		)
+		(fp_line
+			(start 1.4 -1)
+			(end 1.4 1)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "46bf44b3-dba9-4f40-829c-2e906df1d472")
+		)
+		(fp_line
+			(start 1.4 1)
+			(end -1.4 1)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "32f1e0b6-e18d-4e66-8e9a-3cf623a6f0d9")
+		)
+		(fp_line
+			(start -1.65 -1.25)
+			(end -1.65 1.25)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "9de6f663-fdc8-4611-897b-2230c2f3bfff")
+		)
+		(fp_line
+			(start -1.65 -1.25)
+			(end 1.65 -1.25)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "befb2a27-84d3-4c27-8de2-7f57711aad3a")
+		)
+		(fp_line
+			(start 1.65 1.25)
+			(end -1.65 1.25)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "a7e158e0-ca93-4554-b223-ec90057a92f1")
+		)
+		(fp_line
+			(start 1.65 1.25)
+			(end 1.65 -1.25)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "0fd5daa3-8dd9-4ee4-aa25-adbf1c0b4397")
+		)
+		(pad "1" smd custom
+			(at -0.725 0)
+			(size 0.3 0.3)
+			(layers "F.Cu" "F.Mask")
+			(net 75 "Net-(D3-A)")
+			(pinfunction "A")
+			(pintype "passive")
+			(zone_connect 2)
+			(thermal_bridge_angle 45)
+			(options
+				(clearance outline)
+				(anchor rect)
+			)
+			(primitives
+				(gr_poly
+					(pts
+						(xy 1 0) (xy 0.5 0.75) (xy -0.5 0.75) (xy -0.5 -0.75) (xy 0.5 -0.75)
+					)
+					(width 0)
+					(fill yes)
+				)
+			)
+			(uuid "4fa1aa08-2e5f-400c-b4db-079397698fc5")
+		)
+		(pad "2" smd custom
+			(at 0.725 0)
+			(size 0.3 0.3)
+			(layers "F.Cu" "F.Mask")
+			(net 45 "/WS")
+			(pinfunction "B")
+			(pintype "passive")
+			(zone_connect 2)
+			(thermal_bridge_angle 45)
+			(options
+				(clearance outline)
+				(anchor rect)
+			)
+			(primitives
+				(gr_poly
+					(pts
+						(xy 0.5 0.75) (xy -0.65 0.75) (xy -0.15 0) (xy -0.65 -0.75) (xy 0.5 -0.75)
+					)
+					(width 0)
+					(fill yes)
+				)
+			)
+			(uuid "59ff97d0-ccfc-49fe-9274-df8cec69168e")
+		)
+		(embedded_fonts no)
+	)
 	(footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
 		(layer "F.Cu")
 		(uuid "0cf07ee7-15db-460a-a704-8ea334a4c4c4")
@@ -739,7 +942,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -767,7 +970,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/a2295346-bdcf-4292-a15f-0b2a6da38486")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -968,7 +1171,7 @@
 		)
 		(property ki_fp_filters "DIP*W7.62mm*")
 		(path "/1043a06d-12f9-45bd-9fb2-b96b9bf2e110")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1303,7 +1506,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1331,7 +1534,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/2810bed5-2d71-443f-9b7e-b69c7555c20c")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1506,7 +1709,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1534,7 +1737,7 @@
 		)
 		(property ki_fp_filters "MountingHole*Pad*")
 		(path "/0a1c5166-31af-47e5-98ad-e7dd435fa6bd")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -1624,7 +1827,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1652,7 +1855,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/2f07580c-e4c7-4d24-8c34-c22b9f7a2110")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1825,7 +2028,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1853,7 +2056,7 @@
 		)
 		(property ki_fp_filters "CP_*")
 		(path "/9b56ed66-49bb-455c-a1f0-7e98ef6ac22f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2028,7 +2231,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2056,7 +2259,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/5924044f-61ee-4f4f-be9d-c2bffb81f2de")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2231,7 +2434,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2259,7 +2462,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/6326eddb-3275-447d-be9b-71c2bb738360")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2460,7 +2663,7 @@
 		)
 		(property ki_fp_filters "DIP*W7.62mm*")
 		(path "/fca9cb73-7e4f-47b7-9a56-0bf9cf309be0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2842,7 +3045,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2870,7 +3073,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/71fdab6a-287d-4565-acf1-2580ceb1c24e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3045,7 +3248,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3073,7 +3276,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/546477a8-a699-40c5-8104-918a53566ad3")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3248,7 +3451,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3276,7 +3479,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/33a768af-1d63-4c5e-b130-1f2f573bd027")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3451,7 +3654,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3479,7 +3682,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/b83f99cd-66cf-46bb-98cf-964d7933b39e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3652,7 +3855,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3680,7 +3883,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/410f8564-c9ef-477e-9d8d-5851ffdfd346")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3853,7 +4056,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3881,7 +4084,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/9d46388f-3095-49f3-a264-aa843815f72f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4110,7 +4313,7 @@
 		)
 		(property ki_fp_filters "D*DO?41*")
 		(path "/e0c28479-7010-4891-aad5-450394f782d3")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4356,7 +4559,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4384,7 +4587,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/dc7aa9ca-c943-4a3e-b99e-3c17f54a7ea9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4560,7 +4763,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4588,7 +4791,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/3b109a31-b0af-427d-a1e7-00a97e38d5f9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4763,7 +4966,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4791,7 +4994,7 @@
 		)
 		(property ki_fp_filters "MountingHole*Pad*")
 		(path "/4d3db59e-bd61-45f3-a41c-cd910b18e0f0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -4879,7 +5082,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4907,7 +5110,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/633706a6-a155-4649-b8cd-d421e7efea9e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5082,7 +5285,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5110,7 +5313,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/b4cab274-e1ac-449c-b930-bd8b2904a27f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5283,7 +5486,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5310,7 +5513,7 @@
 			)
 		)
 		(path "/bd66a063-4d1b-4477-b409-1111315c8758")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5532,7 +5735,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5560,7 +5763,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/91c1f0fe-1625-4833-8033-0b00172f91aa")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5705,6 +5908,147 @@
 			)
 		)
 	)
+	(footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+		(layer "F.Cu")
+		(uuid "6fdc8d85-fbd3-428b-8d8d-5d73bbb3dc10")
+		(at 185.5 55)
+		(descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(tags "resistor handsolder")
+		(property "Reference" "R5"
+			(at 0 -1.65 0)
+			(layer "F.SilkS")
+			(uuid "84e7fb67-d99b-4989-b6db-692c4edcf0ee")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "1K"
+			(at 0 1.65 0)
+			(layer "F.Fab")
+			(uuid "c8fef9c1-1bcc-4607-a204-9b47120fc25d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e46f19b8-5332-4392-9364-54702f0a16c7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "433bc5db-6621-4707-9d93-73da514e90a2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "R_*")
+		(path "/de239ae9-33da-4899-896a-e20b27009f5c")
+		(sheetname "/")
+		(sheetfile "solder-reflow.kicad_sch")
+		(attr smd)
+		(fp_line
+			(start -0.227064 -0.735)
+			(end 0.227064 -0.735)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "0fe1d714-b717-42c0-8f73-306d5f760f82")
+		)
+		(fp_line
+			(start -0.227064 0.735)
+			(end 0.227064 0.735)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "4c08716b-08f5-4395-8949-2f146d3167af")
+		)
+		(fp_rect
+			(start -1.85 -0.95)
+			(end 1.85 0.95)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "0d8b9982-f7f4-455c-a51d-f8f62a6d74e3")
+		)
+		(fp_rect
+			(start -1 -0.625)
+			(end 1 0.625)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "976bba2a-90fa-4721-8ac6-1ce1b9b05b50")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "5f71c2ba-aab8-4673-864b-0b931d2a9987")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.08)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -1 0)
+			(size 1.2 1.4)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.208333)
+			(net 1 "GND")
+			(pintype "passive")
+			(uuid "a4cee059-5d65-471d-9020-2bcd898e7950")
+		)
+		(pad "2" smd roundrect
+			(at 1 0)
+			(size 1.2 1.4)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.208333)
+			(net 76 "Net-(D3-K)")
+			(pintype "passive")
+			(uuid "78363473-8206-496b-b19a-94d4015a51d1")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
 		(layer "F.Cu")
 		(uuid "70b6ce85-2bad-42ca-be6c-f12020828da3")
@@ -5733,7 +6077,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5760,7 +6104,7 @@
 			)
 		)
 		(path "/4708efbc-fa76-4348-9412-75bfd781bc4b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5982,7 +6326,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6010,7 +6354,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/5ccfc675-9c71-4bc4-b966-a2a8d21ac6be")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6185,7 +6529,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6213,7 +6557,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/5d0b3495-ed38-4722-9fb4-71dc645b17b2")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6388,7 +6732,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6416,7 +6760,7 @@
 		)
 		(property ki_fp_filters "MountingHole*Pad*")
 		(path "/3bb4d04f-4c77-45f0-9cb4-fe77ae987484")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -6495,7 +6839,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6523,7 +6867,7 @@
 		)
 		(property ki_fp_filters "CP_*")
 		(path "/14f1da91-1abf-4fc2-aaa6-04e871a68d36")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6698,7 +7042,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6726,7 +7070,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/22f6f3ad-fc34-444e-b01f-fd9e53d7d7cc")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6901,7 +7245,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6929,7 +7273,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/228c26f9-4264-4af6-9bf0-90be0d84adcc")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7102,7 +7446,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7130,7 +7474,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/db882667-be83-4337-a706-b0ff4a0f784f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7303,7 +7647,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7331,7 +7675,7 @@
 		)
 		(property ki_fp_filters "SolderJumper*Open*")
 		(path "/ade5dfde-a932-43bf-9dcf-c14e544ad9f7")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(zone_connect 1)
 		(attr exclude_from_pos_files exclude_from_bom)
@@ -7495,7 +7839,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7523,7 +7867,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/f7f02417-8b72-4fce-8ff3-b88a4cd8558e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7696,7 +8040,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7723,7 +8067,7 @@
 			)
 		)
 		(path "/7f3a9cdd-4cc8-45a9-bd74-6750e6e099d6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7945,7 +8289,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7973,7 +8317,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/6cd6134a-dec2-42f1-b310-4316cdac8b0c")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8146,7 +8490,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8174,7 +8518,7 @@
 		)
 		(property ki_fp_filters "SolderJumper*Open*")
 		(path "/ea23596c-d0b6-49c4-845a-2db03186327f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(zone_connect 1)
 		(attr exclude_from_pos_files exclude_from_bom)
@@ -8445,7 +8789,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8473,7 +8817,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/09ab6f92-4a26-4ece-9441-33620c2b14fe")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8646,7 +8990,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8674,7 +9018,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/71b37672-5459-4f3d-8e19-fa73e6c5d0de")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8847,7 +9191,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8874,7 +9218,7 @@
 			)
 		)
 		(path "/045bf814-8db1-4e08-9882-032678ee9722")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9098,7 +9442,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9126,7 +9470,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/45592176-1d6d-4395-8531-327eeebd79bb")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9301,7 +9645,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9329,7 +9673,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/8a415985-7a13-4eee-a22a-6c81719afdcf")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9556,7 +9900,7 @@
 		)
 		(property ki_fp_filters "D*DO?41*")
 		(path "/76ace0f6-1c3f-46bb-80e2-3123c0f3fef4")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9811,7 +10155,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9839,7 +10183,7 @@
 		)
 		(property ki_fp_filters "SolderJumper*Open*")
 		(path "/b8ea0bf9-f10d-432a-b2ab-0ef1d10d66fa")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(zone_connect 1)
 		(attr exclude_from_pos_files exclude_from_bom)
@@ -10003,7 +10347,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10031,7 +10375,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/de7af103-762f-4a55-8380-f0e60b7d7b50")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10204,7 +10548,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10231,7 +10575,7 @@
 			)
 		)
 		(path "/b401109a-7a08-49e5-a497-f5139de1f012")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10455,7 +10799,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10483,7 +10827,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/7ee28f79-cc9e-4244-b761-7ecb035925a7")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10681,7 +11025,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10709,7 +11053,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/b975d9ff-19ed-4112-b40a-a751f0a6c6c9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10884,7 +11228,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10911,7 +11255,7 @@
 			)
 		)
 		(path "/6f450c1a-4fae-4c2d-b71a-06852fde19c8")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11214,7 +11558,7 @@
 		)
 		(property ki_fp_filters "SOT?23*")
 		(path "/6f5219cf-8d3d-479d-8c6f-f84f7a3edbaf")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11481,7 +11825,7 @@
 		)
 		(property ki_fp_filters "SOT?23*")
 		(path "/f0db1f28-cc0c-4c0f-b23b-2b57b997157c")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11718,7 +12062,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11745,7 +12089,7 @@
 			)
 		)
 		(path "/7c73fe80-3766-4253-a147-74454f3d92b9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11967,7 +12311,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11995,7 +12339,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/b6aec003-8d4c-469b-ac15-318b679f440b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12196,7 +12540,7 @@
 		)
 		(property ki_fp_filters "TQFN*1EP*5x5mm*P0.65mm*")
 		(path "/330feb89-d533-4ce2-ae3d-4c2aa0a2a8fe")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12672,7 +13016,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12700,7 +13044,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/cd477647-a698-449d-b92e-e5596f9e030e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12873,7 +13217,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12901,7 +13245,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/5256b0f7-79af-4c7e-8a3d-54d8c5b45167")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13098,7 +13442,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13126,7 +13470,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/a1858b74-94af-4c5a-bca9-6db83d6e6586")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13301,7 +13645,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13329,7 +13673,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/0f1ce9f0-2e0b-4b9d-bf48-d341296f5729")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13476,6 +13820,198 @@
 	)
 	(footprint "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
 		(layer "F.Cu")
+		(uuid "fdd8990a-940d-4df5-b466-f6773b70d18b")
+		(at 190.5 55)
+		(descr "LED SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
+		(tags "LED handsolder")
+		(property "Reference" "D3"
+			(at 0 -1.83 0)
+			(layer "F.SilkS")
+			(uuid "79f781cb-425f-43a3-a47e-474388ad8737")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "Indicator"
+			(at 0 1.83 0)
+			(layer "F.Fab")
+			(uuid "20ceb6ae-5323-47f8-98c7-98f00aced4ab")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d15388b5-d4a1-49c0-abd2-02f3fee8def4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9d5bddf5-9993-484a-819d-fa45901cfc3c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
+		(path "/eff59ade-1026-48f8-9c4d-6b16329e8a95")
+		(sheetname "/")
+		(sheetfile "solder-reflow.kicad_sch")
+		(attr smd)
+		(fp_line
+			(start -2.46 -1.135)
+			(end -2.46 1.135)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "e8e3f3ca-0b56-44d9-9388-5f730ad55da2")
+		)
+		(fp_line
+			(start -2.46 1.135)
+			(end 1.6 1.135)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "85ab3791-b5ac-4803-aa48-b58573e395fc")
+		)
+		(fp_line
+			(start 1.6 -1.135)
+			(end -2.46 -1.135)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "cdf71b00-34b7-4a0b-9c77-5626f535a6e9")
+		)
+		(fp_rect
+			(start -2.45 -1.13)
+			(end 2.45 1.13)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "6b58db5b-49dc-414c-b335-498c44db7092")
+		)
+		(fp_line
+			(start -1.6 -0.4)
+			(end -1.6 0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "dd97c59f-ca6a-4db0-806f-fb458355465f")
+		)
+		(fp_line
+			(start -1.6 0.8)
+			(end 1.6 0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "9379ca70-2012-453b-86f9-3406e8f6d7ea")
+		)
+		(fp_line
+			(start -1.2 -0.8)
+			(end -1.6 -0.4)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "410b6fc7-5410-4269-a3b9-f297cd59f14d")
+		)
+		(fp_line
+			(start 1.6 -0.8)
+			(end -1.2 -0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "0d0b004f-1770-4f4c-9609-882863015f5e")
+		)
+		(fp_line
+			(start 1.6 0.8)
+			(end 1.6 -0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "dabbba6f-c0fe-4452-b8a8-d0e75091e8dd")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "63173eb0-a9c8-4386-b62a-af25290f593c")
+			(effects
+				(font
+					(size 0.8 0.8)
+					(thickness 0.12)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -1.4875 0)
+			(size 1.425 1.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.175439)
+			(net 76 "Net-(D3-K)")
+			(pinfunction "K")
+			(pintype "passive")
+			(uuid "9df43ee7-14c8-47ac-81ed-3183f37f3c3f")
+		)
+		(pad "2" smd roundrect
+			(at 1.4875 0)
+			(size 1.425 1.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.175439)
+			(net 75 "Net-(D3-A)")
+			(pinfunction "A")
+			(pintype "passive")
+			(uuid "282c0d32-a679-4885-983b-6e4745d3af7e")
+		)
+		(embedded_fonts no)
+		(model "${KICAD9_3DMODEL_DIR}/LED_SMD.3dshapes/LED_1206_3216Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder"
+		(layer "F.Cu")
 		(uuid "ffd847e8-70f9-4504-a2a5-c8a0a9951483")
 		(at 98.270001 68.327496 -90)
 		(descr "LED SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator")
@@ -13504,7 +14040,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13532,7 +14068,7 @@
 		)
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/79194e48-72ae-4952-a0f3-35fe43f1f35d")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13729,7 +14265,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -13759,7 +14295,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/28394961-db81-41c5-829b-66f4da2063f7")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -14318,7 +14854,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -14348,7 +14884,7 @@
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/37451f7c-813b-4c71-9b96-07e7df5856d6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -14811,7 +15347,7 @@
 			)
 		)
 		(path "/18fd3c69-68b1-41ee-9f20-f595916390e2")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -15435,7 +15971,7 @@
 		)
 		(property ki_fp_filters "TO?252* TO?263* TO?220*")
 		(path "/539428a6-5cef-465c-a3eb-f852537611e0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -15805,7 +16341,7 @@
 		)
 		(property ki_fp_filters "Converter*ACDC*Hi?Link*HLK?2M*")
 		(path "/5b19c2b3-0cb5-4353-b975-1ff2bf32c724")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -16057,7 +16593,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -16087,7 +16623,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/367ce868-0b4c-4b47-808d-b45bf2964b07")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -16494,7 +17030,7 @@
 			)
 		)
 		(path "/07269290-c5f0-43d5-989f-ea2667d928cc")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -16730,7 +17266,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -16760,7 +17296,7 @@
 		)
 		(property ki_fp_filters "CP_*")
 		(path "/515579ca-d62b-4f25-ac41-d228f586d6b9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -18465,7 +19001,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -18495,7 +19031,7 @@
 		)
 		(property ki_fp_filters "*Fuse*")
 		(path "/bda5278e-fd66-4a21-be68-5d8e22f0e9f1")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -18714,7 +19250,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -18744,7 +19280,7 @@
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/5bb2f91d-1635-41c6-88bd-dd6561ebfd3a")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -19271,7 +19807,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -19301,7 +19837,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/ee2db67c-461c-446d-b170-57f162ac9e4b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -19796,7 +20332,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -19826,7 +20362,7 @@
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/df4fad7e-a9fa-43a5-b1a7-41dc9499fd4f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -20260,7 +20796,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -20290,7 +20826,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/60ba6db7-4042-441b-a9d1-61391ac6fb16")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -20528,7 +21064,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -20558,7 +21094,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/19150a63-939f-4984-8048-67f580cb6b2e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -21075,7 +21611,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -21105,7 +21641,7 @@
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/61f0c7df-bcd5-476c-a0d1-63a90c82ebd2")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -21539,7 +22075,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -21569,7 +22105,7 @@
 		)
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/634adc0b-8234-4785-bf84-3fd493f2f723")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "solder-reflow.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -22329,6 +22865,14 @@
 		(layer "F.Cu")
 		(net 1)
 		(uuid "3d300f8e-1cd1-43ce-b5c2-b0523196ed5a")
+	)
+	(segment
+		(start 184.5 55)
+		(end 182.845 55)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 1)
+		(uuid "4273fdc4-4a9f-4578-909a-515d13f1fce1")
 	)
 	(segment
 		(start 130.270002 60.477497)
@@ -23137,6 +23681,14 @@
 		(layer "F.Cu")
 		(net 1)
 		(uuid "d50a4976-58c7-4db0-a901-440784997738")
+	)
+	(segment
+		(start 182.845 55)
+		(end 182.610002 55.234998)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 1)
+		(uuid "d65ac833-63b1-415d-aa67-4fcae8ef9569")
 	)
 	(segment
 		(start 139.464209 122.464209)
@@ -26259,6 +26811,14 @@
 		(uuid "1b190493-d59c-4b39-bc17-406f0a1b8283")
 	)
 	(segment
+		(start 196.225 58.290216)
+		(end 195.33926 59.175956)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 45)
+		(uuid "29634777-8255-46aa-8f4e-5ad6d530fc8c")
+	)
+	(segment
 		(start 181.499999 75.849999)
 		(end 181.95 76.3)
 		(width 0.25)
@@ -26281,6 +26841,14 @@
 		(layer "F.Cu")
 		(net 45)
 		(uuid "d010fc92-358e-48d1-a41d-af6bdfd2205e")
+	)
+	(segment
+		(start 196.225 55.5)
+		(end 196.225 58.290216)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 45)
+		(uuid "e4b2cf25-cdb9-45b7-8f64-daaabd2b9ab4")
 	)
 	(segment
 		(start 181.499999 74.684999)
@@ -27857,6 +28425,30 @@
 		(layer "B.Cu")
 		(net 72)
 		(uuid "eb6e475b-a2ba-4c60-bf43-bb3b641da521")
+	)
+	(segment
+		(start 191.9875 55)
+		(end 194.275 55)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 75)
+		(uuid "4b7da70e-3809-4a00-9c90-a88773ebc8e7")
+	)
+	(segment
+		(start 194.275 55)
+		(end 194.775 55.5)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 75)
+		(uuid "c6b7ebc2-c0c2-4fe0-b5db-5088f950d9f2")
+	)
+	(segment
+		(start 186.5 55)
+		(end 189.0125 55)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 76)
+		(uuid "19f7fbe5-3a6f-406d-97d3-2d7a9ce10888")
 	)
 	(embedded_fonts no)
 )
