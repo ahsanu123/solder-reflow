@@ -96,12 +96,11 @@ $`y(t) = 350(1-e^{(t-d)/tau})`$ in temperature degre (celcius), d = 17.5 second
 - ⏰ 14 September 2025 12:57, complete basic pcb component placement.
 - ⏰ 14 September 2025 17:59, after searching for **Random turn on SSR** (non Zero Crossing) on local market, i cant find easy to buy device, so i will stick to use zero crossing ssr and will count for zero crossing with **H11AA1** and determine how long to turn on and turn off.
 
-  
 </details>
- 
 
 ## 🌴 Reference 
 
+- Slint on Mcu platform sample docs -> https://github.com/slint-ui/slint/blob/master/examples/mcu-board-support/README.md
 - Slint MCU support Discussion -> https://github.com/slint-ui/slint/discussions/5008
 - Slint MCU Template (raspi pico) -> https://github.com/slint-ui/slint-mcu-rust-template/blob/main/src/main.rs
 - Slint Linux Template (Linux, etc) -> https://github.com/slint-ui/slint-rust-template/tree/main
