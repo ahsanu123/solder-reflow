@@ -1,17 +1,17 @@
 use core::convert::Infallible;
 use embedded_hal::digital::OutputPin;
-use mipidsi::{Display, interface::Interface, models::ILI9486Rgb565};
+use mipidsi::{Display, interface::Interface, models::ST7789};
 use slint::platform::software_renderer::{LineBufferProvider, Rgb565Pixel};
 use {esp_backtrace as _, esp_println as _};
 
 /// Provides a draw buffer for the MinimalSoftwareWindow renderer.
-pub struct DrawBuffer<'a, Display> {
-    pub display: Display,
-    pub buffer: &'a mut [Rgb565Pixel],
+pub struct DrawBuffer<DISPLAY> {
+    pub display: DISPLAY,
+    pub buffer: &'static mut [Rgb565Pixel],
 }
 
 impl<DI: Interface<Word = u8>, RST: OutputPin<Error = Infallible>> LineBufferProvider
-    for &mut DrawBuffer<'_, Display<DI, ILI9486Rgb565, RST>>
+    for &mut DrawBuffer<Display<DI, ST7789, RST>>
 {
     type TargetPixel = Rgb565Pixel;
 

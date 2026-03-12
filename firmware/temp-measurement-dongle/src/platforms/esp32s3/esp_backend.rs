@@ -4,6 +4,7 @@ use core::cell::RefCell;
 use core::default::Default;
 use core::option::{Option, Option::*};
 use core::result::{Result, Result::*};
+use core::time::Duration;
 use embedded_hal::delay::DelayNs;
 use embedded_hal_bus::spi::ExclusiveDevice;
 use esp_alloc as _;
@@ -18,6 +19,9 @@ use esp_hal::{
     time::Rate,
 };
 use mipidsi::options::{ColorOrder, Orientation, Rotation};
+use slint::PlatformError;
+use slint::platform::WindowAdapter;
+use slint::platform::software_renderer::{MinimalSoftwareWindow, RepaintBufferType, Rgb565Pixel};
 use {esp_backtrace as _, esp_println as _};
 
 // NOTE: unused, still here for references
@@ -33,18 +37,14 @@ pub struct EspBackend {
 }
 
 impl slint::platform::Platform for EspBackend {
-    fn create_window_adapter(
-        &self,
-    ) -> Result<Rc<dyn slint::platform::WindowAdapter>, slint::PlatformError> {
-        let window = slint::platform::software_renderer::MinimalSoftwareWindow::new(
-            slint::platform::software_renderer::RepaintBufferType::ReusedBuffer,
-        );
+    fn create_window_adapter(&self) -> Result<Rc<dyn WindowAdapter>, PlatformError> {
+        let window = MinimalSoftwareWindow::new(RepaintBufferType::ReusedBuffer);
         self.window.replace(Some(window.clone()));
         Ok(window)
     }
 
-    fn duration_since_start(&self) -> core::time::Duration {
-        core::time::Duration::from_millis(Instant::now().duration_since_epoch().as_millis())
+    fn duration_since_start(&self) -> Duration {
+        Duration::from_millis(Instant::now().duration_since_epoch().as_millis())
     }
 
     fn run_event_loop(&self) -> Result<(), slint::PlatformError> {
@@ -73,6 +73,7 @@ impl EspBackend {
             .borrow_mut()
             .take()
             .expect("Peripherals already taken");
+
         let mut delay = Delay::new();
 
         // The following sequence is necessary to properly initialize touch on ESP32-S3-BOX-3
@@ -196,7 +197,7 @@ impl EspBackend {
         // Prepare a draw buffer for the Slint software renderer.
         let mut buffer_provider = DrawBuffer {
             display,
-            buffer: &mut [slint::platform::software_renderer::Rgb565Pixel(0); 320],
+            buffer: &mut [Rgb565Pixel(0); 320],
         };
 
         // Variable to track the last touch position.
