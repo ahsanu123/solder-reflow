@@ -1,0 +1,82 @@
+import { Page } from "Common.slint";
+import { DemoPalette } from "./Common.slint";
+component ActionButton inherits Rectangle {
+
+    in property <image> icon <=> img.source;
+    in property <string> text <=> label.text;
+    callback clicked;
+
+    VerticalLayout {
+        spacing: 4px;
+
+        Rectangle {
+            border-radius: 12px;
+            border-width: 3px;
+            border-color: DemoPalette.control-outline-color;
+            background: DemoPalette.printer-action-background-color;
+
+            img := Image {
+                x: (parent.width / 2) - (self.width / 2);
+                y: (parent.height / 2) - (self.height / 2);
+                width: self.source.width * 1px / 2;
+                height: self.source.height * 1px / 2;
+                colorize: DemoPalette.text-foreground-color;
+            }
+        }
+
+        label := Text {
+            font-size: DemoPalette.base-font-size * 1.2;
+            font-weight: 800;
+            horizontal-alignment: center;
+            color: DemoPalette.text-foreground-color;
+        }
+    }
+
+    TouchArea {
+        clicked => {
+            root.clicked()
+        }
+    }
+}
+
+export component HomePage inherits Page {
+    in-out property <length> header-row-height: 40px / 2;
+
+    in-out property <length> button-spacing: 8px;
+    in-out property <length> button-width: 127px / 2;
+    in-out property <length> button-height: root.button-width + 20px;
+    in-out property <int> current-subpage: 0;
+
+    VerticalLayout {
+
+        Text {
+            height: 30px;
+            text: "Printer";
+            font-size: 20px;
+            font-weight: 1000;
+        }
+
+        HorizontalLayout {
+            alignment: center;
+            for action[idx] in [
+                { name: "Copy", icon: @image-url("../images/copy.svg") },
+                { name: "Scan", icon: @image-url("../images/scan.svg") },
+            ]: ActionButton {
+                width: root.button-width;
+                height: root.button-height;
+                icon: action.icon;
+                text: action.name;
+                clicked => {
+                    root.current-subpage = idx + 1;
+                }
+            }
+        }
+
+        Text {
+            wrap: TextWrap.word-wrap;
+            text: "Es ist Samstagmorgen. Die Sonne scheint über Berlin. Lukas geht zum berrufschule.";
+            font-size: 13px;
+            font-weight: 1000;
+        }
+    }
+}

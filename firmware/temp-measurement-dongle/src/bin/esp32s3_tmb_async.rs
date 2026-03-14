@@ -39,8 +39,7 @@ esp_bootloader_esp_idf::esp_app_desc!();
 
 static INTERFACE_BUFFER: StaticCell<[u8; 312]> = StaticCell::new();
 
-// FIXME: display is bit 'offset' 2 px
-static DISPLAY_HEIGHT: usize = 170;
+static DISPLAY_HEIGHT: usize = 172;
 static DISPLAY_WIDTH: usize = 320;
 
 #[allow(
@@ -60,7 +59,7 @@ async fn main(_spawner: Spawner) {
     let lcd_dc = peripherals.GPIO15;
     let lcd_cs = peripherals.GPIO10;
     let lcd_rst = peripherals.GPIO14;
-    // let lcd_blk = peripherals.GPIO16;
+    let lcd_blk = peripherals.GPIO16;
 
     let scl_mosi = peripherals.GPIO13;
     let scl_sck = peripherals.GPIO12;
@@ -71,7 +70,7 @@ async fn main(_spawner: Spawner) {
     let lcd_cs = Output::new(lcd_cs, Level::Low, OutputConfig::default());
     let lcd_dc = Output::new(lcd_dc, Level::Low, OutputConfig::default());
     let lcd_rst = Output::new(lcd_rst, Level::Low, OutputConfig::default());
-    // let mut lcd_blk = Output::new(lcd_blk, Level::Low, OutputConfig::default());
+    let mut lcd_blk = Output::new(lcd_blk, Level::Low, OutputConfig::default());
 
     let (rx_buffer, rx_descriptors, tx_buffer, tx_descriptors) = dma_buffers!(2048);
     let dma_rx_buf = DmaRxBuf::new(rx_descriptors, rx_buffer).unwrap();
@@ -101,7 +100,7 @@ async fn main(_spawner: Spawner) {
         .display_size(DISPLAY_WIDTH as u16, DISPLAY_HEIGHT as u16)
         .orientation(Orientation::new().rotate(Rotation::Deg270))
         .color_order(ColorOrder::Rgb)
-        .display_offset(35, 340)
+        .display_offset(33, 340)
         .invert_colors(mipidsi::options::ColorInversion::Inverted)
         .reset_pin(lcd_rst)
         .init(&mut delay)
@@ -120,7 +119,7 @@ async fn main(_spawner: Spawner) {
 
     info!("slint gui setup complete");
 
-    // lcd_blk.set_high();
+    lcd_blk.set_high();
 
     let tmb_app = TmbApp::new().expect("cant create Tmb Application");
     tmb_app.show().expect("unable to show tmb_app");

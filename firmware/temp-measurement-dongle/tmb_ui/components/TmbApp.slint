@@ -1,68 +1,130 @@
 import { ProgressIndicator } from "std-widgets.slint";
+import { HomePage } from "HomePage.slint";
+import { DemoPalette } from "./Common.slint";
+
+component SideBarIcon inherits Rectangle {
+    in-out property <bool> active;
+    property <string> pointer-event-test;
+    callback activate;
+    ta := TouchArea {
+        t := Text {
+            width: self.preferred-width;
+            x: 0;
+            color: black;
+            text: pointer-event-test;
+        }
+
+        width: 170%;
+        height: 150%;
+        pointer-event(event) => {
+            if (event.button == PointerEventButton.left && event.kind == PointerEventKind.down) {
+                root.activate();
+            }
+        }
+    }
+}
+
+export struct InkLevel  {
+    color: color,
+    level: float,
+}
+
 export component TmbApp inherits Window {
-    height: 180px;
     width: 320px;
+    height: 180px;
 
-    in-out property <int> counter: 0;
+    title: "Slint printer demo";
+    background: DemoPalette.main-background;
+    default-font-family: "Noto Sans";
+    default-font-size: DemoPalette.base-font-size;
 
-    VerticalLayout {
+    /// Note that this property is overwritten in the .cpp and .rs code.
+    /// The data is only in this file so it looks good in the viewer
+    in-out property <[InkLevel]> ink-levels: [
+        { color: #0ff, level: 60% },
+        { color: #ff0, level: 80% },
+        { color: #f0f, level: 70% },
+        { color: #000, level: 30% },
+    ];
+
+    in-out property <int> active-page: 0;
+
+    main-view := Rectangle {
+        property <length> margin: 5px;
+        x: sidebar.x + sidebar.width;
+        y: self.margin;
+        height: parent.height - self.margin * 2;
+        width: parent.width - self.x - self.margin;
+        border-radius: 15px;
+        background: DemoPalette.page-background-color;
+
         Rectangle {
-            background: red;
-            HorizontalLayout {
-                Image {
-                    image-rendering: smooth;
-                    colorize: white;
-                    source: @image-url("./alert_icon.svg");
-                    width: 30px;
-                    height: 30px;
-                }
+            clip: true;
+            x: main-view.border-radius / 2;
+            y: main-view.border-radius / 2;
+            width: main-view.width - main-view.border-radius;
+            height: main-view.height - main-view.border-radius;
 
-                Text {
-                    text: "Warning!";
-                    color: white;
-                    font-size: 20px;
-                    horizontal-alignment: center;
-                    vertical-alignment: center;
+            home-page := HomePage {
+                y: root.active-page == 0 ? 0 : root.active-page > 0 ? - self.height - 1px : parent.height + 1px;
+                animate y {
+                    duration: 125ms;
+                    easing: ease;
                 }
             }
         }
+    }
 
-        HorizontalLayout {
-            alignment: center;
-            VerticalLayout {
-                width: 300px;
-                alignment: center;
-                Rectangle {
+    sidebar := Rectangle {
+        width: 48px;
+        x: 5px;
 
-                    Text {
-                        text: counter + "%";
-                        font-size: 40px;
-                        horizontal-alignment: center;
-                        vertical-alignment: center;
-                    }
+        function icon-y(index: int) -> length {
+            14px // top padding
+                + index * 50px;
+        }
 
-                    Timer {
-                        interval: 1000ms;
-                        running: true;
-                        triggered => {
-                            counter += 1;
-                        }
-                    }
-                }
+        Image {
+            x: 0;
+            source: @image-url("../images/page_selection.svg");
+            y: sidebar.icon-y(root.active-page) - 23px;
+            animate y { duration: 125ms; }
+            width: 49px;
+            height: 86px;
+            colorize: DemoPalette.page-background-color;
+        }
 
-                Text {
-                    text: "loading...";
-                    font-size: 20px;
-                    horizontal-alignment: center;
-                    vertical-alignment: center;
-                }
+        for page-icon[idx] in [
+            @image-url("../images/home.svg"),
+            @image-url("../images/settings.svg"),
+            @image-url("../images/ink.svg"),
+        ]: SideBarIcon {
+            y: sidebar.icon-y(idx) + 3px;
+            x: (parent.width - self.width) / 2;
+            height: 30px;
+            width: 30px;
 
-                ProgressIndicator {
-                    width: 80%;
-                    height: 10px;
-                    progress: counter * 0.01;
-                }
+            icon := Image {
+                colorize: (root.active-page == idx) ? DemoPalette.active-page-icon-color : DemoPalette.inactive-page-icon-color;
+                animate colorize { duration: 125ms; }
+                source: page-icon;
+                image-fit: contain;
+                width: 100%;
+                height: 100%;
             }
+
+            activate => {
+                home-page.current-subpage = 0;
+                root.active-page = idx;
+            }
+        }
+
+        Rectangle {
+            y: sidebar.icon-y(3);
+            x: (parent.width - self.width) / 2;
+            background: #6284FF;
+            height: 2px;
+            width: 37px;
         }
     }
 }

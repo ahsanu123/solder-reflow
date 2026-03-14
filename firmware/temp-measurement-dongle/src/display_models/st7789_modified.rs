@@ -15,7 +15,7 @@ pub struct ST7789;
 
 impl Model for ST7789 {
     type ColorFormat = Rgb565;
-    const FRAMEBUFFER_SIZE: (u16, u16) = (500, 510);
+    const FRAMEBUFFER_SIZE: (u16, u16) = (500, 512);
 
     fn init<DELAY, DI>(
         &mut self,
