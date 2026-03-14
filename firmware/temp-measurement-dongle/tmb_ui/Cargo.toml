@@ -1,0 +1,12 @@
+[package]
+name = "tmb_ui"
+version = "0.1.0"
+edition = "2024"
+build = "build.rs"
+
+[dependencies]
+i-slint-core-macros = "1.15.1"
+slint = {version = "1.15.1", default-features = false, features = ["compat-1-2", "unsafe-single-threaded", "libm", "renderer-software"] }
+
+[build-dependencies]
+slint-build = "1.15.1"

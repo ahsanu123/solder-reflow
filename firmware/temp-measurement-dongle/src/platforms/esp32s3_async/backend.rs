@@ -2,9 +2,12 @@ use alloc::rc::Rc;
 use core::time::Duration;
 use defmt::info;
 use embassy_time::Instant;
-use slint::platform::{
-    Platform,
-    software_renderer::{self, MinimalSoftwareWindow},
+use slint::{
+    PlatformError,
+    platform::{
+        Platform, WindowAdapter,
+        software_renderer::{self, MinimalSoftwareWindow},
+    },
 };
 
 pub const DISPLAY_WIDTH: usize = 320;
@@ -23,9 +26,7 @@ impl Esp32AsyncBackend {
 }
 
 impl Platform for Esp32AsyncBackend {
-    fn create_window_adapter(
-        &self,
-    ) -> Result<Rc<dyn slint::platform::WindowAdapter>, slint::PlatformError> {
+    fn create_window_adapter(&self) -> Result<Rc<dyn WindowAdapter>, PlatformError> {
         let window = self.window.clone();
         info!("create_window_adapter called");
         Ok(window)

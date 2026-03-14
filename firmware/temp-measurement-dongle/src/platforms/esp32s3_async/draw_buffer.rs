@@ -1,13 +1,25 @@
+use crate::display_models::st7789_modified::ST7789;
 use core::convert::Infallible;
 use embedded_hal::digital::OutputPin;
-use mipidsi::{Display, interface::Interface, models::ST7789};
+use mipidsi::{Display, interface::Interface};
 use slint::platform::software_renderer::{LineBufferProvider, Rgb565Pixel};
+use static_cell::StaticCell;
+
 use {esp_backtrace as _, esp_println as _};
+
+static DRAW_BUFFER: StaticCell<[Rgb565Pixel; 320]> = StaticCell::new();
 
 /// Provides a draw buffer for the MinimalSoftwareWindow renderer.
 pub struct DrawBuffer<DISPLAY> {
     pub display: DISPLAY,
     pub buffer: &'static mut [Rgb565Pixel],
+}
+
+impl<DISPLAY> DrawBuffer<DISPLAY> {
+    pub fn new(display: DISPLAY) -> Self {
+        let buffer = DRAW_BUFFER.init([Rgb565Pixel(0); 320]);
+        Self { display, buffer }
+    }
 }
 
 impl<DI: Interface<Word = u8>, RST: OutputPin<Error = Infallible>> LineBufferProvider
@@ -24,7 +36,6 @@ impl<DI: Interface<Word = u8>, RST: OutputPin<Error = Infallible>> LineBufferPro
         let buffer = &mut self.buffer[range.clone()];
         render_fn(buffer);
 
-        // Update the display with the rendered line.
         self.display
             .set_pixels(
                 range.start as u16,

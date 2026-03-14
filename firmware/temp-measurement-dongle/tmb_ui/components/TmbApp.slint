@@ -1,0 +1,68 @@
+import { ProgressIndicator } from "std-widgets.slint";
+export component TmbApp inherits Window {
+    height: 180px;
+    width: 320px;
+
+    in-out property <int> counter: 0;
+
+    VerticalLayout {
+        Rectangle {
+            background: red;
+            HorizontalLayout {
+                Image {
+                    image-rendering: smooth;
+                    colorize: white;
+                    source: @image-url("./alert_icon.svg");
+                    width: 30px;
+                    height: 30px;
+                }
+
+                Text {
+                    text: "Warning!";
+                    color: white;
+                    font-size: 20px;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+        }
+
+        HorizontalLayout {
+            alignment: center;
+            VerticalLayout {
+                width: 300px;
+                alignment: center;
+                Rectangle {
+
+                    Text {
+                        text: counter + "%";
+                        font-size: 40px;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
+                    }
+
+                    Timer {
+                        interval: 1000ms;
+                        running: true;
+                        triggered => {
+                            counter += 1;
+                        }
+                    }
+                }
+
+                Text {
+                    text: "loading...";
+                    font-size: 20px;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+
+                ProgressIndicator {
+                    width: 80%;
+                    height: 10px;
+                    progress: counter * 0.01;
+                }
+            }
+        }
+    }
+}
