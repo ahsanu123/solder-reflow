@@ -1,5 +1,5 @@
 [package]
-name = "tmb_ui"
+name = "tmd_ui"
 version = "0.1.0"
 edition = "2024"
 build = "build.rs"

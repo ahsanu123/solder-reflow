@@ -1,9 +1,9 @@
 import { Page } from "Common.slint";
 import { DemoPalette } from "./Common.slint";
 component ActionButton inherits Rectangle {
-
     in property <image> icon <=> img.source;
     in property <string> text <=> label.text;
+    in property <bool> isActive;
     callback clicked;
 
     VerticalLayout {
@@ -13,14 +13,14 @@ component ActionButton inherits Rectangle {
             border-radius: 12px;
             border-width: 3px;
             border-color: DemoPalette.control-outline-color;
-            background: DemoPalette.printer-action-background-color;
+            background: !isActive ? DemoPalette.printer-action-background-color : gray;
 
             img := Image {
                 x: (parent.width / 2) - (self.width / 2);
                 y: (parent.height / 2) - (self.height / 2);
                 width: self.source.width * 1px / 2;
                 height: self.source.height * 1px / 2;
-                colorize: DemoPalette.text-foreground-color;
+                colorize: isActive ? white : DemoPalette.text-foreground-color;
             }
         }
 
@@ -40,8 +40,9 @@ component ActionButton inherits Rectangle {
 }
 
 export component HomePage inherits Page {
-    in-out property <length> header-row-height: 40px / 2;
+    in property <int> last_key: 0;
 
+    in-out property <length> header-row-height: 40px / 2;
     in-out property <length> button-spacing: 8px;
     in-out property <length> button-width: 127px / 2;
     in-out property <length> button-height: root.button-width + 20px;
@@ -51,7 +52,7 @@ export component HomePage inherits Page {
 
         Text {
             height: 30px;
-            text: "Printer";
+            text: last_key == 0 ? "Printer" : last_key == 2 ? "Printer: Scan Mode" : "Printer: Copy Mode";
             font-size: 20px;
             font-weight: 1000;
         }
@@ -66,6 +67,7 @@ export component HomePage inherits Page {
                 height: root.button-height;
                 icon: action.icon;
                 text: action.name;
+                isActive: last_key == idx + 1;
                 clicked => {
                     root.current-subpage = idx + 1;
                 }

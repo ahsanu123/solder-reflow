@@ -29,14 +29,30 @@ export struct InkLevel  {
     level: float,
 }
 
-export component TmbApp inherits Window {
+export component TmdApp inherits Window {
     width: 320px;
     height: 180px;
 
-    title: "Slint printer demo";
     background: DemoPalette.main-background;
     default-font-family: "Noto Sans";
     default-font-size: DemoPalette.base-font-size;
+
+    in-out property <int> last_key: 0;
+
+    forward-focus: my-key-handler;
+
+    my-key-handler := FocusScope {
+        key-pressed(event) => {
+            debug(event.text);
+            if (event.text == Key.LeftArrow) {
+                last_key = 1;
+            }
+            if (event.text == Key.RightArrow) {
+                last_key = 2;
+            }
+            EventResult.accept
+        }
+    }
 
     /// Note that this property is overwritten in the .cpp and .rs code.
     /// The data is only in this file so it looks good in the viewer
@@ -55,7 +71,6 @@ export component TmbApp inherits Window {
         y: self.margin;
         height: parent.height - self.margin * 2;
         width: parent.width - self.x - self.margin;
-        border-radius: 15px;
         background: DemoPalette.page-background-color;
 
         Rectangle {
@@ -66,6 +81,7 @@ export component TmbApp inherits Window {
             height: main-view.height - main-view.border-radius;
 
             home-page := HomePage {
+                last_key: last_key;
                 y: root.active-page == 0 ? 0 : root.active-page > 0 ? - self.height - 1px : parent.height + 1px;
                 animate y {
                     duration: 125ms;
@@ -87,10 +103,10 @@ export component TmbApp inherits Window {
         Image {
             x: 0;
             source: @image-url("../images/page_selection.svg");
-            y: sidebar.icon-y(root.active-page) - 23px;
+            y: 3px;
             animate y { duration: 125ms; }
             width: 49px;
-            height: 86px;
+            height: 64px;
             colorize: DemoPalette.page-background-color;
         }
 
