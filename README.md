@@ -96,6 +96,8 @@ $`y(t) = 350(1-e^{(t-d)/tau})`$ in temperature degre (celcius), d = 17.5 second
 - ⏰ 14 September 2025 12:57, complete basic pcb component placement.
 - ⏰ 14 September 2025 17:59, after searching for **Random turn on SSR** (non Zero Crossing) on local market, i cant find easy to buy device, so i will stick to use zero crossing ssr and will count for zero crossing with **H11AA1** and determine how long to turn on and turn off.
 
+- ⏰ 15 March 2026, able to run slint on ESP32S3 on `temperature-measurement-dongle`
+
 </details>
 
 ## 🌴 Reference 
