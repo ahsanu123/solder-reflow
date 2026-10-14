@@ -735,13 +735,13 @@
         "uuid": "e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
       }
     ],
-    "used_designators": "",
+    "used_designators": "#PWR1,D5",
     "variants": []
   },
   "sheets": [
     [
       "e63e39d7-6ac0-4ffd-8aa3-1841a4541b55",
-      "Heatplate_v1.1"
+      "sore_v3"
     ],
     [
       "049cfd7b-f956-4ae0-945f-6f6476ef0a46",
