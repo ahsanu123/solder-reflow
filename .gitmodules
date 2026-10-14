@@ -9,3 +9,6 @@
 ; [submodule "firmware/v2/components/lvgl_esp32_drivers"]
 ; 	path = firmware/v2/components/lvgl_esp32_drivers
 ; 	url = https://github.com/lvgl/lvgl_esp32_drivers.git
+[submodule "mkl"]
+	path = mkl
+	url = https://github.com/ahsanu123/mkl.git
